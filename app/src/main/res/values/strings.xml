@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">AmmoApp3</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description_weapon">description_weapon</string>
+    <string name="weapon_type">weapon_type</string>
+    <string name="input_weapons">input_weapon</string>
+    <string name="input_ammo">input_ammo</string>
+    <string name="add_another_ammo">addAnotherAmmo</string>
+    <string name="verify">verify</string>
+    <string name="add_component">addComponent</string>
+    <string name="type">type_component</string>
+    <string name="description">description_component</string>
+    <string name="dodic">dodic_comp_ammo</string>
+    <string name="add_another_component">add_another_comp</string>
+    <string name="input_component">inout_component</string>
+</resources>

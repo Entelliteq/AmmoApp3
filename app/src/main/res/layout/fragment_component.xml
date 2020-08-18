@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
+    >
+
+    <data>
+        <variable
+            name="componentViewModel"
+            type="com.intelliteq.fea.ammocalculator.component.ComponentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.intelliteq.fea.ammocalculator.component.ComponentFragment"
+        tools:layout_editor_absoluteY="81dp">
+
+        <!-- TODO: Update blank fragment layout -->
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="#E9E9E9"
+            android:gravity="center"
+            android:text="@string/description"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="left" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="left" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="#E9E9E9"
+            android:gravity="center"
+            android:text="@string/type"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@id/textView6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_type"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            app:hintEnabled="false"
+            app:layout_constraintBottom_toTopOf="@id/input_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView19"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E9E9E9"
+                android:gravity="center|start" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_description"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:hintEnabled="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/input_type">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E9E9E9"
+                android:gravity="center|start" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

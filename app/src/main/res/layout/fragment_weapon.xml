@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="weaponViewModel"
+            type="com.intelliteq.fea.ammocalculator.weapon.WeaponViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        tools:context="com.intelliteq.fea.ammocalculator.weapon.WeaponFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+
+    <Button
+        android:id="@+id/input_ammo"
+        style="@style/button"
+        android:layout_marginBottom="36dp"
+        android:onClick="@{ ()-> weaponViewModel.onInputAmmo()}"
+        android:text="@string/input_ammo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rightWeapon"
+        app:layout_constraintStart_toStartOf="@id/leftWeapon" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:text="@string/input_weapons"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="@id/rightWeapon"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/leftWeapon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftWeapon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightWeapon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="25dp" />
+
+
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout_weapon_type"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/weapon_type_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E9E9E9"
+                android:hint="@string/weapon_type"
+                android:singleLine="true"
+                android:text="@={weaponViewModel.weaponTypeEditText}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColorHint="#000000"
+                android:textColorLink="#000000" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@id/textInputLayout_weapon_type">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E9E9E9"
+                android:hint="@string/description_weapon"
+                android:text="@={weaponViewModel.weaponDescriptionEditText}"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

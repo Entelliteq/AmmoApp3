@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="weaponAmmoViewModel"
+            type="com.intelliteq.fea.ammocalculator.weaponAmmo.WeaponAmmoViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/input_ammo"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/add_component"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="36dp"
+            android:onClick="@{()-> weaponAmmoViewModel.onAddComponent()}"
+            android:text="@string/add_component"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/verify"
+            app:layout_constraintStart_toStartOf="@id/guidelineLeft" />
+
+        <Button
+            android:id="@+id/verify"
+            android:layout_width="0dp"
+            android:layout_height="76dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="36dp"
+            android:text="@string/verify"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+            app:layout_constraintStart_toEndOf="@id/add_component" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="10dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="10dp" />
+
+        <ScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="375dp"
+            android:layout_height="267dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/add_another_ammo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView16"
+            app:layout_constraintVertical_bias="0.428">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="4"
+                        android:background="#E9E9E9"
+                        android:gravity="start"
+                        android:text=" Type: "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#000000" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/type_input_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        app:hintEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView4"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#E9E9E9"
+                            android:gravity="center|start"
+                            android:singleLine="true"
+                            android:text="@={weaponAmmoViewModel.weaponAmmoTypeEditText}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textColor="#000000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="2"
+                        android:background="#E9E9E9"
+                        android:gravity="start"
+                        android:text=" Description: "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#000000" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/description_input_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        app:hintEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView9"
+                        app:layout_constraintTop_toBottomOf="@+id/type_input_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#E9E9E9"
+                            android:gravity="center|start"
+                            android:singleLine="true"
+                            android:text="@={weaponAmmoViewModel.weaponAmmoDescriptionEditText}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textColor="#000000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="3"
+                        android:background="#E9E9E9"
+                        android:gravity="start"
+                        android:text=" DODIC: "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#000000"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/dodic_input_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        app:hintEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView10"
+                        app:layout_constraintTop_toBottomOf="@+id/description_input_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#E9E9E9"
+                            android:gravity="center|start"
+                            android:singleLine="true"
+                            android:text="@={weaponAmmoViewModel.weaponAmmoDODICEditText}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textColor="#000000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="3"
+                        android:background="#E9E9E9"
+                        android:gravity="start"
+                        android:text=" Training: "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#000000"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/training_input_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        app:hintEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView11"
+                        app:layout_constraintTop_toBottomOf="@+id/dodic_input_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#E9E9E9"
+                            android:gravity="center|start"
+                            android:singleLine="true"
+                            android:inputType="number"
+                            android:text="@={weaponAmmoViewModel.weaponAmmoTrainingEditText}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textColor="#000000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="3"
+                        android:background="#E9E9E9"
+                        android:gravity="start"
+                        android:text=" Security: "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#000000"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/security_input_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        app:hintEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView12"
+                        app:layout_constraintTop_toBottomOf="@+id/training_input_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#E9E9E9"
+                            android:inputType="number"
+                            android:gravity="center|start"
+                            android:singleLine="true"
+                            android:text="@={weaponAmmoViewModel.weaponAmmoSecurityEditText}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textColor="#000000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="3"
+                        android:background="#E9E9E9"
+                        android:gravity="start"
+                        android:text=" Sustain: "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#000000"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/sustain_input_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        app:hintEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView13"
+                        app:layout_constraintTop_toBottomOf="@+id/security_input_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#E9E9E9"
+                            android:gravity="center|start"
+                            android:inputType="number"
+                            android:singleLine="true"
+                            android:text="@={weaponAmmoViewModel.weaponAmmoSustainEditText}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textColor="#000000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="3"
+                        android:background="#E9E9E9"
+                        android:gravity="start"
+                        android:text=" Assault, Light: "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#000000"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/assault_light_input_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        app:hintEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView14"
+                        app:layout_constraintTop_toBottomOf="@+id/sustain_input_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#E9E9E9"
+                            android:gravity="center|start"
+                            android:singleLine="true"
+                            android:inputType="number"
+                            android:text="@={weaponAmmoViewModel.weaponAmmoLightEditText}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textColor="#000000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="3"
+                        android:background="#E9E9E9"
+                        android:gravity="start"
+                        android:text=" Assault, Medium: "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#000000"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/assault_medium_input_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        app:hintEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView15"
+                        app:layout_constraintTop_toBottomOf="@+id/assault_light_input_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#E9E9E9"
+                            android:gravity="center|start"
+                            android:singleLine="true"
+                            android:inputType="number"
+                            android:text="@={weaponAmmoViewModel.weaponAmmoMediumEditText}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textColor="#000000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="3"
+                        android:background="#E9E9E9"
+                        android:gravity="start"
+                        android:text="Assault, Heavy: "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#000000"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/assault_heavy_input_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        app:hintEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView17"
+                        app:layout_constraintTop_toBottomOf="@+id/assault_medium_input_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#E9E9E9"
+                            android:gravity="center|start"
+                            android:inputType="number"
+                            android:singleLine="true"
+                            android:text="@={weaponAmmoViewModel.weaponAmmoHeavyEditText}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textColor="#000000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/add_another_ammo"
+            android:layout_width="0dp"
+            android:layout_height="79dp"
+            android:layout_marginBottom="10dp"
+            android:onClick="@{()-> weaponAmmoViewModel.onAddAnotherAmmo()}"
+            android:text="@string/add_another_ammo"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toTopOf="@+id/add_component"
+            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@id/scrollview" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

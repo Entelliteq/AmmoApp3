@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/landingScreenFragment3">
+    <fragment
+        android:id="@+id/landingScreenFragment3"
+        android:name="com.intelliteq.fea.ammocalculator.LandingScreenFragment"
+        android:label="fragment_landing_screen"
+        tools:layout="@layout/fragment_landing_screen" >
+        <action
+            android:id="@+id/action_landingScreenFragment3_to_weaponFragment4"
+            app:destination="@id/weaponFragment4" />
+    </fragment>
+    <fragment
+        android:id="@+id/weaponFragment4"
+        android:name="com.intelliteq.fea.ammocalculator.weapon.WeaponFragment"
+        android:label="fragment_weapon"
+        tools:layout="@layout/fragment_weapon" >
+        <action
+            android:id="@+id/action_weaponFragment4_to_weaponAmmoFragment2"
+            app:destination="@id/weaponAmmoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weaponAmmoFragment"
+        android:name="com.intelliteq.fea.ammocalculator.weaponAmmo.WeaponAmmoFragment"
+        android:label="fragment_weapon_ammo"
+        tools:layout="@layout/fragment_weapon_ammo" >
+        <argument
+            android:name="weaponKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_weaponAmmoFragment_self"
+            app:destination="@id/weaponAmmoFragment" />
+        <action
+            android:id="@+id/action_weaponAmmoFragment_to_componentFragment2"
+            app:destination="@id/componentFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/componentFragment2"
+        android:name="com.intelliteq.fea.ammocalculator.component.ComponentFragment"
+        android:label="fragment_component"
+        tools:layout="@layout/fragment_component" >
+        <argument
+            android:name="weaponKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_componentFragment2_to_componentAmmoFragment"
+            app:destination="@id/componentAmmoFragment" />
+        <action
+            android:id="@+id/action_componentFragment2_self"
+            app:destination="@id/componentFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/componentAmmoFragment"
+        android:name="com.intelliteq.fea.ammocalculator.componentAmmo.ComponentAmmoFragment"
+        android:label="fragment_component_ammo"
+        tools:layout="@layout/fragment_component_ammo" >
+        <action
+            android:id="@+id/action_componentAmmoFragment_self"
+            app:destination="@id/componentAmmoFragment" />
+    </fragment>
+</navigation>
