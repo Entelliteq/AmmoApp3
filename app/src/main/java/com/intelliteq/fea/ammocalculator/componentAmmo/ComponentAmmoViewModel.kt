@@ -1,6 +1,7 @@
 package com.intelliteq.fea.ammocalculator.componentAmmo
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +13,7 @@ import kotlinx.coroutines.*
 
 class ComponentAmmoViewModel (
     private val componentKey: Long = 0L,
+    private val weaponKey: Long = 0L,
     val database: ComponentAmmoDao
 ) : ViewModel() {
 
@@ -33,8 +35,8 @@ class ComponentAmmoViewModel (
     val navigateToInputAnotherComponentAmmo: LiveData<ComponentAmmo>
         get() = _navigateToInputAnotherComponentAmmo
 
-    private val _navigateToConfirmation = MutableLiveData<Long>()
-    val navigateToConfirmation: LiveData<Long>
+    private val _navigateToConfirmation = MutableLiveData<ComponentAmmo>()
+    val navigateToConfirmation: LiveData<ComponentAmmo>
         get() = _navigateToConfirmation
 
 
@@ -82,6 +84,12 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.componentId = componentKey
                 update(thisCompAmmo)
                 _navigateToInputAnotherComponentAmmo.value = thisCompAmmo
+                Log.i("WEAPON COMP AMMO id ", " ${thisCompAmmo.componentAmmoId}")
+                Log.i("WEAPON COMP_AMMO wepId ", " ${thisCompAmmo.weaponIdComponentAmmo}")
+                Log.i("WEAPON COMP AMMO ty ", " ${thisCompAmmo.componentAmmoTypeID}")
+                Log.i("WEAPON COMP AMMO des ", " ${thisCompAmmo.componentAmmoDescription}")
+                Log.i("WEAPON COMP AMMO dod ", " ${thisCompAmmo.componentAmmoDODIC}")
+                Log.i("WEAPON COMP AMMO c_id ", " ${thisCompAmmo.componentAmmoId}")
             }
         }
     }
@@ -112,8 +120,17 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.componentAmmoDescription = componentAmmoDescriptionEditText.value.toString()
                 thisCompAmmo.componentAmmoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
+                thisCompAmmo.weaponIdComponentAmmo = weaponKey
                 update(thisCompAmmo)
-                _navigateToConfirmation.value = thisCompAmmo.weaponIdComponentAmmo
+                _navigateToConfirmation.value = thisCompAmmo
+
+                Log.i("WEAPON COMP AMMO id ", " ${thisCompAmmo.componentAmmoId}")
+                Log.i("WEAPON COMP_AMMO wepId ", " ${thisCompAmmo.weaponIdComponentAmmo}")
+                Log.i("WEAPON COMP AMMO ty ", " ${thisCompAmmo.componentAmmoTypeID}")
+                Log.i("WEAPON COMP AMMO des ", " ${thisCompAmmo.componentAmmoDescription}")
+                Log.i("WEAPON COMP AMMO dod ", " ${thisCompAmmo.componentAmmoDODIC}")
+                Log.i("WEAPON COMP AMMO c_id ", " ${thisCompAmmo.componentAmmoId}")
+
             }
         }
     }

@@ -10,13 +10,13 @@ import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
 @Dao
 interface ComponentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg model: Component)
+    fun insert(component: Component)
 
     @Update
-    fun update(vararg  model: Component)
+    fun update(component: Component)
 
     @Delete
-    fun delete(vararg  model: Component)
+    fun delete(component: Component)
 
     @Query("SELECT * FROM component_table WHERE componentId = :key" )
     fun get(key: Long?): Component

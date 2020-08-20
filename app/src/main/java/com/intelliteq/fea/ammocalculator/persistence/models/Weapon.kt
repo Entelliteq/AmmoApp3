@@ -11,7 +11,7 @@ data class Weapon(
     var weaponAutoId: Long = 0L,
 
     @ColumnInfo(name= "weapon_id_unique")
-    var weaponId: Int = 0,
+    var weaponId: Long = 0,
 
     @ColumnInfo(name= "fea_id_weapon")
     var FEA_id: Int = 0,

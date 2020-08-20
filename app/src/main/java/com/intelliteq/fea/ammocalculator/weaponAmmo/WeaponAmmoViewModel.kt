@@ -61,16 +61,13 @@ class WeaponAmmoViewModel(
         uiScope.launch {
             val newAmmo = WeaponAmmo()
             insert(newAmmo)
-            Log.i("Initializing...", "///// $newAmmo")
             weaponAmmo.value = getAmmoFromDatabase()
-            Log.i("AMMO INITIALIZED", "///// $weaponAmmo")
         }
     }
 
     private suspend fun getAmmoFromDatabase(): WeaponAmmo? {
         return withContext(Dispatchers.IO) {
             var weaponammo = database.getNewWeapon()
-            Log.i("AMMO Returned: ", " $weaponammo")
             weaponammo
         }
     }
@@ -78,7 +75,6 @@ class WeaponAmmoViewModel(
     private suspend fun insert(ammo: WeaponAmmo) {
         withContext(Dispatchers.IO) {
             database.insert(ammo)
-            Log.i("WEAPON AMMO INSERTED  ", "/////")
         }
     }
 
@@ -108,12 +104,12 @@ class WeaponAmmoViewModel(
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToAddAnotherAmmo.value = thisammo
-                Log.i("WEAPON AMMO another ", " $thisammo")
+                Log.i("WEAPON AMMO added ", " $thisammo")
             }
         }
     }
 
-    fun verify(){
+    fun verify() {
         if (checkEditTexts()) {
             uiScope.launch {
                 val thisammo = weaponAmmo.value ?: return@launch
@@ -129,6 +125,7 @@ class WeaponAmmoViewModel(
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToConfirmation.value = weaponKey
+                Log.i("WEAPON AMMO added ", " $thisammo")
             }
         }
 
@@ -140,8 +137,8 @@ class WeaponAmmoViewModel(
             weaponAmmoSustainEditText.value.isNullOrEmpty() ||
             weaponAmmoLightEditText.value.isNullOrEmpty() ||
             weaponAmmoMediumEditText.value.isNullOrEmpty() ||
-            weaponAmmoHeavyEditText.value.isNullOrEmpty())
-        {
+            weaponAmmoHeavyEditText.value.isNullOrEmpty()
+        ) {
             _checkStatusOfInputs.value = false
             return false
         } else {
@@ -153,17 +150,29 @@ class WeaponAmmoViewModel(
 
 
     fun onAddComponent() {
-        uiScope.launch {
-            val thisammo = weaponAmmo.value ?: return@launch
-            _navigateToInputComponent.value = thisammo
-
+        if (checkEditTexts()) {
+            uiScope.launch {
+                val thisammo = weaponAmmo.value ?: return@launch
+                thisammo.weaponId = weaponKey
+                thisammo.ammoType = weaponAmmoTypeEditText.value.toString()
+                thisammo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
+                thisammo.DODIC = weaponAmmoDODICEditText.value.toString()
+                thisammo.trainingRate = weaponAmmoTrainingEditText.value!!.toInt()
+                thisammo.securityRate = weaponAmmoSecurityEditText.value!!.toInt()
+                thisammo.sustainRate = weaponAmmoSustainEditText.value!!.toInt()
+                thisammo.lightAssaultRate = weaponAmmoLightEditText.value!!.toInt()
+                thisammo.mediumAssaultRate = weaponAmmoMediumEditText.value!!.toInt()
+                thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
+                update(thisammo)
+                _navigateToInputComponent.value = thisammo
+                Log.i("WEAPON AMMO added ", " $thisammo")
+            }
         }
     }
 
     private suspend fun update(ammo: WeaponAmmo) {
         withContext(Dispatchers.IO) {
             database.update(ammo)
-            Log.i("WEAPON AMMO UPDATED", "$ammo")
         }
     }
 

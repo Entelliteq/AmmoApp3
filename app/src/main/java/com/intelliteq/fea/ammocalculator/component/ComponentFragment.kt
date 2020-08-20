@@ -40,8 +40,9 @@ class ComponentFragment : Fragment() {
             ViewModelProvider(this, viewModelFactory)
                 .get(ComponentViewModel::class.java)
 
-        binding.lifecycleOwner = this
+
         binding.componentViewModel = componentViewModel
+        binding.lifecycleOwner = this
 
         componentViewModel.navigateToAnotherComponent.observe(
             viewLifecycleOwner,
@@ -59,7 +60,7 @@ class ComponentFragment : Fragment() {
             Observer { comp ->
                 comp?.let {
                     this.findNavController()
-                        .navigate((ComponentFragmentDirections.ComponentInputToAmmoInput(comp.componentId)))
+                        .navigate((ComponentFragmentDirections.ComponentInputToAmmoInput(comp.componentId, comp.weaponId)))
                     componentViewModel.doneNavigatingToComponentAmmo()
                 }
             }

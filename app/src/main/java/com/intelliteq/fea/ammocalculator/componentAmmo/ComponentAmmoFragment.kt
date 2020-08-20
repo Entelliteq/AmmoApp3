@@ -38,17 +38,17 @@ class ComponentAmmoFragment : Fragment() {
 
         val dataSource = AmmoRoomDatabase.getAppDatabase(application)!!.componentAmmoDao
 
-         val viewModelFactory = ComponentAmmoViewModelFactory(arguments.componentKey, dataSource)
+         val viewModelFactory = ComponentAmmoViewModelFactory(arguments.componentKey, arguments.weaponKey, dataSource)
 
-        val componentViewModel =
+        val componentAmmoViewModel =
             ViewModelProvider(this, viewModelFactory)
                 .get(ComponentAmmoViewModel::class.java)
 
         binding.lifecycleOwner = this
-        binding.componentAmmoViewModel = componentViewModel
+        binding.componentAmmoViewModel = componentAmmoViewModel
 
 
-        componentViewModel.checkStatusOfInputs.observe(
+        componentAmmoViewModel.checkStatusOfInputs.observe(
             viewLifecycleOwner,
             Observer { status ->
                 status?.let {
@@ -58,20 +58,23 @@ class ComponentAmmoFragment : Fragment() {
             }
         )
 
-        componentViewModel.navigateToConfirmation.observe(
+        componentAmmoViewModel.navigateToConfirmation.observe(
             viewLifecycleOwner,
-            Observer {
-                this.findNavController()
-                    .navigate(ComponentAmmoFragmentDirections.ComponentAmmoToVerify(it))
-
+            Observer {comp ->
+                comp?.let {
+                    this.findNavController()
+                        .navigate(ComponentAmmoFragmentDirections.ComponentAmmoToVerify(comp.weaponIdComponentAmmo))
+                    componentAmmoViewModel.doneNavigatingToVerify()
+                }
             }
         )
 
-        componentViewModel.navigateToInputAnotherComponentAmmo.observe(
+        componentAmmoViewModel.navigateToInputAnotherComponentAmmo.observe(
             viewLifecycleOwner,
             Observer {
                 this.findNavController()
-                    .navigate(ComponentAmmoFragmentDirections.ComponentAmmoInputToSelf(it.componentId))
+                    .navigate(ComponentAmmoFragmentDirections.ComponentAmmoInputToSelf(it.componentId, it.weaponIdComponentAmmo ))
+                componentAmmoViewModel.doneNavigatingToCompAmmo()
             }
         )
 

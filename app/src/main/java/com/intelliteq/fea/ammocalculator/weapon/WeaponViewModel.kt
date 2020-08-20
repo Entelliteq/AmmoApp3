@@ -68,7 +68,7 @@ class WeaponViewModel (
             thisWeapon.weaponTypeID = weaponTypeEditText.value.toString()
             update(thisWeapon)
             _navigateToInputWeaponAmmo.value = weapon.value
-            Log.i("WEAPON ViewModel", "///// ${thisWeapon}")
+            Log.i("WEAPON added", "///// ${thisWeapon}")
         }
 
     }

@@ -54,6 +54,9 @@
         <action
             android:id="@+id/component_ammo_to_verify"
             app:destination="@id/Confirmation" />
+        <argument
+            android:name="weaponKey"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/ComponentInput"

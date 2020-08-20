@@ -12,13 +12,14 @@ import java.lang.IllegalArgumentException
 
 class ComponentAmmoViewModelFactory (
     private val componentKey: Long = 0L,
+    private val weaponKey: Long = 0L,
     private val database: ComponentAmmoDao
 ) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ComponentAmmoViewModel::class.java)) {
-            return ComponentAmmoViewModel(componentKey, database) as T
+            return ComponentAmmoViewModel(componentKey, weaponKey, database) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

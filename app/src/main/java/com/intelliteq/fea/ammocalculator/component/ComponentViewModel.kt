@@ -1,6 +1,7 @@
 package com.intelliteq.fea.ammocalculator.component
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -72,6 +73,12 @@ class ComponentViewModel(
             thisComponent.componentDescription = componentDescriptionEditText.value.toString()
             update(thisComponent)
             _navigateToConfirmation.value = weaponKey
+            Log.i("WEAPON COMP id ", " ${thisComponent.componentId}")
+            Log.i("WEAPON COMP weaponId ", " ${thisComponent.weaponId}")
+            Log.i("WEAPON COMP desc ", " ${thisComponent.componentDescription}")
+            //Log.i("WEAPON COMP type ", " ${thisComponent.componentTypeID}")
+            //Log.i("WEAPON COMP unit ", " ${component.value}")
+            Log.i("WEAPON COMP unit ", " ${thisComponent}")
         }
 
     }
@@ -85,6 +92,12 @@ class ComponentViewModel(
             thisComponent.componentDescription = componentDescriptionEditText.value.toString()
             update(thisComponent)
             _navigateToInputComponentAmmo.value = component.value
+            Log.i("WEAPON COMP id ", " ${thisComponent.componentId}")
+            Log.i("WEAPON COMP weaponId ", " ${thisComponent.weaponId}")
+            Log.i("WEAPON COMP desc ", " ${thisComponent.componentDescription}")
+            Log.i("WEAPON COMP type ", " ${thisComponent.componentTypeID}")
+           //Log.i("WEAPON COMP unit ", " ${thisComponent}")
+            //Log.i("WEAPON COMP unit ", " ${component.value}")
         }
 
     }
@@ -103,6 +116,12 @@ class ComponentViewModel(
             thisComponent.componentDescription = componentDescriptionEditText.value.toString()
             update(thisComponent)
             _navigateToAnotherComponent.value = weaponKey
+            Log.i("WEAPON COMP id ", " ${thisComponent.componentId}")
+            Log.i("WEAPON COMP weaponId ", " ${thisComponent.weaponId}")
+            Log.i("WEAPON COMP desc ", " ${thisComponent.componentDescription}")
+            Log.i("WEAPON COMP type ", " ${thisComponent.componentTypeID}")
+           // Log.i("WEAPON COMP unit ", " ${thisComponent}")
+            //Log.i("WEAPON COMP unit ", " ${component.value}")
         }
     }
 
