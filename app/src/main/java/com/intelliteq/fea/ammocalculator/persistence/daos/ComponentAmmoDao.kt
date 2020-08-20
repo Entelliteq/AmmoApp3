@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.intelliteq.fea.ammocalculator.persistence.models.Component
 import com.intelliteq.fea.ammocalculator.persistence.models.ComponentAmmo
+import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
 
 
 @Dao
@@ -26,6 +27,9 @@ interface ComponentAmmoDao {
 
     @Query("SELECT count(*) FROM component_ammo_table")
     fun countAll() : Int
+
+    @Query("SELECT * FROM component_ammo_table ORDER BY componentAmmoId DESC LIMIT 1" )
+    fun getNewComponentAmmo() : ComponentAmmo?
 
     @Query("SELECT count(*) FROM component_ammo_table WHERE weapon_id_for_component_ammo = :key")
     fun countAllComponentAmmos(key: Long?) : Int

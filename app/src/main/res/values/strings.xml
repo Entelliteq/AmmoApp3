@@ -19,4 +19,8 @@
     <string name="description__ammo_comp">Description</string>
     <string name="type_of_ammo_comp">Type of Ammo</string>
     <string name="add_another_component_ammo">Add Another Ammo</string>
+    <string name="confirmation">confirmation</string>
+    <string name="save">save</string>
+    <string name="edit">edit</string>
+    <string name="calculate_screen">Calculate Screen</string>
 </resources>

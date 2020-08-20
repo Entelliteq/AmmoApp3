@@ -54,20 +54,21 @@ class WeaponAmmoFragment : Fragment() {
             viewLifecycleOwner,
             Observer { status ->
                 status?.let {
-                    if(!status) Toast.makeText(activity, "All needs filled", Toast.LENGTH_SHORT).show()
+                    if (!status) Toast.makeText(activity, "All fields need filled", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         )
 
         weaponAmmoViewModel.navigateToInputComponent.observe(
             viewLifecycleOwner,
-            Observer {weaponAmmo ->
+            Observer { weaponAmmo ->
                 weaponAmmo?.let {
-                this.findNavController()
-                    .navigate(WeaponAmmoFragmentDirections.AmmoInputToComponentInput(weaponAmmo.weaponId))
-                weaponAmmoViewModel.doneNavigatingToComp()
+                    this.findNavController()
+                        .navigate(WeaponAmmoFragmentDirections.AmmoInputToComponentInput(weaponAmmo.weaponId))
+                    weaponAmmoViewModel.doneNavigatingToComp()
                 }
-        })
+            })
 
         weaponAmmoViewModel.navigateToAddAnotherAmmo.observe(
             viewLifecycleOwner,
@@ -78,6 +79,14 @@ class WeaponAmmoFragment : Fragment() {
                     weaponAmmoViewModel.doneNavigatingToAmmo()
                 }
             })
+
+        weaponAmmoViewModel.navigateToConfirmation.observe(
+            viewLifecycleOwner,
+            Observer {
+                this.findNavController()
+                    .navigate(WeaponAmmoFragmentDirections.ActionWeaponAmmoInputToVerify(it))
+            }
+        )
 
         // Inflate the layout for this fragment
         return binding.root

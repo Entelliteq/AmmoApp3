@@ -17,9 +17,8 @@ class LandingScreenFragment : Fragment() {
         savedInstanceState: Bundle?): View? {
         val binding: FragmentLandingScreenBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_landing_screen, container, false)
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_landing_screen, container, false)
 
+        // Inflate the layout for this fragment
         binding.newInputButton.setOnClickListener {
             view: View -> view.findNavController().navigate(R.id.landing_to_weapon_input)
         }

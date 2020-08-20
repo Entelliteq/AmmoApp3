@@ -37,8 +37,8 @@
             android:id="@+id/ammo_input_to_component_input"
             app:destination="@id/ComponentInput" />
         <action
-            android:id="@+id/action_WeaponAmmoInput_to_placeholder"
-            app:destination="@id/placeholder" />
+            android:id="@+id/action_WeaponAmmoInput_to_verify"
+            app:destination="@id/Confirmation" />
     </fragment>
     <fragment
         android:id="@+id/ComponentAmmoInput"
@@ -53,7 +53,7 @@
             app:argType="long" />
         <action
             android:id="@+id/component_ammo_to_verify"
-            app:destination="@id/placeholder" />
+            app:destination="@id/Confirmation" />
     </fragment>
     <fragment
         android:id="@+id/ComponentInput"
@@ -71,11 +71,26 @@
             app:argType="long" />
         <action
             android:id="@+id/component_to_verify"
-            app:destination="@id/placeholder" />
+            app:destination="@id/Confirmation" />
     </fragment>
-    <fragment android:id="@+id/placeholder" >
+    <fragment
+        android:id="@+id/Confirmation"
+        android:name="com.intelliteq.fea.ammocalculator.confirmation.ConfirmationFragment"
+        android:label="fragment_confirmation"
+        tools:layout="@layout/fragment_confirmation" >
         <argument
-            android:name="weaponId"
+            android:name="weaponKey"
             app:argType="long" />
+        <action
+            android:id="@+id/confirmation_to_calculate"
+            app:destination="@id/CalculateSelection" />
+        <action
+            android:id="@+id/confirmation_to_weapon_input"
+            app:destination="@id/WeaponInput" />
     </fragment>
+    <fragment
+        android:id="@+id/CalculateSelection"
+        android:name="com.intelliteq.fea.ammocalculator.calculate.CalculateFragment"
+        android:label="fragment_calculate"
+        tools:layout="@layout/fragment_calculate" />
 </navigation>

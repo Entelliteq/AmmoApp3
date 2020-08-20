@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@string/input_ammo"
+            android:text="@string/input_ammo_for_component"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -76,7 +76,7 @@
                         android:background="#E9E9E9"
                         android:gravity="center|start"
                         android:singleLine="true"
-
+                        android:text="@={componentAmmoViewModel.componentAmmoTypeEditText}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="#000000" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -119,7 +119,7 @@
                         android:background="#E9E9E9"
                         android:gravity="center|start"
                         android:singleLine="true"
-
+                        android:text="@={componentAmmoViewModel.componentAmmoDescriptionEditText}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="#000000" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -162,7 +162,7 @@
                         android:background="#E9E9E9"
                         android:gravity="center|start"
                         android:singleLine="true"
-
+                        android:text="@={componentAmmoViewModel.componentAmmoDODICEditText}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="#000000" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -177,7 +177,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="8dp"
-
+                android:onClick="@{()-> componentAmmoViewModel.addAnotherAmmo()}"
                 android:text="@string/add_another_ammo" />
 
             <Button
@@ -188,7 +188,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="8dp"
-
+                android:onClick="@{()-> componentAmmoViewModel.verify()}"
                 android:text="@string/verify" />
 
         </LinearLayout>

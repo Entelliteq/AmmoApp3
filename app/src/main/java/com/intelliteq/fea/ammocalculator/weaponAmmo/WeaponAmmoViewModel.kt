@@ -48,6 +48,11 @@ class WeaponAmmoViewModel(
     val navigateToAddAnotherAmmo: LiveData<WeaponAmmo>
         get() = _navigateToAddAnotherAmmo
 
+    private val _navigateToConfirmation = MutableLiveData<Long>()
+    val navigateToConfirmation: LiveData<Long>
+        get() = _navigateToConfirmation
+
+
     init {
         initializeAmmo()
     }
@@ -106,6 +111,27 @@ class WeaponAmmoViewModel(
                 Log.i("WEAPON AMMO another ", " $thisammo")
             }
         }
+    }
+
+    fun verify(){
+        if (checkEditTexts()) {
+            uiScope.launch {
+                val thisammo = weaponAmmo.value ?: return@launch
+                thisammo.weaponId = weaponKey
+                thisammo.ammoType = weaponAmmoTypeEditText.value.toString()
+                thisammo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
+                thisammo.DODIC = weaponAmmoDODICEditText.value.toString()
+                thisammo.trainingRate = weaponAmmoTrainingEditText.value!!.toInt()
+                thisammo.securityRate = weaponAmmoSecurityEditText.value!!.toInt()
+                thisammo.sustainRate = weaponAmmoSustainEditText.value!!.toInt()
+                thisammo.lightAssaultRate = weaponAmmoLightEditText.value!!.toInt()
+                thisammo.mediumAssaultRate = weaponAmmoMediumEditText.value!!.toInt()
+                thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
+                update(thisammo)
+                _navigateToConfirmation.value = weaponKey
+            }
+        }
+
     }
 
     fun checkEditTexts(): Boolean {
