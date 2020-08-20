@@ -7,13 +7,13 @@ import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentDao
 import java.lang.IllegalArgumentException
 
 class ComponentViewModelFactory (
-    private val weaponAmmoKey: Long = 0L,
+    private val weaponKey: Long = 0L,
     private val database: ComponentDao) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ComponentViewModel::class.java)) {
-            return ComponentViewModel(weaponAmmoKey, database) as T
+            return ComponentViewModel(weaponKey, database) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

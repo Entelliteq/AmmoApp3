@@ -11,7 +11,7 @@ class ComponentAmmo(
     var componentAmmoId: Long =0L,
 
     @ColumnInfo(name = "component_id_for_component_ammo")
-    var componentId: Int = 0,
+    var componentId: Long = 0,
 
     @ColumnInfo(name = "component_ammo_type_id")
     var componentAmmoTypeID: String = "",
@@ -20,7 +20,10 @@ class ComponentAmmo(
     var componentAmmoDescription: String = "",
 
     @ColumnInfo(name="component_ammo_dodic")
-    var componentAmmoDODIC: String = ""
+    var componentAmmoDODIC: String = "",
+
+    @ColumnInfo(name= "weapon_id_for_component_ammo")
+    var weaponIdComponentAmmo: Long = 0L
 
 ) {
 

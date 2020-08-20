@@ -26,4 +26,10 @@ interface ComponentAmmoDao {
 
     @Query("SELECT count(*) FROM component_ammo_table")
     fun countAll() : Int
+
+    @Query("SELECT count(*) FROM component_ammo_table WHERE weapon_id_for_component_ammo = :key")
+    fun countAllComponentAmmos(key: Long?) : Int
+
+    @Query("SELECT * FROM component_ammo_table WHERE weapon_id_for_component_ammo =:key ")
+    fun getComponentAmmoForThisWeapon(key: Long?) : ComponentAmmo
 }

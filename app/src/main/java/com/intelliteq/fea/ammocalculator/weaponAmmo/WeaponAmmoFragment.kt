@@ -64,7 +64,7 @@ class WeaponAmmoFragment : Fragment() {
             Observer {weaponAmmo ->
                 weaponAmmo?.let {
                 this.findNavController()
-                    .navigate(WeaponAmmoFragmentDirections.ActionWeaponAmmoFragmentToComponentFragment2(weaponAmmo.weaponId))
+                    .navigate(WeaponAmmoFragmentDirections.AmmoInputToComponentInput(weaponAmmo.weaponId))
                 weaponAmmoViewModel.doneNavigatingToComp()
                 }
         })
@@ -74,7 +74,7 @@ class WeaponAmmoFragment : Fragment() {
             Observer { weaponAmmo ->
                 weaponAmmo?.let {
                     this.findNavController()
-                        .navigate(WeaponAmmoFragmentDirections.ActionWeaponAmmoFragmentSelf(weaponAmmo.weaponId))
+                        .navigate(WeaponAmmoFragmentDirections.WeaponAmmoInputToSelf(weaponAmmo.weaponId))
                     weaponAmmoViewModel.doneNavigatingToAmmo()
                 }
             })

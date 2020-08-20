@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/landingScreenFragment3">
+    app:startDestination="@id/landingScreen">
     <fragment
-        android:id="@+id/landingScreenFragment3"
+        android:id="@+id/landingScreen"
         android:name="com.intelliteq.fea.ammocalculator.LandingScreenFragment"
         android:label="fragment_landing_screen"
         tools:layout="@layout/fragment_landing_screen" >
         <action
-            android:id="@+id/action_landingScreenFragment3_to_weaponFragment4"
-            app:destination="@id/weaponFragment4" />
+            android:id="@+id/landing_to_weapon_input"
+            app:destination="@id/WeaponInput" />
     </fragment>
     <fragment
-        android:id="@+id/weaponFragment4"
+        android:id="@+id/WeaponInput"
         android:name="com.intelliteq.fea.ammocalculator.weapon.WeaponFragment"
         android:label="fragment_weapon"
         tools:layout="@layout/fragment_weapon" >
         <action
-            android:id="@+id/action_weaponFragment4_to_weaponAmmoFragment2"
-            app:destination="@id/weaponAmmoFragment" />
+            android:id="@+id/weapon_input_to_ammo_input"
+            app:destination="@id/WeaponAmmoInput" />
     </fragment>
     <fragment
-        android:id="@+id/weaponAmmoFragment"
+        android:id="@+id/WeaponAmmoInput"
         android:name="com.intelliteq.fea.ammocalculator.weaponAmmo.WeaponAmmoFragment"
         android:label="fragment_weapon_ammo"
         tools:layout="@layout/fragment_weapon_ammo" >
@@ -31,34 +31,51 @@
             android:name="weaponKey"
             app:argType="long" />
         <action
-            android:id="@+id/action_weaponAmmoFragment_self"
-            app:destination="@id/weaponAmmoFragment" />
+            android:id="@+id/weapon_ammo_input_to_self"
+            app:destination="@id/WeaponAmmoInput" />
         <action
-            android:id="@+id/action_weaponAmmoFragment_to_componentFragment2"
-            app:destination="@id/componentFragment2" />
+            android:id="@+id/ammo_input_to_component_input"
+            app:destination="@id/ComponentInput" />
+        <action
+            android:id="@+id/action_WeaponAmmoInput_to_placeholder"
+            app:destination="@id/placeholder" />
     </fragment>
     <fragment
-        android:id="@+id/componentFragment2"
-        android:name="com.intelliteq.fea.ammocalculator.component.ComponentFragment"
-        android:label="fragment_component"
-        tools:layout="@layout/fragment_component" >
-        <argument
-            android:name="weaponKey"
-            app:argType="long" />
-        <action
-            android:id="@+id/action_componentFragment2_to_componentAmmoFragment"
-            app:destination="@id/componentAmmoFragment" />
-        <action
-            android:id="@+id/action_componentFragment2_self"
-            app:destination="@id/componentFragment2" />
-    </fragment>
-    <fragment
-        android:id="@+id/componentAmmoFragment"
+        android:id="@+id/ComponentAmmoInput"
         android:name="com.intelliteq.fea.ammocalculator.componentAmmo.ComponentAmmoFragment"
         android:label="fragment_component_ammo"
         tools:layout="@layout/fragment_component_ammo" >
         <action
-            android:id="@+id/action_componentAmmoFragment_self"
-            app:destination="@id/componentAmmoFragment" />
+            android:id="@+id/component_ammo_input_to_self"
+            app:destination="@id/ComponentAmmoInput" />
+        <argument
+            android:name="ComponentKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/component_ammo_to_verify"
+            app:destination="@id/placeholder" />
+    </fragment>
+    <fragment
+        android:id="@+id/ComponentInput"
+        android:name="com.intelliteq.fea.ammocalculator.component.ComponentFragment"
+        android:label="fragment_component_input"
+        tools:layout="@layout/fragment_component_input" >
+        <action
+            android:id="@+id/component_input_to_ammo_input"
+            app:destination="@id/ComponentAmmoInput" />
+        <action
+            android:id="@+id/component_input_to_self"
+            app:destination="@id/ComponentInput" />
+        <argument
+            android:name="weaponKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/component_to_verify"
+            app:destination="@id/placeholder" />
+    </fragment>
+    <fragment android:id="@+id/placeholder" >
+        <argument
+            android:name="weaponId"
+            app:argType="long" />
     </fragment>
 </navigation>

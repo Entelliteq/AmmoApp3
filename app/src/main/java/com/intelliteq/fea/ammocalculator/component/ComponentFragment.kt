@@ -9,9 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-
 import com.intelliteq.fea.ammocalculator.R
-import com.intelliteq.fea.ammocalculator.databinding.FragmentComponentBinding
+import com.intelliteq.fea.ammocalculator.databinding.FragmentComponentInputBinding
 import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
 
 
@@ -27,8 +26,8 @@ class ComponentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-        val binding : FragmentComponentBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_component, container, false )
+        val binding : FragmentComponentInputBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_component_input, container, false )
 
         val application = requireNotNull(this.activity).application
         val arguments = ComponentFragmentArgs.fromBundle(arguments)
@@ -46,10 +45,33 @@ class ComponentFragment : Fragment() {
 
         componentViewModel.navigateToAnotherComponent.observe(
             viewLifecycleOwner,
-            Observer { weaponAmmo ->
-                weaponAmmo?.let {
+            Observer { weaponId ->
+                weaponId?.let {
                     this.findNavController()
-                        .navigate(ComponentFragmentDirections.ActionComponentFragment2ToComponentAmmoFragment())
+                        .navigate(ComponentFragmentDirections.ComponentInputToSelf(weaponId))
+                    componentViewModel.doneNavigatingToAnotherComponent()
+                }
+            }
+        )
+
+        componentViewModel.navigateToInputComponentAmmo.observe(
+            viewLifecycleOwner,
+            Observer { comp ->
+                comp?.let {
+                    this.findNavController()
+                        .navigate((ComponentFragmentDirections.ComponentInputToAmmoInput(comp.componentId)))
+                    componentViewModel.doneNavigatingToComponentAmmo()
+                }
+            }
+        )
+
+        componentViewModel.navigateToConfirmation.observe(
+            viewLifecycleOwner,
+            Observer { weaponId ->
+                weaponId?.let {
+                    this.findNavController()
+                        .navigate(ComponentFragmentDirections.ComponentToVerify(weaponId))
+                    componentViewModel.doneNavigatingToConfirm()
                 }
             }
         )
@@ -59,44 +81,4 @@ class ComponentFragment : Fragment() {
         return binding.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        navController = Navigation.findNavController(view)
-////        view.findViewById<Button>(R.id.button).setOnClickListener(this)
-//        view.findViewById<Button>(R.id.button2).setOnClickListener(this)
-//        view.findViewById<Button>(R.id.verify).setOnClickListener(this)
-  //  }
-//
-//    override fun onClick(v: View?) {
-//        when(v!!.id) {
-////            R.id.add_another_ammo -> {
-////                navController!!.navigate(R.id.action_fragInputAmmo_to_fragInputAmmoComp)
-////            }
-////            R.id.add_component -> {
-////                navController!!.navigate(R.id.action_fragInputAmmo_to_fragInputComponent)
-////            }
-////            R.id.verify -> {
-////                navController!!.navigate(R.id.action_fragInputAmmo_to_fragConfirmInfo)
-////            }
-//        }
-//    }
-//    companion object {
-//        /**
-//         * Use this factory method to create a new instance of
-//         * this fragment using the provided parameters.
-//         *
-//         * @param param1 Parameter 1.
-//         * @param param2 Parameter 2.
-//         * @return A new instance of fragment ComponentFragment.
-//         */
-//        // TODO: Rename and change types and number of parameters
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            ComponentFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//            }
-//    }
 }

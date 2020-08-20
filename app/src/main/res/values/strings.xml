@@ -2,16 +2,21 @@
     <string name="app_name">AmmoApp3</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="description_weapon">description_weapon</string>
-    <string name="weapon_type">weapon_type</string>
-    <string name="input_weapons">input_weapon</string>
-    <string name="input_ammo">input_ammo</string>
-    <string name="add_another_ammo">addAnotherAmmo</string>
-    <string name="verify">verify</string>
-    <string name="add_component">addComponent</string>
-    <string name="type">type_component</string>
-    <string name="description">description_component</string>
-    <string name="dodic">dodic_comp_ammo</string>
-    <string name="add_another_component">add_another_comp</string>
-    <string name="input_component">inout_component</string>
+    <string name="description_weapon">Description Weapon</string>
+    <string name="weapon_type">Weapon Type</string>
+    <string name="input_weapons">Input Weapon</string>
+    <string name="input_ammo">Input Ammo</string>
+    <string name="add_another_ammo">Add Another Ammo</string>
+    <string name="verify">Verify All Inputs</string>
+    <string name="add_component">Add Component</string>
+    <string name="type">Component Type</string>
+    <string name="description">Description</string>
+    <string name="dodic">Ammo DODIC</string>
+    <string name="add_another_component">Add Another Component</string>
+    <string name="input_component">Input Component</string>
+    <string name="input_ammo_for_component">Input Component Ammo</string>
+    <string name="dodic_of_ammo">DODIC of Ammo</string>
+    <string name="description__ammo_comp">Description</string>
+    <string name="type_of_ammo_comp">Type of Ammo</string>
+    <string name="add_another_component_ammo">Add Another Ammo</string>
 </resources>

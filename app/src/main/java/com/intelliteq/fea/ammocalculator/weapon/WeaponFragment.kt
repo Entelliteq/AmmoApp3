@@ -47,7 +47,7 @@ class WeaponFragment : Fragment() {
             Observer { weapon ->
                 weapon?.let {
                     this.findNavController()
-                        .navigate(WeaponFragmentDirections.actionWeaponFragment4ToWeaponAmmoFragment2(weapon.weaponAutoId))
+                        .navigate(WeaponFragmentDirections.WeaponInputToAmmoInput(weapon.weaponAutoId))
                     weaponViewModel.doneNavigation()
                 }
 

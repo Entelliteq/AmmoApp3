@@ -2,6 +2,7 @@ package com.intelliteq.fea.ammocalculator.persistence.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.intelliteq.fea.ammocalculator.persistence.models.Component
 import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
 import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
 
@@ -27,4 +28,10 @@ interface WeaponAmmoDao {
 
     @Query("SELECT * FROM weapon_ammo_table ORDER BY ammoId DESC LIMIT 1" )
     fun getNewWeapon() : WeaponAmmo?
+
+    @Query("SELECT count(*) FROM weapon_ammo_table WHERE weapon_for_ammo = :key")
+    fun countAllAmmos(key: Long?) : Int
+
+    @Query("SELECT * FROM weapon_ammo_table WHERE weapon_for_ammo = :key")
+    fun getAllAmmosForThisWeapon(key: Long?) : WeaponAmmo
 }
