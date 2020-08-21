@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "component_ammo_table")
-class ComponentAmmo(
+data class ComponentAmmo(
     @PrimaryKey(autoGenerate = true)
     var componentAmmoId: Long =0L,
 

@@ -8,19 +8,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-
 import com.intelliteq.fea.ammocalculator.R
 import com.intelliteq.fea.ammocalculator.databinding.FragmentWeaponAmmoBinding
 import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
 
 
 /**
- * A simple [Fragment] subclass.
- * Use the [WeaponAmmoFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Fragment class for WeaponAmmo
  */
 class WeaponAmmoFragment : Fragment() {
 
@@ -29,27 +25,29 @@ class WeaponAmmoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //binding object to remove all findByViews
+
+        //binding variable and inflating the fragment
         val binding: FragmentWeaponAmmoBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_weapon_ammo, container, false
         )
 
+        //getting the application, arguments set and database
         val application = requireNotNull(this.activity).application
         val arguments = WeaponAmmoFragmentArgs.fromBundle(arguments)
-
         val dataSource = AmmoRoomDatabase.getAppDatabase(application)!!.weaponAmmoDao
 
+        //creating a view model using the factory
         val viewModelFactory = WeaponAmmoViewModelFactory(arguments.weaponKey, dataSource)
-
         val weaponAmmoViewModel =
             ViewModelProvider(this, viewModelFactory)
                 .get(WeaponAmmoViewModel::class.java)
 
-
-
+        //setting the binding values
         binding.weaponAmmoViewModel = weaponAmmoViewModel
         binding.lifecycleOwner = this
 
+        //setting the navigation paths for the buttons
+        //checking if all edit texts are valid inputs
         weaponAmmoViewModel.checkStatusOfInputs.observe(
             viewLifecycleOwner,
             Observer { status ->
@@ -60,6 +58,7 @@ class WeaponAmmoFragment : Fragment() {
             }
         )
 
+        //navigate to component screen
         weaponAmmoViewModel.navigateToInputComponent.observe(
             viewLifecycleOwner,
             Observer { weaponAmmo ->
@@ -70,6 +69,7 @@ class WeaponAmmoFragment : Fragment() {
                 }
             })
 
+        //navigate back to weaponAmmo input
         weaponAmmoViewModel.navigateToAddAnotherAmmo.observe(
             viewLifecycleOwner,
             Observer { weaponAmmo ->
@@ -80,6 +80,7 @@ class WeaponAmmoFragment : Fragment() {
                 }
             })
 
+        //navigate to confirmation screen
         weaponAmmoViewModel.navigateToConfirmation.observe(
             viewLifecycleOwner,
             Observer {

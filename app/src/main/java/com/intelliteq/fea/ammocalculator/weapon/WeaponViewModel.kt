@@ -1,17 +1,20 @@
 package com.intelliteq.fea.ammocalculator.weapon
 
 import android.app.Application
-import android.app.ApplicationErrorReport
 import android.util.Log
-import androidx.databinding.Bindable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponDao
 import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
 import kotlinx.coroutines.*
 
+/**
+ * ViewModel class for Weapon Fragment
+ *
+ * @param application: the application returned
+ * @param database: ComponenAmmotDao
+ */
 class WeaponViewModel (
     val database: WeaponDao,
     application: Application) : AndroidViewModel(application) {
@@ -35,11 +38,17 @@ class WeaponViewModel (
 
 
 
-    //initialize weapon
+    /**
+     * Initializing the weapon variable
+     */
     init {
         initializeWeapon()
     }
 
+    /**
+     * Called from init()
+     * Insert the new weapon into database
+     */
     private fun initializeWeapon() {
         uiScope.launch {
             val newWeapon = Weapon()
@@ -48,6 +57,10 @@ class WeaponViewModel (
         }
     }
 
+    /**
+     * Gets weapon from the database that was inserted
+     * @return Weapon object from database
+     */
     private suspend fun getWeaponFromDatabase() : Weapon? {
         return withContext(Dispatchers.IO) {
             var weapon = database.getNewWeapon()
@@ -55,17 +68,23 @@ class WeaponViewModel (
         }
     }
 
-    //resets variable that triggers navigation
+    /**
+     * Resetting the navigation call to null
+     */
     fun doneNavigation() {
         _navigateToInputWeaponAmmo.value = null
     }
 
-    //button to move to input ammo; insert a new weapon into database
+    /**
+     * Adding a Weapon using the "Inputr Ammo" button
+     * Retrieve all edit texts input by user and update database
+     */
     fun onInputAmmo() {
         uiScope.launch {
             val thisWeapon = weapon.value?: return@launch
             thisWeapon.weaponDescription = weaponDescriptionEditText.value.toString()
             thisWeapon.weaponTypeID = weaponTypeEditText.value.toString()
+            thisWeapon.FEA_id = thisWeapon.weaponAutoId.toInt()
             update(thisWeapon)
             _navigateToInputWeaponAmmo.value = weapon.value
             Log.i("WEAPON added", "///// ${thisWeapon}")
@@ -73,19 +92,29 @@ class WeaponViewModel (
 
     }
 
+    /**
+     * Suspend function to insert into database
+     * @param weapon: to be inserted
+     */
     private suspend fun insert(weapon: Weapon) {
         withContext(Dispatchers.IO) {
             database.insert(weapon)
         }
     }
 
+    /**
+     * Suspend function to update componentAmmo into database
+     * @param weapon: to be updated
+     */
     private suspend fun update(weapon: Weapon) {
         withContext(Dispatchers.IO) {
             database.update(weapon)
         }
     }
 
-    //cancel all coroutines
+    /**
+     * Cancelling all jobs
+     */
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()

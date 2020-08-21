@@ -1,14 +1,13 @@
 package com.intelliteq.fea.ammocalculator.weaponAmmo
 
-
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponAmmoDao
-import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponDao
-import com.intelliteq.fea.ammocalculator.weapon.WeaponViewModel
 import java.lang.IllegalArgumentException
 
+/**
+ * Class to create a new view model for WeaponAmmo
+ */
 class WeaponAmmoViewModelFactory (
     private val weaponAmmoKey: Long = 0L,
     private val database: WeaponAmmoDao) : ViewModelProvider.Factory {

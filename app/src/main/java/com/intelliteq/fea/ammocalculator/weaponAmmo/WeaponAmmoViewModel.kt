@@ -1,17 +1,19 @@
 package com.intelliteq.fea.ammocalculator.weaponAmmo
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponAmmoDao
-import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponDao
-import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
-import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
 import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
 import kotlinx.coroutines.*
 
+/**
+ * ViewModel class for WeaponAmmo Fragment
+ *
+ * @param weaponKey: from Weapon input
+ * @param database: WeaponAmmoDao
+ */
 class WeaponAmmoViewModel(
     private val weaponKey: Long = 0L,
     val database: WeaponAmmoDao
@@ -36,10 +38,12 @@ class WeaponAmmoViewModel(
     val weaponAmmoMediumEditText = MutableLiveData<String>()
     val weaponAmmoHeavyEditText = MutableLiveData<String>()
 
+    //check if all edit texts are valid mutable live data
     private val _checkStatusOfInputs = MutableLiveData<Boolean>()
     val checkStatusOfInputs: LiveData<Boolean>
         get() = _checkStatusOfInputs
 
+    //Navigation Mutable Live Data
     private val _navigateToInputComponent = MutableLiveData<WeaponAmmo>()
     val navigateToInputComponent: LiveData<WeaponAmmo>
         get() = _navigateToInputComponent
@@ -52,11 +56,17 @@ class WeaponAmmoViewModel(
     val navigateToConfirmation: LiveData<Long>
         get() = _navigateToConfirmation
 
-
+    /**
+     * Initializing the weaponAmmo variable
+     */
     init {
         initializeAmmo()
     }
 
+    /**
+     * Called from init()
+     * Insert the new WeaponAmmo into database
+     */
     private fun initializeAmmo() {
         uiScope.launch {
             val newAmmo = WeaponAmmo()
@@ -65,6 +75,10 @@ class WeaponAmmoViewModel(
         }
     }
 
+    /**
+     * Gets weapon ammo from the database that was inserted
+     * @return WeaponAmmo object from database
+     */
     private suspend fun getAmmoFromDatabase(): WeaponAmmo? {
         return withContext(Dispatchers.IO) {
             var weaponammo = database.getNewWeapon()
@@ -72,22 +86,36 @@ class WeaponAmmoViewModel(
         }
     }
 
+    /**
+     * Suspend function to insert into database
+     * @param ammo: to be inserted
+     */
     private suspend fun insert(ammo: WeaponAmmo) {
         withContext(Dispatchers.IO) {
             database.insert(ammo)
         }
     }
 
+    /**
+     * Resetting the navigation call to null
+     */
     fun doneNavigatingToComp() {
         _navigateToInputComponent.value = null
 
     }
 
+    /**
+     * Resetting the navigation call to null
+     */
     fun doneNavigatingToAmmo() {
         _navigateToAddAnotherAmmo.value = null
         initializeAmmo()
     }
 
+    /**
+     * Adding a weapon ammo using the "Add Another Ammo" button
+     * Retrieve all edit texts input by user and update database
+     */
     fun onAddAnotherAmmo() {
         if (checkEditTexts()) {
             uiScope.launch {
@@ -109,6 +137,10 @@ class WeaponAmmoViewModel(
         }
     }
 
+    /**
+     * Adding a weapon ammo using the "Verify All Inputs" button
+     * Retrieve all edit texts input by user and update database
+     */
     fun verify() {
         if (checkEditTexts()) {
             uiScope.launch {
@@ -131,6 +163,10 @@ class WeaponAmmoViewModel(
 
     }
 
+    /**
+     * Verify that all edit text inputs are not null nor empty
+     * @return true if all valid
+     */
     fun checkEditTexts(): Boolean {
         if (weaponAmmoTrainingEditText.value.isNullOrEmpty() ||
             weaponAmmoSecurityEditText.value.isNullOrEmpty() ||
@@ -148,7 +184,10 @@ class WeaponAmmoViewModel(
 
     }
 
-
+    /**
+     * Adding a weapon Ammo using the "Add Component" button
+     * Retrieve all edit texts input by user and update database
+     */
     fun onAddComponent() {
         if (checkEditTexts()) {
             uiScope.launch {
@@ -170,13 +209,19 @@ class WeaponAmmoViewModel(
         }
     }
 
+    /**
+     * Suspend function to update componentAmmo into database
+     * @param ammo: to be updated
+     */
     private suspend fun update(ammo: WeaponAmmo) {
         withContext(Dispatchers.IO) {
             database.update(ammo)
         }
     }
 
-
+    /**
+     * Cancelling all jobs
+     */
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()

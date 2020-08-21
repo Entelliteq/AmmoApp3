@@ -4,10 +4,11 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponDao
-import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
 import java.lang.IllegalArgumentException
-import javax.sql.CommonDataSource
 
+/**
+ * Class to create a new view model for Weapon
+ */
 class WeaponViewModelFactory (
     private val dataSource: WeaponDao,
     private val application: Application) : ViewModelProvider.Factory {

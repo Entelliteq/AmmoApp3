@@ -1,25 +1,30 @@
 package com.intelliteq.fea.ammocalculator.componentAmmo
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentAmmoDao
-import com.intelliteq.fea.ammocalculator.persistence.models.Component
 import com.intelliteq.fea.ammocalculator.persistence.models.ComponentAmmo
 import kotlinx.coroutines.*
 
+/**
+ * ViewModel class for ComponentAmmo Fragment
+ *
+ * @param componentKey: from Component input
+ * @param database: ComponentAmmoDao
+ */
 class ComponentAmmoViewModel (
     private val componentKey: Long = 0L,
     private val weaponKey: Long = 0L,
     val database: ComponentAmmoDao
 ) : ViewModel() {
 
+    //Job and CoroutineScope
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    //watching componentAmmo
     private var componentAmmo = MutableLiveData<ComponentAmmo?>()
 
     //read user input
@@ -27,10 +32,12 @@ class ComponentAmmoViewModel (
     val componentAmmoDescriptionEditText = MutableLiveData<String>()
     val componentAmmoDODICEditText = MutableLiveData<String>()
 
+    //check if all edit texts are filled
     private val _checkStatusOfInputs = MutableLiveData<Boolean>()
     val checkStatusOfInputs: LiveData<Boolean>
         get() = _checkStatusOfInputs
 
+    //Navigation Mutable Live Data
     private val _navigateToInputAnotherComponentAmmo = MutableLiveData<ComponentAmmo>()
     val navigateToInputAnotherComponentAmmo: LiveData<ComponentAmmo>
         get() = _navigateToInputAnotherComponentAmmo
@@ -40,10 +47,17 @@ class ComponentAmmoViewModel (
         get() = _navigateToConfirmation
 
 
+    /**
+     * Initializing the componentAmmo variable
+     */
     init {
         initializeComponentAmmo()
     }
 
+    /**
+     * Called from init()
+     * Insert the new componentAmmo into database
+     */
     private fun initializeComponentAmmo() {
         uiScope.launch {
             val newComponentAmmo = ComponentAmmo()
@@ -52,6 +66,10 @@ class ComponentAmmoViewModel (
         }
     }
 
+    /**
+     * Gets componentAmmo from the database that was inserted
+     * @return ComponentAmmo object from database
+     */
     private suspend fun getComponentAmmoFromDatabase() : ComponentAmmo? {
         return withContext(Dispatchers.IO) {
             var compammo = database.getNewComponentAmmo()
@@ -59,21 +77,34 @@ class ComponentAmmoViewModel (
         }
     }
 
+    /**
+     * Suspend function to insert into database
+     * @param compAmmo: to be inserted
+     */
     private suspend fun insert(compAmmo: ComponentAmmo) {
         withContext(Dispatchers.IO) {
             database.insert(compAmmo)
         }
     }
 
+    /**
+     * Resetting the navigation call to null
+     */
     fun doneNavigatingToCompAmmo() {
         _navigateToInputAnotherComponentAmmo.value = null
     }
 
+    /**
+     * Resetting the navigation call to null
+     */
     fun doneNavigatingToVerify() {
         _navigateToConfirmation.value = null
     }
 
-
+    /**
+     * Adding a ComponentAmmo using the "Add Another Ammo" button
+     * Retrieve all edit texts input by user and update database
+     */
     fun addAnotherAmmo() {
         if(checkEditTexts()) {
             uiScope.launch {
@@ -84,16 +115,15 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.componentId = componentKey
                 update(thisCompAmmo)
                 _navigateToInputAnotherComponentAmmo.value = thisCompAmmo
-                Log.i("WEAPON COMP AMMO id ", " ${thisCompAmmo.componentAmmoId}")
-                Log.i("WEAPON COMP_AMMO wepId ", " ${thisCompAmmo.weaponIdComponentAmmo}")
-                Log.i("WEAPON COMP AMMO ty ", " ${thisCompAmmo.componentAmmoTypeID}")
-                Log.i("WEAPON COMP AMMO des ", " ${thisCompAmmo.componentAmmoDescription}")
-                Log.i("WEAPON COMP AMMO dod ", " ${thisCompAmmo.componentAmmoDODIC}")
-                Log.i("WEAPON COMP AMMO c_id ", " ${thisCompAmmo.componentAmmoId}")
+                Log.i("WEAPON COMP AMMO added ", " $thisCompAmmo")
             }
         }
     }
 
+    /**
+     * Check if all the Edit Texts are filled
+     * @return Boolean that is true if they are valid
+     */
     fun checkEditTexts() : Boolean {
         if (componentAmmoTypeEditText.value.isNullOrEmpty() ||
                 componentAmmoDODICEditText.value.isNullOrEmpty() ||
@@ -106,12 +136,21 @@ class ComponentAmmoViewModel (
         }
     }
 
+    /**
+     * Suspend function to update componentAmmo into database
+     * @param compAmmo: to be updated
+     */
     private suspend fun update(compAmmo: ComponentAmmo) {
         withContext(Dispatchers.IO) {
             database.update(compAmmo)
         }
     }
 
+
+    /**
+     * Adding a ComponentAmmo using the "Verify All Inputs" button
+     * Retrieve all edit texts input by user and update database
+     */
     fun verify() {
         if(checkEditTexts()) {
             uiScope.launch {
@@ -123,18 +162,15 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.weaponIdComponentAmmo = weaponKey
                 update(thisCompAmmo)
                 _navigateToConfirmation.value = thisCompAmmo
-
-                Log.i("WEAPON COMP AMMO id ", " ${thisCompAmmo.componentAmmoId}")
-                Log.i("WEAPON COMP_AMMO wepId ", " ${thisCompAmmo.weaponIdComponentAmmo}")
-                Log.i("WEAPON COMP AMMO ty ", " ${thisCompAmmo.componentAmmoTypeID}")
-                Log.i("WEAPON COMP AMMO des ", " ${thisCompAmmo.componentAmmoDescription}")
-                Log.i("WEAPON COMP AMMO dod ", " ${thisCompAmmo.componentAmmoDODIC}")
-                Log.i("WEAPON COMP AMMO c_id ", " ${thisCompAmmo.componentAmmoId}")
+                Log.i("WEAPON COMP AMMO added ", " $thisCompAmmo")
 
             }
         }
     }
 
+    /**
+     * Cancelling all jobs
+     */
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()

@@ -10,6 +10,9 @@ import androidx.navigation.findNavController
 import com.intelliteq.fea.ammocalculator.databinding.FragmentLandingScreenBinding
 
 
+/**
+ * Fragment to move around the app
+ */
 class LandingScreenFragment : Fragment() {
 
     override fun onCreateView(

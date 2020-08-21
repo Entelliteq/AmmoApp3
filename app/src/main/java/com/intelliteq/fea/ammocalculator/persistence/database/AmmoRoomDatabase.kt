@@ -18,11 +18,7 @@ import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
     version = 1,
     exportSchema = false
 )
- abstract class AmmoRoomDatabase : RoomDatabase() {
-    //abstract fun weaponDaoAccess(): WeaponDao
-    //abstract fun weaponAmmoDaoAccess() : WeaponAmmoDao
-    //abstract fun componentDaoAccess() : ComponentDao
-    //abstract fun componentAmmoDaoAccess() : ComponentAmmoDao
+abstract class AmmoRoomDatabase : RoomDatabase() {
     abstract val weaponDao: WeaponDao
     abstract val weaponAmmoDao: WeaponAmmoDao
     abstract val componentDao: ComponentDao
@@ -40,7 +36,8 @@ import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         AmmoRoomDatabase::class.java,
-                        "ammo_db")
+                        "ammo_db"
+                    )
                         .build()
                     INSTANCE = instance
                 }

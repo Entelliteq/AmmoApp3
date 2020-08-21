@@ -15,9 +15,7 @@ import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
 
 
 /**
- * A simple [Fragment] subclass.
- * Use the [ComponentFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Fragment class for Component
  */
 class ComponentFragment : Fragment() {
 
@@ -26,24 +24,28 @@ class ComponentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
+        //binding variable and inflating the fragment
         val binding : FragmentComponentInputBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_component_input, container, false )
 
+        //getting the application, arguments set and database
         val application = requireNotNull(this.activity).application
         val arguments = ComponentFragmentArgs.fromBundle(arguments)
-
         val dataSource = AmmoRoomDatabase.getAppDatabase(application)!!.componentDao
 
+        //creating a view model using the factory
         val viewModelFactory = ComponentViewModelFactory(arguments.weaponKey, dataSource)
-
         val componentViewModel =
             ViewModelProvider(this, viewModelFactory)
                 .get(ComponentViewModel::class.java)
 
 
+        //setting the binding values
         binding.componentViewModel = componentViewModel
         binding.lifecycleOwner = this
 
+        //setting the navigation paths for the buttons
+        //navigating back to Component
         componentViewModel.navigateToAnotherComponent.observe(
             viewLifecycleOwner,
             Observer { weaponId ->
@@ -55,6 +57,7 @@ class ComponentFragment : Fragment() {
             }
         )
 
+        //navigating to component ammo screen
         componentViewModel.navigateToInputComponentAmmo.observe(
             viewLifecycleOwner,
             Observer { comp ->
@@ -66,6 +69,7 @@ class ComponentFragment : Fragment() {
             }
         )
 
+        //navigating to confirmation screen
         componentViewModel.navigateToConfirmation.observe(
             viewLifecycleOwner,
             Observer { weaponId ->
