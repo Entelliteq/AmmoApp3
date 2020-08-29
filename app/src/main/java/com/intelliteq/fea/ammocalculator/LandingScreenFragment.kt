@@ -21,10 +21,16 @@ class LandingScreenFragment : Fragment() {
         val binding: FragmentLandingScreenBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_landing_screen, container, false)
 
-        // Inflate the layout for this fragment
+
         binding.newInputButton.setOnClickListener {
             view: View -> view.findNavController().navigate(R.id.landing_to_weapon_input)
         }
+
+        binding.newCalculationButton.setOnClickListener {
+                view: View -> view.findNavController().navigate(R.id.action_landingScreen_to_CalculateSelection)
+        }
+
+        // Inflate the layout for this fragment
         return binding.root
 
     }

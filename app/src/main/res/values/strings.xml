@@ -23,4 +23,6 @@
     <string name="save">save</string>
     <string name="edit">edit</string>
     <string name="calculate_screen">Calculate Screen</string>
+    <string name="reset">reset</string>
+    <string name="calculate">calculate</string>
 </resources>

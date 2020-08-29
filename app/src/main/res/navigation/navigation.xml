@@ -12,6 +12,9 @@
         <action
             android:id="@+id/landing_to_weapon_input"
             app:destination="@id/WeaponInput" />
+        <action
+            android:id="@+id/action_landingScreen_to_CalculateSelection"
+            app:destination="@id/CalculateSelection" />
     </fragment>
     <fragment
         android:id="@+id/WeaponInput"
