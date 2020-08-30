@@ -1,10 +1,13 @@
 package com.intelliteq.fea.ammocalculator.calculate
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.NumberPicker
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,11 +23,6 @@ import kotlinx.android.synthetic.main.fragment_calculate.*
 class CalculateFragment : Fragment() {
 
 
-    private val MIN_DAYS = 1
-    private val MAX_DAYS = 21
-    private val MIN_WEAPONS = 1
-    private val MAX_WEAPONS = 99
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,7 +30,8 @@ class CalculateFragment : Fragment() {
 
         //binding variable and inflating the fragment
         val binding: FragmentCalculateBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_calculate, container, false)
+            inflater, R.layout.fragment_calculate, container, false
+        )
 
         //getting the application, arguments set and database
         val application = requireNotNull(this.activity).application
@@ -49,16 +48,16 @@ class CalculateFragment : Fragment() {
         binding.calculateViewModel = calculateViewModel
         binding.lifecycleOwner = this
 
+        Log.i("WEapons: ", "${binding.pickerWeapons.value}")
 
-        //pickers min and max
-        binding.pickerDays.minValue = MIN_DAYS
-        binding.pickerDays.maxValue = MAX_DAYS
-        binding.pickerDays.wrapSelectorWheel = true
 
-        binding.pickerWeapons.minValue = MIN_WEAPONS
-        binding.pickerWeapons.maxValue = MAX_WEAPONS
-        binding.pickerWeapons.wrapSelectorWheel = true
+        binding.pickerWeapons.setOnValueChangedListener { picker, oldVal, newVal ->
+            calculateViewModel.getWeaponNumber(newVal)
+        }
 
+        binding.pickerDays.setOnValueChangedListener { pickerDays, oldVal, newVal ->
+            calculateViewModel.getDayNumber(newVal)
+        }
 
         return binding.root
     }

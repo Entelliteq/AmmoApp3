@@ -107,6 +107,7 @@
                     android:id="@+id/spinnerFea"
                     android:layout_width="275dp"
                     android:layout_height="match_parent"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/feaTextView"
                     app:layout_constraintTop_toTopOf="parent">
@@ -203,6 +204,8 @@
                     android:id="@+id/pickerWeapons"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
+                    android:max="@{99}"
+                    app:setMinMaxPicker="@{1}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/numberWeaponsCalc"
                     app:layout_constraintTop_toTopOf="parent" >
@@ -235,7 +238,8 @@
                 <NumberPicker
                     android:id="@+id/pickerDays"
                     android:layout_width="100dp"
-
+                    android:max="@{21}"
+                    app:setMinMaxPicker="@{1}"
                     android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/numberDaysCalc"
