@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -39,7 +40,7 @@ class CalculateFragment : Fragment() {
         val dataSource = AmmoRoomDatabase.getAppDatabase(application)!!.weaponDao
 
         //creating a view model using the factory
-        val viewModelFactory = CalculateViewModelFactory(dataSource)
+        val viewModelFactory = CalculateViewModelFactory(dataSource, application)
         val calculateViewModel =
             ViewModelProvider(this, viewModelFactory)
                 .get(CalculateViewModel::class.java)
@@ -58,6 +59,11 @@ class CalculateFragment : Fragment() {
         binding.pickerDays.setOnValueChangedListener { pickerDays, oldVal, newVal ->
             calculateViewModel.getDayNumber(newVal)
         }
+
+        calculateViewModel.weapons.observe(viewLifecycleOwner, Observer {
+                it?.let { binding.spinnerFea}
+        })
+
 
         return binding.root
     }

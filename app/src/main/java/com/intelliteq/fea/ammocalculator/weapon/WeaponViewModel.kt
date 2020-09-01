@@ -8,12 +8,13 @@ import androidx.lifecycle.MutableLiveData
 import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponDao
 import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
 import kotlinx.coroutines.*
+import java.nio.file.WatchEvent
 
 /**
  * ViewModel class for Weapon Fragment
  *
  * @param application: the application returned
- * @param database: ComponenAmmotDao
+ * @param database: WeaponDao
  */
 class WeaponViewModel (
     val database: WeaponDao,
@@ -26,10 +27,13 @@ class WeaponViewModel (
 
     //create weapon to watch
     private var weapon = MutableLiveData<Weapon?>()
+    lateinit var weapons : ArrayList<Weapon>
+
 
     //reading the user input
     val weaponDescriptionEditText = MutableLiveData<String>()
     val weaponTypeEditText = MutableLiveData<String>()
+
 
     //wrapped navigation to input weapon ammo
     private val _navigateToInputWeaponAmmo = MutableLiveData<Weapon>()
@@ -64,6 +68,7 @@ class WeaponViewModel (
     private suspend fun getWeaponFromDatabase() : Weapon? {
         return withContext(Dispatchers.IO) {
             var weapon = database.getNewWeapon()
+            weapons = database.getAllWeapons() as ArrayList<Weapon>
             weapon
         }
     }
@@ -73,6 +78,7 @@ class WeaponViewModel (
      */
     fun doneNavigation() {
         _navigateToInputWeaponAmmo.value = null
+        Log.i("WEAPON LIST", "///// ${weapons}")
     }
 
     /**
@@ -88,6 +94,8 @@ class WeaponViewModel (
             update(thisWeapon)
             _navigateToInputWeaponAmmo.value = weapon.value
             Log.i("WEAPON added", "///// ${thisWeapon}")
+
+
         }
 
     }
@@ -100,6 +108,8 @@ class WeaponViewModel (
         withContext(Dispatchers.IO) {
             database.insert(weapon)
         }
+
+
     }
 
     /**

@@ -6,7 +6,8 @@ import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
 
 @Dao
 interface WeaponDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE) //added testing push
+
+    @Insert
     fun insert(weapon: Weapon)
 
     @Update
@@ -19,7 +20,7 @@ interface WeaponDao {
     fun get(key: Long): Weapon?
 
     @Query("SELECT * FROM weapon_table")
-    fun getAll(): LiveData<Array<Weapon>>
+    fun getAllWeapons(): LiveData<List<Weapon>>
 
     @Query("SELECT count(*) FROM weapon_table")
     fun countAll() : Int
