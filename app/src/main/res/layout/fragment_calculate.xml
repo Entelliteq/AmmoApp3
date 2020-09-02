@@ -107,7 +107,7 @@
                     android:id="@+id/spinnerFea"
                     android:layout_width="275dp"
                     android:layout_height="match_parent"
-                    android:entries="@{calculateViewModel.weapons}"
+                    android:entriesFea="@{calculateViewModel.weapons}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/feaTextView"
                     app:layout_constraintTop_toTopOf="parent">
@@ -141,6 +141,7 @@
                     android:layout_width="230dp"
                     android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:entriesType="@{calculateViewModel.weapons}"
                     app:layout_constraintStart_toEndOf="@+id/weaponTypeCalc"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -173,6 +174,7 @@
                     android:layout_width="225dp"
                     android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:entriesDescription="@{calculateViewModel.weapons}"
                     app:layout_constraintStart_toEndOf="@+id/weaponDescCalc"
                     app:layout_constraintTop_toTopOf="parent">
 

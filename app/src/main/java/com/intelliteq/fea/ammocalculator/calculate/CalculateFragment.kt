@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.intelliteq.fea.ammocalculator.R
 import com.intelliteq.fea.ammocalculator.component.ComponentFragmentArgs
 import com.intelliteq.fea.ammocalculator.component.ComponentViewModel
@@ -49,9 +52,6 @@ class CalculateFragment : Fragment() {
         binding.calculateViewModel = calculateViewModel
         binding.lifecycleOwner = this
 
-        Log.i("WEapons: ", "${binding.pickerWeapons.value}")
-
-
         binding.pickerWeapons.setOnValueChangedListener { picker, oldVal, newVal ->
             calculateViewModel.getWeaponNumber(newVal)
         }
@@ -61,8 +61,21 @@ class CalculateFragment : Fragment() {
         }
 
         calculateViewModel.weapons.observe(viewLifecycleOwner, Observer {
-                it?.let { binding.spinnerFea}
+            it?.let {
+                binding.spinnerFea
+            }
         })
+
+
+        binding.spinnerFea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                          val int = parent.getItemAtPosition(position)
+                    calculateViewModel.useFea(int as Int)
+                    Log.i("Weapon FEA", "$int")
+                }
+                override fun onNothingSelected(parent: AdapterView<*>) {}
+            }
+
 
 
         return binding.root

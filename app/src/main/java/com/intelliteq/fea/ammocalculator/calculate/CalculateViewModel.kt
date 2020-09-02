@@ -2,6 +2,8 @@ package com.intelliteq.fea.ammocalculator.calculate
 
 import android.app.Application
 import android.util.Log
+import android.view.View
+import android.widget.Spinner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -31,10 +33,19 @@ class CalculateViewModel(
 
     //spinners, first choice
     var _FEAidSpinner = MutableLiveData<Int>()
-    val FEAidSpinner: LiveData<Int> = _FEAidSpinner
+    var FEAidSpinner: LiveData<Int> = _FEAidSpinner
     var FEASpinnerValues: MutableList<Int> = mutableListOf()
 
-    val weaponTypeSpinner = MutableLiveData<String>()
+    private val _feaPick = MutableLiveData<Int>()
+    val feaPick: LiveData<Int>
+        get() = _feaPick
+
+    fun useFea(fea: Int) {
+        Log.i("FEA Weapon??" , "$fea")
+    }
+
+    val _weaponTypeSpinner = MutableLiveData<Spinner>()
+    val weaponTypeSpinner : LiveData<Spinner> = _weaponTypeSpinner
     var weaponTypeSpinnerValues: MutableList<String> = mutableListOf()
 
     val weaponDescriptionSpinner = MutableLiveData<String>()
@@ -52,9 +63,8 @@ class CalculateViewModel(
         get() = _navigateToCalculateScreen
 
     init {
-//
-//        initializeFEASpinner()
-//        initializeWeaponTypeSpinner()
+
+        Log.i("WEapon FEA:" , "$FEAidSpinner")
     }
 
 
@@ -120,6 +130,7 @@ class CalculateViewModel(
         _numberOfDaysPicker.value = number
         Log.i("#Weapon Days: ", " $number")
     }
+
 
     /**
      * Cancelling all jobs
