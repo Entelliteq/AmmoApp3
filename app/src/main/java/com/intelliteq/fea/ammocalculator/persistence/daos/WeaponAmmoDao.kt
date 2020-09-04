@@ -21,7 +21,10 @@ interface WeaponAmmoDao {
     fun get(key: Long?): WeaponAmmo
 
     @Query("SELECT * FROM weapon_ammo_table")
-    fun getAll(): LiveData<Array<WeaponAmmo>>
+    fun getAll(): LiveData<List<WeaponAmmo>>
+
+    @Query("SELECT * FROM weapon_ammo_table WHERE weapon_for_ammo = :key")
+    fun getAllAmmosWithThisWeapon(key: Long) : LiveData<List<WeaponAmmo>>
 
     @Query("SELECT count(*) FROM weapon_ammo_table")
     fun countAll() : Int
@@ -34,4 +37,7 @@ interface WeaponAmmoDao {
 
     @Query("SELECT * FROM weapon_ammo_table WHERE weapon_for_ammo = :key")
     fun getAllAmmosForThisWeapon(key: Long?) : WeaponAmmo
+
+    @Query("SELECT * FROM weapon_ammo_table WHERE ammo_type =:typeKey")
+    fun getAmmoType(typeKey: String) : WeaponAmmo?
 }

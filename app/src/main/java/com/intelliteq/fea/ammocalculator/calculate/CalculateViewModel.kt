@@ -8,13 +8,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentAmmoDao
+import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentDao
+import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponAmmoDao
 import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponDao
 import com.intelliteq.fea.ammocalculator.persistence.models.Component
 import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
+import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
 import kotlinx.coroutines.*
 
 class CalculateViewModel(
-    val database: WeaponDao,
+    val weaponDatabase: WeaponDao,
+    val ammoDatabase: WeaponAmmoDao,
+    val compoDatabase: ComponentDao,
+    val compAmmoDatabase: ComponentAmmoDao,
     val application: Application
 ) : ViewModel() {
 
@@ -24,7 +31,10 @@ class CalculateViewModel(
 
     private var thisWeapon = MutableLiveData<Weapon?>()
 
-    val weapons = database.getAllWeapons()
+    val weapons = weaponDatabase.getAllWeapons()
+    //var ammosList = ammoDatabase.getAll()
+    val components = compoDatabase.getAll()
+    val compAmmos = compAmmoDatabase.getAll()
 
     //read user input
     //pickers
@@ -34,101 +44,117 @@ class CalculateViewModel(
     //spinners, first choice
     var _FEAidSpinner = MutableLiveData<Int>()
     var FEAidSpinner: LiveData<Int> = _FEAidSpinner
-    var FEASpinnerValues: MutableList<Int> = mutableListOf()
-
-    private val _feaPick = MutableLiveData<Int>()
-    val feaPick: LiveData<Int>
-        get() = _feaPick
-
-    fun useFea(fea: Int) {
-        Log.i("FEA Weapon??" , "$fea")
-    }
-
-    val _weaponTypeSpinner = MutableLiveData<Spinner>()
-    val weaponTypeSpinner : LiveData<Spinner> = _weaponTypeSpinner
-    var weaponTypeSpinnerValues: MutableList<String> = mutableListOf()
-
-    val weaponDescriptionSpinner = MutableLiveData<String>()
 
 
-    //spinner, second choice
-    val ammoTypeSpinner = MutableLiveData<String>()
-    val combatTypeSpinner = MutableLiveData<String>()
-    val componentTypeSpinner = MutableLiveData<String>()
-    val componentAmmoSpinner = MutableLiveData<String>()
 
     //Navigation Mutable Live Data
     private val _navigateToCalculateScreen = MutableLiveData<Component>()
     val navigateToInputComponentAmmo: LiveData<Component>
         get() = _navigateToCalculateScreen
 
-    init {
 
-        Log.i("WEapon FEA:" , "$FEAidSpinner")
+    fun useCombat(combat: String) {
+        Log.i("#Weapons: ", " combat $combat")
     }
-
-
-
-//
-//    private fun initializeFEASpinner() {
-//        uiScope.launch {
-//            FEASpinnerValues = getWeaponFEAFromDatabase()
-//           // FEASpinnerValues = FEAidSpinner.value
-//            Log.i("Weapon spinner: ", "FEA: ${FEASpinnerValues}")
-//            sendFEAValues()
-//
-//        }
-//
-//    }
-
-//    private fun initializeWeaponTypeSpinner() {
-//        uiScope.launch {
-//            weaponTypeSpinnerValues = getWeaponTypeFromDatabase()
-//            Log.i("Weapon spinner: ", "FEA: ${weaponTypeSpinnerValues}")
-//        }
-//
-//    }
-
-//    private suspend fun getWeaponFEAFromDatabase(): MutableList<Int> {
-//        return withContext(Dispatchers.IO) {
-//            var list: MutableList<Int> = mutableListOf()
-//            var weaponlist = database.getAllWeapons()
-//            weaponlist.forEach {
-//                list.add(it.FEA_id)
-//            }
-//            list
-//        }
-//
-//    }
-
-
-
-//    private suspend fun getWeaponTypeFromDatabase(): MutableList<String> {
-//        return withContext(Dispatchers.IO) {
-//            var list: MutableList<String> = mutableListOf()
-//            var weaponlist = database.getAllWeapons()
-//            weaponlist.forEach {
-//                list.add(it.weaponTypeID)
-//            }
-//            list
-//        }
-//
-//    }
 
     fun getWeaponNumber(number: Int) {
         _numberOfWeaponsPicker.value = number
-        Log.i("#Weapons: ", " $number")
+        Log.i("#Weapons: ", " ${_numberOfWeaponsPicker.value}")
 
-    }
-
-    fun sendFEAValues() : MutableList<Int> {
-        Log.i("GEtting Weapon" , "FEA list into spinner ${FEASpinnerValues}")
-        return FEASpinnerValues
     }
 
     fun getDayNumber(number: Int) {
         _numberOfDaysPicker.value = number
         Log.i("#Weapon Days: ", " $number")
+    }
+
+    private val _chosenWeapon = MutableLiveData<Weapon>()
+    val chosenWeapon: LiveData<Weapon>
+        get() = _chosenWeapon
+    /**
+     * Using the FEA number to get the weapon
+     */
+    fun useWeaponFea(fea: Int) {
+        _FEAidSpinner.value = fea
+        getChosenWeaponFEA(fea)
+
+    }
+
+    //coroutine access
+    private fun getChosenWeaponFEA(fea: Int) {
+        uiScope.launch {
+            _chosenWeapon.value = getWeaponFromDatabaseFEA(fea)
+            Log.i("Chosen Weapon?", ": ${chosenWeapon.value}")
+            val ammosList = getChosenAmmoFromDatabaseUsingWeapon()
+            Log.i("AmmoL Weapon?", "ListAF///: ${ammosList.value}")
+        }
+    }
+
+    private suspend fun getChosenAmmoFromDatabaseUsingWeapon() : LiveData<List<WeaponAmmo>>  {
+        return withContext(Dispatchers.IO){
+            var  ammosReturned = ammoDatabase.getAllAmmosWithThisWeapon(chosenWeapon.value!!.weaponId)
+            ammosReturned
+        }
+    }
+
+    //return from database
+    private suspend fun getWeaponFromDatabaseFEA(fea: Int): Weapon? {
+        return withContext(Dispatchers.IO) {
+            var weaponReturned = weaponDatabase.get(fea.toLong())
+            weaponReturned!!
+        }
+    }
+
+
+
+    /**
+     * Use weapon type to get weapon
+     */
+    fun useWeaponType(ammoType: String) {
+        getChosenWeaponType(ammoType)
+    }
+
+    //coroutine access
+    private fun getChosenWeaponType(type: String) {
+        uiScope.launch {
+             getWeaponFromDatabaseType(type)
+            //ammosList  = ammoDatabase.getAllAmmosWithThisWeapon(chosenWeapon.weaponAutoId)
+            Log.i("Type Weapon?", "${chosenWeapon.value}")
+        }
+    }
+
+    //return from database
+    private suspend fun getWeaponFromDatabaseType(type: String): Weapon {
+        return withContext(Dispatchers.IO) {
+            var weaponReturned = weaponDatabase.getWeaponByType(type)
+            weaponReturned!!
+        }
+    }
+
+
+
+    /**
+     * Use weapon description to get weapon
+     */
+    fun useWeaponDesc(ammoDesc: String) {
+        getChosenWeaponDesc(ammoDesc)
+    }
+
+    //coroutine access
+    private fun getChosenWeaponDesc(ammoDesc: String) {
+        uiScope.launch {
+            getWeaponFromDatabaseDesc(ammoDesc)
+            //ammosList  = ammoDatabase.getAllAmmosWithThisWeapon(chosenWeapon.weaponAutoId)
+            Log.i("Desc Weapon?", "${chosenWeapon.value}")
+        }
+    }
+
+    //return from database
+    private suspend fun getWeaponFromDatabaseDesc(desc: String): Weapon {
+        return withContext(Dispatchers.IO) {
+            var weaponReturned = weaponDatabase.getWeaponByDesc(desc)
+            weaponReturned!!
+        }
     }
 
 
@@ -140,3 +166,33 @@ class CalculateViewModel(
         viewModelJob.cancel()
     }
 }
+
+
+//
+//    private val _chosenAmmo = MutableLiveData<WeaponAmmo>()
+//    val chosenAmmo: LiveData<WeaponAmmo>
+//        get() = _chosenAmmo
+//
+//
+//    /**
+//     * Get ammo using ammo type from spinner
+//     */
+//    fun useAmmoType(ammoType: String) {
+//        getChosenAmmoType(ammoType)
+//    }
+//
+//    fun getChosenAmmoType(ammoType: String) {
+//        uiScope.launch {
+//            getChosenAmmoTypeFromDatabase(ammoType)
+//            Log.i("Ammo Weapon?", "${chosenAmmo.value}")
+//        }
+//    }
+//
+//    //return from database
+//    private suspend fun getChosenAmmoTypeFromDatabase(ammoType: String): WeaponAmmo {
+//        return withContext(Dispatchers.IO) {
+//            var ammoTypeReturned = ammoDatabase.getAmmoType(ammoType)
+//            ammoTypeReturned!!
+//        }
+//    }
+//

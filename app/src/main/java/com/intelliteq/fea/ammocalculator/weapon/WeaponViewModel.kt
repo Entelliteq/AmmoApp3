@@ -68,7 +68,6 @@ class WeaponViewModel (
     private suspend fun getWeaponFromDatabase() : Weapon? {
         return withContext(Dispatchers.IO) {
             var weapon = database.getNewWeapon()
-            weapons = database.getAllWeapons() as ArrayList<Weapon>
             weapon
         }
     }
@@ -78,7 +77,6 @@ class WeaponViewModel (
      */
     fun doneNavigation() {
         _navigateToInputWeaponAmmo.value = null
-        Log.i("WEAPON LIST", "///// ${weapons}")
     }
 
     /**

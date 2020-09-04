@@ -98,5 +98,9 @@
         android:id="@+id/CalculateSelection"
         android:name="com.intelliteq.fea.ammocalculator.calculate.CalculateFragment"
         android:label="fragment_calculate"
-        tools:layout="@layout/fragment_calculate" />
+        tools:layout="@layout/fragment_calculate" >
+        <action
+            android:id="@+id/action_CalculateSelection_to_landingScreen"
+            app:destination="@id/landingScreen" />
+    </fragment>
 </navigation>

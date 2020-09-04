@@ -28,5 +28,11 @@ interface WeaponDao {
     @Query("SELECT * FROM weapon_table ORDER BY weaponAutoId DESC LIMIT 1" )
     fun getNewWeapon() : Weapon?
 
+    @Query("SELECT * FROM weapon_table WHERE weapon_type_id = :typeKey")
+    fun getWeaponByType(typeKey: String) : Weapon?
+
+    @Query("SELECT * FROM weapon_table WHERE weapon_description =:descKey")
+    fun getWeaponByDesc(descKey: String) : Weapon?
+
 
 }
