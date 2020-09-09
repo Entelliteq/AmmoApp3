@@ -60,6 +60,9 @@
         <argument
             android:name="weaponKey"
             app:argType="long" />
+        <action
+            android:id="@+id/componentAmmoI_to_component"
+            app:destination="@id/ComponentInput" />
     </fragment>
     <fragment
         android:id="@+id/ComponentInput"

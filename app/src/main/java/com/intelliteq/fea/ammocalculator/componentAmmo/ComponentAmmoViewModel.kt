@@ -46,12 +46,16 @@ class ComponentAmmoViewModel (
     val navigateToConfirmation: LiveData<ComponentAmmo>
         get() = _navigateToConfirmation
 
+    private val _navigateToAnotherComponent = MutableLiveData<ComponentAmmo>()
+    val navigateToAnotherComponent: LiveData<ComponentAmmo>
+        get() = _navigateToAnotherComponent
 
     /**
      * Initializing the componentAmmo variable
      */
     init {
         initializeComponentAmmo()
+
     }
 
     /**
@@ -90,15 +94,12 @@ class ComponentAmmoViewModel (
     /**
      * Resetting the navigation call to null
      */
-    fun doneNavigatingToCompAmmo() {
-        _navigateToInputAnotherComponentAmmo.value = null
-    }
-
-    /**
-     * Resetting the navigation call to null
-     */
     fun doneNavigatingToVerify() {
         _navigateToConfirmation.value = null
+    }
+
+    fun doneNavigateToAnotherComponent() {
+        _navigateToAnotherComponent.value = null
     }
 
     /**
@@ -115,10 +116,32 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.componentId = componentKey
                 update(thisCompAmmo)
                 _navigateToInputAnotherComponentAmmo.value = thisCompAmmo
-                Log.i("WEAPON COMP AMMO added ", " $thisCompAmmo")
+                Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
+
             }
         }
     }
+
+    /**
+     * Adding a ComponentAmmo using the "Add Another Ammo" button
+     * Retrieve all edit texts input by user and update database
+     */
+    fun addAnotherComponent() {
+        if(checkEditTexts()) {
+            uiScope.launch {
+                val thisCompAmmo = componentAmmo.value ?: return@launch
+                thisCompAmmo.componentAmmoTypeID = componentAmmoTypeEditText.value.toString()
+                thisCompAmmo.componentAmmoDescription = componentAmmoDescriptionEditText.value.toString()
+                thisCompAmmo.componentAmmoDODIC = componentAmmoDODICEditText.value.toString()
+                thisCompAmmo.componentId = componentKey
+                update(thisCompAmmo)
+                _navigateToAnotherComponent.value = thisCompAmmo
+                Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
+            }
+        }
+    }
+
+
 
     /**
      * Check if all the Edit Texts are filled
@@ -162,7 +185,7 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.weaponIdComponentAmmo = weaponKey
                 update(thisCompAmmo)
                 _navigateToConfirmation.value = thisCompAmmo
-                Log.i("WEAPON COMP AMMO added ", " $thisCompAmmo")
+                Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
 
             }
         }

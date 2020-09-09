@@ -104,11 +104,11 @@ class CalculateFragment : Fragment() {
 //            }
 //        })
 //
-//        binding.reset.setOnClickListener {
-//                view: View -> view.findNavController().navigate(R.id.action_CalculateSelection_to_landingScreen)
-//        }
-//
-//
+        binding.reset.setOnClickListener {
+                view: View -> view.findNavController().navigate(R.id.action_CalculateSelection_to_landingScreen)
+        }
+
+
 
         binding.spinnerFea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -123,9 +123,6 @@ class CalculateFragment : Fragment() {
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
 
-//        calculateViewModel.chosenWeapon.observe(viewLifecycleOwner, Observer {
-//            calculateViewModel.useWeaponFea(it.FEA_id)
-//        })
 
         binding.spinnerDesc.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(

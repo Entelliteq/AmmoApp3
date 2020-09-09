@@ -61,6 +61,7 @@ class WeaponAmmoViewModel(
      */
     init {
         initializeAmmo()
+        //Log.i("WEapon key", "$weaponKey")
     }
 
     /**
@@ -81,7 +82,7 @@ class WeaponAmmoViewModel(
      */
     private suspend fun getAmmoFromDatabase(): WeaponAmmo? {
         return withContext(Dispatchers.IO) {
-            var weaponammo = database.getNewWeapon()
+            var weaponammo = database.getNewAmmo()
             weaponammo
         }
     }
@@ -121,6 +122,8 @@ class WeaponAmmoViewModel(
             uiScope.launch {
                 val thisammo = weaponAmmo.value ?: return@launch
                 thisammo.weaponId = weaponKey
+               //Log.i("This ammo weapon id", "${thisammo.weaponId}")
+                //Log.i("This weapon key", "${weaponKey}")
                 thisammo.ammoType = weaponAmmoTypeEditText.value.toString()
                 thisammo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
                 thisammo.DODIC = weaponAmmoDODICEditText.value.toString()
@@ -132,7 +135,7 @@ class WeaponAmmoViewModel(
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToAddAnotherAmmo.value = thisammo
-                Log.i("WEAPON AMMO added ", " $thisammo")
+                Log.i("WEAPON AMMO updated ", " $thisammo")
             }
         }
     }
@@ -157,7 +160,7 @@ class WeaponAmmoViewModel(
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToConfirmation.value = weaponKey
-                Log.i("WEAPON AMMO added ", " $thisammo")
+                Log.i("WEAPON AMMO updated ", " $thisammo")
             }
         }
 
@@ -204,7 +207,7 @@ class WeaponAmmoViewModel(
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToInputComponent.value = thisammo
-                Log.i("WEAPON AMMO added ", " $thisammo")
+                Log.i("WEAPON AMMO updated ", " $thisammo")
             }
         }
     }

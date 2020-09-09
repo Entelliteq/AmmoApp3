@@ -1,6 +1,7 @@
 package com.intelliteq.fea.ammocalculator.componentAmmo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -74,20 +75,27 @@ class ComponentAmmoFragment : Fragment() {
             }
         )
 
+        componentAmmoViewModel.navigateToAnotherComponent.observe(
+            viewLifecycleOwner,
+            Observer { comp ->
+                comp?.let {
+                    this.findNavController()
+                        .navigate(ComponentAmmoFragmentDirections.ComponentAmmoIToComponent(comp.weaponIdComponentAmmo))
+                    componentAmmoViewModel.doneNavigateToAnotherComponent()
+                }
+            }
+        )
+
         //navigate to back to componentAmmo screen
         componentAmmoViewModel.navigateToInputAnotherComponentAmmo.observe(
             viewLifecycleOwner,
             Observer {
                 this.findNavController()
-                    .navigate(
-                        ComponentAmmoFragmentDirections.ComponentAmmoInputToSelf(
-                            it.componentId,
-                            it.weaponIdComponentAmmo
-                        )
-                    )
-                componentAmmoViewModel.doneNavigatingToCompAmmo()
+                    .navigate(ComponentAmmoFragmentDirections.ComponentAmmoInputToSelf(
+                        it.componentId, it.weaponIdComponentAmmo))
             }
         )
+
 
         // Inflate the layout for this fragment
         return binding.root

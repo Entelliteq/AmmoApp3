@@ -80,7 +80,7 @@ class WeaponViewModel (
     }
 
     /**
-     * Adding a Weapon using the "Inputr Ammo" button
+     * Adding a Weapon using the "Input Ammo" button
      * Retrieve all edit texts input by user and update database
      */
     fun onInputAmmo() {
@@ -91,7 +91,7 @@ class WeaponViewModel (
             thisWeapon.FEA_id = thisWeapon.weaponAutoId.toInt()
             update(thisWeapon)
             _navigateToInputWeaponAmmo.value = weapon.value
-            Log.i("WEAPON added", "///// ${thisWeapon}")
+            Log.i("WEAPON updated", "///// ${thisWeapon}")
 
 
         }

@@ -99,7 +99,7 @@ class ComponentViewModel(
             thisComponent.FEA_id = thisComponent.weaponId.toInt()
             update(thisComponent)
             _navigateToConfirmation.value = weaponKey
-            Log.i("WEAPON COMP added ", " ${thisComponent}")
+            Log.i("WEAPON COMP updated ", " ${thisComponent}")
         }
 
     }
@@ -117,7 +117,7 @@ class ComponentViewModel(
             thisComponent.FEA_id = thisComponent.weaponId.toInt()
             update(thisComponent)
             _navigateToInputComponentAmmo.value = component.value
-           Log.i("WEAPON COMP added ", " ${thisComponent}")
+           Log.i("WEAPON COMP updated ", " ${thisComponent}")
         }
 
     }
@@ -145,7 +145,7 @@ class ComponentViewModel(
             thisComponent.FEA_id = thisComponent.weaponId.toInt()
             update(thisComponent)
             _navigateToAnotherComponent.value = weaponKey
-            Log.i("WEAPON COMP added ", " ${thisComponent}")
+            Log.i("WEAPON COMP updated ", " ${thisComponent}")
         }
     }
 

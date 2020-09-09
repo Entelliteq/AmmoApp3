@@ -60,9 +60,9 @@ fun setSpinnerEntriesDescription(spinner: Spinner, entries: List<Weapon>?) {
 
 }
 
-@BindingAdapter("android:entriesAmmoType", "app:weapon")
-fun setSpinnerEntriesAmmoType(spinner: Spinner, entries: List<WeaponAmmo>?, weapon: Weapon) {
-    val entriesInt = convertEntriesToAmmoType(entries, weapon)
+@BindingAdapter("android:entriesAmmoType")
+fun setSpinnerEntriesAmmoType(spinner: Spinner, entries: List<WeaponAmmo>?) {
+    val entriesInt = convertEntriesToAmmoType(entries)
     //Log.i("Weapon Bind", "$entries")
     val arrayAdapter = ArrayAdapter(spinner.context, R.layout.simple_spinner_item, entriesInt)
     arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
@@ -95,10 +95,10 @@ fun convertEntriesToDescription(entries: List<Weapon>?) : List<String> {
     }
     return type
 }
-fun convertEntriesToAmmoType(entries: List<WeaponAmmo>?, weapon: Weapon) : List<String> {
+fun convertEntriesToAmmoType(entries: List<WeaponAmmo>?) : List<String> {
     val type = mutableListOf<String>()
     entries?.forEach {
-        if(it.weaponId == weapon.weaponId) type.add(it.ammoType)
+        type.add(it.ammoType)
     }
     return type
 }

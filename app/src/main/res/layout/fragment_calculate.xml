@@ -320,7 +320,7 @@
                         android:layout_height="match_parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_gravity="center_horizontal"
-
+                        android:entriesAmmoType="@{calculateViewModel.chosenAmmoList}"
                         app:layout_constraintStart_toEndOf="@+id/ammoTypeCalc"
                         app:layout_constraintTop_toTopOf="parent" />
 
