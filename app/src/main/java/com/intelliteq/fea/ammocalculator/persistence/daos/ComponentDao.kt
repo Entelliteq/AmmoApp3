@@ -21,6 +21,9 @@ interface ComponentDao {
     @Query("SELECT * FROM component_table WHERE componentId = :key" )
     fun get(key: Long?): Component
 
+    @Query("SELECT * FROM component_table WHERE component_type_id = :key")
+    fun getWithType(key: String) : Component
+
     @Query("SELECT * FROM component_table")
     fun getAll(): LiveData<Array<Component>>
 
@@ -34,5 +37,5 @@ interface ComponentDao {
     fun countAllComponents(key: Long?) : Int
 
     @Query("SELECT * FROM component_table WHERE weapon_for_component = :key")
-    fun getAllComponentsForThisWeapon(key: Long?) : Component
+    fun getAllComponentsForThisWeapon(key: Long?) : List<Component>
 }

@@ -36,4 +36,7 @@ interface ComponentAmmoDao {
 
     @Query("SELECT * FROM component_ammo_table WHERE weapon_id_for_component_ammo =:key ")
     fun getComponentAmmoForThisWeapon(key: Long?) : ComponentAmmo
+
+    @Query("SELECT * FROM component_ammo_table WHERE component_id_for_component_ammo = :key")
+    fun getComponentAmmosForThisComponent(key: Long?) : List<ComponentAmmo>
 }

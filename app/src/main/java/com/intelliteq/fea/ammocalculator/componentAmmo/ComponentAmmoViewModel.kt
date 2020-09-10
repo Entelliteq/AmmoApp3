@@ -114,9 +114,10 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.componentAmmoDescription = componentAmmoDescriptionEditText.value.toString()
                 thisCompAmmo.componentAmmoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
+                thisCompAmmo.weaponIdComponentAmmo = weaponKey
                 update(thisCompAmmo)
                 _navigateToInputAnotherComponentAmmo.value = thisCompAmmo
-                Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
+                //Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
 
             }
         }
@@ -134,9 +135,10 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.componentAmmoDescription = componentAmmoDescriptionEditText.value.toString()
                 thisCompAmmo.componentAmmoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
+                thisCompAmmo.weaponIdComponentAmmo = weaponKey
                 update(thisCompAmmo)
                 _navigateToAnotherComponent.value = thisCompAmmo
-                Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
+                //Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
             }
         }
     }
@@ -185,7 +187,7 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.weaponIdComponentAmmo = weaponKey
                 update(thisCompAmmo)
                 _navigateToConfirmation.value = thisCompAmmo
-                Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
+                //Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
 
             }
         }

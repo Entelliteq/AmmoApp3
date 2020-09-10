@@ -135,7 +135,7 @@ class WeaponAmmoViewModel(
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToAddAnotherAmmo.value = thisammo
-                Log.i("WEAPON AMMO updated ", " $thisammo")
+               // Log.i("WEAPON AMMO updated ", " $thisammo")
             }
         }
     }
@@ -160,7 +160,7 @@ class WeaponAmmoViewModel(
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToConfirmation.value = weaponKey
-                Log.i("WEAPON AMMO updated ", " $thisammo")
+                //Log.i("WEAPON AMMO updated ", " $thisammo")
             }
         }
 
@@ -207,7 +207,7 @@ class WeaponAmmoViewModel(
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToInputComponent.value = thisammo
-                Log.i("WEAPON AMMO updated ", " $thisammo")
+                //Log.i("WEAPON AMMO updated ", " $thisammo")
             }
         }
     }

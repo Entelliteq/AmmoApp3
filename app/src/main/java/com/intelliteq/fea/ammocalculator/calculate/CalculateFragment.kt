@@ -71,39 +71,13 @@ class CalculateFragment : Fragment() {
                 binding.spinnerFea
                 binding.spinnerDesc
                 binding.spinnerType
+                binding.spinnerCompAmmo
+                binding.spinnerCompType
                 binding.spinnerCombat
             }
         })
 
-//        calculateViewModel.ammos.observe(viewLifecycleOwner, Observer {
-//            it?.let {
-//                binding.spinnerAmmoType
-//            }
-//        })
 
-//        calculateViewModel.chosenWeapon.observe(viewLifecycleOwner, Observer {
-//            it?.let {
-//                binding.spinnerFea
-//                binding.spinnerDesc
-//                binding.spinnerType
-//                binding.spinnerCombat
-//
-//            }
-//        })
-//
-//        calculateViewModel.chosenAmmo.observe(viewLifecycleOwner, Observer {
-//            it?.let {
-//                binding.spinnerAmmoType
-//            }
-//        })
-//
-//        calculateViewModel.ammosList.observe(viewLifecycleOwner, Observer {
-//            it?.let {
-//                binding.spinnerAmmoType
-//                Log.i("Weapon FRAG", "//List $it")
-//            }
-//        })
-//
         binding.reset.setOnClickListener {
                 view: View -> view.findNavController().navigate(R.id.action_CalculateSelection_to_landingScreen)
         }
@@ -153,6 +127,21 @@ class CalculateFragment : Fragment() {
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
 
+        binding.spinnerCompType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                val int = parent.getItemAtPosition(position)
+                //Log.i("Weapon Type", "//** CompID $int")
+                calculateViewModel.useComponent(int as String)
+               // Log.i("Weapon Type", "CompID $int")
+            }
+                override fun onNothingSelected(parent: AdapterView<*>) {}
+            }
+
 
         binding.spinnerCombat.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -167,21 +156,6 @@ class CalculateFragment : Fragment() {
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
-
-//
-//        binding.spinnerAmmoType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(
-//                parent: AdapterView<*>,
-//                view: View,
-//                position: Int,
-//                id: Long
-//            ) {
-//                val int = parent.getItemAtPosition(position)
-//                calculateViewModel.useAmmoType(int as String)
-//                //Log.i("Weapon Desc", "$int")
-//            }
-//            override fun onNothingSelected(parent: AdapterView<*>) {}
-//        }
 
 
         return binding.root

@@ -13,6 +13,7 @@ import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentDao
 import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponAmmoDao
 import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponDao
 import com.intelliteq.fea.ammocalculator.persistence.models.Component
+import com.intelliteq.fea.ammocalculator.persistence.models.ComponentAmmo
 import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
 import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
 import kotlinx.coroutines.*
@@ -29,22 +30,14 @@ class CalculateViewModel(
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private var thisWeapon = MutableLiveData<Weapon?>()
+   // private var thisWeapon = MutableLiveData<Weapon?>()
 
     val weapons = weaponDatabase.getAllWeapons()
-    //var ammosList = ammoDatabase.getAll()
-    val components = compoDatabase.getAll()
-    val compAmmos = compAmmoDatabase.getAll()
 
     //read user input
     //pickers
     private val _numberOfDaysPicker = MutableLiveData<Int>()
     private val _numberOfWeaponsPicker = MutableLiveData<Int>()
-
-    //spinners, first choice
-    var _FEAidSpinner = MutableLiveData<Int>()
-    var FEAidSpinner: LiveData<Int> = _FEAidSpinner
-
 
 
     //Navigation Mutable Live Data
@@ -68,55 +61,103 @@ class CalculateViewModel(
         Log.i("#Weapon Days: ", " $number")
     }
 
-    private val _chosenWeapon = MutableLiveData<Weapon>()
-    val chosenWeapon: LiveData<Weapon>
-        get() = _chosenWeapon
-    /**
-     * Using the FEA number to get the weapon
-     */
-    fun useWeaponFea(fea: Int) {
-        _FEAidSpinner.value = fea
-        getChosenWeaponFEA(fea)
 
-    }
+    /**
+     * Using the FEA number to get the weapon, ammo and component
+     */
 
     private val _chosenAmmoList = MutableLiveData<List<WeaponAmmo>>()
     val chosenAmmoList: LiveData<List<WeaponAmmo>>
         get() = _chosenAmmoList
 
+    private val _chosenWeapon = MutableLiveData<Weapon>()
+    val chosenWeapon: LiveData<Weapon>
+        get() = _chosenWeapon
+
+    private val _chosenComponentList = MutableLiveData<List<Component>>()
+    val  chosenComponentList: LiveData<List<Component>>
+        get() = _chosenComponentList
+
+    fun useWeaponFea(fea: Int) {
+        getChosenWeaponFEA(fea)
+    }
+
     //coroutine access
     private fun getChosenWeaponFEA(fea: Int) {
         uiScope.launch {
             _chosenWeapon.value = getWeaponFromDatabaseFEA(fea)
-            Log.i("Chosen Weapon?", ": ${chosenWeapon.value}")
             _chosenAmmoList.value = getChosenAmmoFromDatabaseUsingWeapon()
-           // Log.i("AmmoL Weapon?", "ListAF///: ${ammosList}")
-
+            _chosenComponentList.value = getChosenComponentFromDatabase()
         }
 
     }
 
+    //Component from database
+    private suspend fun getChosenComponentFromDatabase(): List<Component> {
+        return withContext(Dispatchers.IO){
+            var componentsReturned = compoDatabase.getAllComponentsForThisWeapon(chosenWeapon.value!!.weaponAutoId)
+            //Log.i("Weapon COMPS:", "//** $componentsReturned")
+            //Log.i("Weapon ID:", " ${chosenWeapon.value!!.weaponAutoId}")
+            componentsReturned
+        }
+    }
 
-
+    //Ammo from database
      private suspend fun getChosenAmmoFromDatabaseUsingWeapon() : List<WeaponAmmo>  {
         return withContext(Dispatchers.IO){
             var  ammosReturned = ammoDatabase.getAllAmmosForThisWeapon(chosenWeapon.value!!.weaponAutoId)
-            Log.i("Weapon chosen:", "${chosenWeapon.value}")
-            Log.i("Weapon ammo", " count: ${ammoDatabase.countAllAmmos(chosenWeapon.value!!.weaponAutoId)}")
-            Log.i("Weapon ammo", " count all: ${ammoDatabase.countAll()}")
-            Log.i("ALL for weapon", "${ammoDatabase.getAllAmmosForThisWeapon(chosenWeapon.value!!.weaponAutoId)}")
-            Log.i("Weapon all" , "${weaponDatabase.getAllWeapons().value}")
-            Log.i("Weapon this one" , "${weaponDatabase.get(chosenWeapon.value!!.weaponAutoId)}")
-            Log.i("Ammos returned", "weapon ${ammosReturned}")
             ammosReturned
         }
     }
 
-    //return from database
+    //Weapon from database
     private suspend fun getWeaponFromDatabaseFEA(fea: Int): Weapon? {
         return withContext(Dispatchers.IO) {
             var weaponReturned = weaponDatabase.get(fea.toLong())
             weaponReturned!!
+        }
+    }
+
+    /**
+     * Chosen Component for ComponentAmmos
+     */
+
+    private val _chosenComponentAmmoList = MutableLiveData<List<ComponentAmmo>>()
+    val  chosenComponentAmmoList: LiveData<List<ComponentAmmo>>
+        get() = _chosenComponentAmmoList
+
+    private val _chosenComponent = MutableLiveData<Component>()
+    val chosenComponent: LiveData<Component>
+        get() = _chosenComponent
+
+    fun useComponent(compID: String) {
+        getChosenComponent(compID)
+       // getChosenComponentAmmoList(chosenComponent.value!!)
+    }
+
+    private fun getChosenComponent(compID: String) {
+        uiScope.launch {
+            _chosenComponent.value = getComponentFromDatabase(compID)
+            _chosenComponentAmmoList.value = getComponentAmmoListFromDatabase()
+           // Log.i("Weapon comp", "//**DB: ${chosenComponent.value}")
+           // _chosenComponentAmmoList.value =
+        }
+    }
+
+    private suspend fun getComponentFromDatabase(id: String) : Component {
+        return withContext(Dispatchers.IO) {
+            var componentReturned = compoDatabase.getWithType(id)
+            componentReturned
+        }
+    }
+
+
+
+    //ComponentAmmo from database
+    private suspend fun getComponentAmmoListFromDatabase() : List<ComponentAmmo> {
+        return withContext(Dispatchers.IO) {
+            var componentAmmosReturned = compAmmoDatabase.getComponentAmmosForThisComponent(chosenComponent.value!!.componentId)
+            componentAmmosReturned
         }
     }
 
@@ -133,8 +174,6 @@ class CalculateViewModel(
     private fun getChosenWeaponType(type: String) {
         uiScope.launch {
              getWeaponFromDatabaseType(type)
-            //ammosList  = ammoDatabase.getAllAmmosWithThisWeapon(chosenWeapon.weaponAutoId)
-            Log.i("Type Weapon?", "${chosenWeapon.value}")
         }
     }
 
@@ -159,7 +198,6 @@ class CalculateViewModel(
     private fun getChosenWeaponDesc(ammoDesc: String) {
         uiScope.launch {
             getWeaponFromDatabaseDesc(ammoDesc)
-            //ammosList  = ammoDatabase.getAllAmmosWithThisWeapon(chosenWeapon.weaponAutoId)
             Log.i("Desc Weapon?", "${chosenWeapon.value}")
         }
     }
@@ -182,32 +220,3 @@ class CalculateViewModel(
     }
 }
 
-
-//
-//    private val _chosenAmmo = MutableLiveData<WeaponAmmo>()
-//    val chosenAmmo: LiveData<WeaponAmmo>
-//        get() = _chosenAmmo
-//
-//
-//    /**
-//     * Get ammo using ammo type from spinner
-//     */
-//    fun useAmmoType(ammoType: String) {
-//        getChosenAmmoType(ammoType)
-//    }
-//
-//    fun getChosenAmmoType(ammoType: String) {
-//        uiScope.launch {
-//            getChosenAmmoTypeFromDatabase(ammoType)
-//            Log.i("Ammo Weapon?", "${chosenAmmo.value}")
-//        }
-//    }
-//
-//    //return from database
-//    private suspend fun getChosenAmmoTypeFromDatabase(ammoType: String): WeaponAmmo {
-//        return withContext(Dispatchers.IO) {
-//            var ammoTypeReturned = ammoDatabase.getAmmoType(ammoType)
-//            ammoTypeReturned!!
-//        }
-//    }
-//

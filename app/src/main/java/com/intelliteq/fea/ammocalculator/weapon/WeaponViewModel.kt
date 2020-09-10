@@ -91,7 +91,7 @@ class WeaponViewModel (
             thisWeapon.FEA_id = thisWeapon.weaponAutoId.toInt()
             update(thisWeapon)
             _navigateToInputWeaponAmmo.value = weapon.value
-            Log.i("WEAPON updated", "///// ${thisWeapon}")
+            //Log.i("WEAPON updated", "///// ${thisWeapon}")
 
 
         }
