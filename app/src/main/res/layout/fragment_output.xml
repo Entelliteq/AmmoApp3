@@ -1,0 +1,44 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="calculationOutputViewModel"
+            type="com.intelliteq.fea.ammocalculator.calculationOutput.CalculationOutputViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutOutputScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.intelliteq.fea.ammocalculator.calculationOutput.OutputFragment">
+
+        <TextView
+            android:id="@+id/OutputTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/calculation_complete"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerViewOutputScreen"
+            android:layout_width="match_parent"
+            android:layout_height="247dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.571"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/OutputTextView" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -21,10 +21,11 @@ import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
 /**
  * Binding Adapter to set min and max in number pickers.
  */
-@BindingAdapter(value = ["app:setMinMaxPicker", "android:max"], requireAll = true)
-fun setMinMaxPicker(view: NumberPicker, min: Int, max: Int) {
+@BindingAdapter(value = ["app:setMinMaxPicker", "android:max", "android:default"], requireAll = true)
+fun setMinMaxPicker(view: NumberPicker, min: Int, max: Int, value: Int) {
     view.minValue = min
     view.maxValue = max
+    view.value = value
     view.wrapSelectorWheel = true
 }
 

@@ -10,7 +10,7 @@
             type="com.intelliteq.fea.ammocalculator.calculate.CalculateViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,78 +18,82 @@
             android:id="@+id/textViewCalculate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
             android:text="@string/calculate"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textColor="#000000" />
 
-        <Button
-            android:id="@+id/reset"
-            android:layout_width="0dp"
-            android:layout_height="75dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="36dp"
-            android:text="@string/reset"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/calculate"
-            app:layout_constraintStart_toStartOf="@id/guidelineLeft" />
-
-        <Button
-            android:id="@+id/calculate"
-            android:layout_width="0dp"
-            android:layout_height="76dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="36dp"
-            android:text="@string/calculate"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-            app:layout_constraintStart_toEndOf="@id/reset" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineLeft"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/buttonsLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="10dp" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="10dp" />
+            <Button
+                android:id="@+id/addWeapon"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/add_another_weapon"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/reset"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/reset"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <Button
+                    android:id="@+id/calculate"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+
+                    android:onClick="@{() -> calculateViewModel.calculate()}"
+                    android:text="@string/calculate"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            </LinearLayout>
+        </LinearLayout>
 
         <ScrollView
 
             android:id="@+id/scrollviewCalculate"
-            android:layout_width="375dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="30dp"
-            app:layout_constraintBottom_toTopOf="@+id/reset"
-            app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCalculate">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/buttonsLayout"
+            android:layout_below="@+id/textViewCalculate"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
 
@@ -111,6 +115,7 @@
                         android:id="@+id/pickerDays"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
+                        android:default="@{1}"
                         android:max="@{21}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/numberDaysCalc"
@@ -146,6 +151,7 @@
                         android:id="@+id/pickerWeapons"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
+                        android:default="@{1}"
                         android:max="@{99}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/numberWeaponsCalc"
@@ -196,8 +202,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="40dp">
+                    android:layout_marginTop="40dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/feaTextView"
@@ -215,8 +221,8 @@
                         android:id="@+id/spinnerFea"
                         android:layout_width="275dp"
                         android:layout_height="match_parent"
-                        android:entriesFea="@{calculateViewModel.weapons}"
                         android:layout_gravity="center_horizontal"
+                        android:entriesFea="@{calculateViewModel.weapons}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/feaTextView"
                         app:layout_constraintTop_toTopOf="parent">
@@ -247,8 +253,8 @@
                         android:id="@+id/spinnerType"
                         android:layout_width="230dp"
                         android:layout_height="match_parent"
-                        android:entriesType="@{calculateViewModel.weapons}"
                         android:layout_gravity="center_horizontal"
+                        android:entriesType="@{calculateViewModel.weapons}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/weaponTypeCalc"
                         app:layout_constraintTop_toTopOf="parent">
@@ -281,9 +287,9 @@
                         android:id="@+id/spinnerDesc"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
                         android:entriesDescription="@{calculateViewModel.weapons}"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_gravity="center_horizontal"
                         app:layout_constraintStart_toEndOf="@+id/weaponDescCalc"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -292,12 +298,11 @@
                 </LinearLayout>
 
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="40dp">
+                    android:layout_marginTop="40dp"
+                    android:orientation="horizontal">
 
 
                     <TextView
@@ -318,9 +323,9 @@
                         android:id="@+id/spinnerAmmoType"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         android:layout_gravity="center_horizontal"
                         android:entriesAmmoType="@{calculateViewModel.chosenAmmoList}"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/ammoTypeCalc"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -350,9 +355,9 @@
                         android:id="@+id/spinnerCompType"
                         android:layout_width="175dp"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
                         android:entriesCompType="@{calculateViewModel.chosenComponentList}"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_gravity="center_horizontal"
                         app:layout_constraintStart_toEndOf="@+id/compTypeCalc"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -363,8 +368,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
 
                     <TextView
@@ -385,8 +390,8 @@
                         android:id="@+id/spinnerCompAmmo"
                         android:layout_width="175dp"
                         android:layout_height="match_parent"
-                        android:entriesCompAmmoType="@{calculateViewModel.chosenComponentAmmoList}"
                         android:layout_gravity="center_horizontal"
+                        android:entriesCompAmmoType="@{calculateViewModel.chosenComponentAmmoList}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/compAmmoCalc"
                         app:layout_constraintTop_toTopOf="parent">
@@ -400,6 +405,7 @@
             </LinearLayout>
         </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
 
 </layout>

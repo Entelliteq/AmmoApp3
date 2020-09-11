@@ -1,30 +1,19 @@
 package com.intelliteq.fea.ammocalculator.calculate
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewParent
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.NumberPicker
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.intelliteq.fea.ammocalculator.R
-import com.intelliteq.fea.ammocalculator.component.ComponentFragmentArgs
-import com.intelliteq.fea.ammocalculator.component.ComponentFragmentDirections
-import com.intelliteq.fea.ammocalculator.component.ComponentViewModel
-import com.intelliteq.fea.ammocalculator.component.ComponentViewModelFactory
 import com.intelliteq.fea.ammocalculator.databinding.FragmentCalculateBinding
 import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
-import kotlinx.android.synthetic.main.fragment_calculate.*
 
 
 class CalculateFragment : Fragment() {
@@ -47,9 +36,14 @@ class CalculateFragment : Fragment() {
         val dataSourceAmmo = AmmoRoomDatabase.getAppDatabase(application)!!.weaponAmmoDao
         val dataSourceComp = AmmoRoomDatabase.getAppDatabase(application)!!.componentDao
         val dataSourceCompAmmo = AmmoRoomDatabase.getAppDatabase(application)!!.componentAmmoDao
+        val dataSourceCalculation =
+            AmmoRoomDatabase.getAppDatabase(application)!!.singleWeaponCalculationDao
 
         //creating a view model using the factory
-        val viewModelFactory = CalculateViewModelFactory(dataSourceWeapon, dataSourceAmmo, dataSourceComp, dataSourceCompAmmo, application)
+        val viewModelFactory = CalculateViewModelFactory(
+            dataSourceWeapon, dataSourceAmmo,
+            dataSourceComp, dataSourceCompAmmo, dataSourceCalculation, application
+        )
         val calculateViewModel =
             ViewModelProvider(this, viewModelFactory)
                 .get(CalculateViewModel::class.java)
@@ -70,6 +64,7 @@ class CalculateFragment : Fragment() {
             it?.let {
                 binding.spinnerFea
                 binding.spinnerDesc
+                binding.spinnerAmmoType
                 binding.spinnerType
                 binding.spinnerCompAmmo
                 binding.spinnerCompType
@@ -78,12 +73,23 @@ class CalculateFragment : Fragment() {
         })
 
 
-        binding.reset.setOnClickListener {
-                view: View -> view.findNavController().navigate(R.id.action_CalculateSelection_to_landingScreen)
-        }
+        //to calculate screen
+        calculateViewModel.navigateToCalculateScreen.observe(viewLifecycleOwner,
+            Observer { calculation ->
+                calculation?.let {
+                    this.findNavController()
+                        .navigate(
+                            CalculateFragmentDirections.CalculateSelectionToOutputCalculation(
+                                calculation.calculationId
+                            )
+                        )
+                }
+
+            })
 
 
 
+        //FEA spinner
         binding.spinnerFea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -94,10 +100,11 @@ class CalculateFragment : Fragment() {
                 val int = parent.getItemAtPosition(position)
                 calculateViewModel.useWeaponFea(int as Int)
             }
-                override fun onNothingSelected(parent: AdapterView<*>) {}
-            }
 
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
 
+        //Description spinner
         binding.spinnerDesc.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -109,10 +116,11 @@ class CalculateFragment : Fragment() {
                 calculateViewModel.useWeaponDesc(int as String)
                 //Log.i("Weapon Desc", "$int")
             }
-                override fun onNothingSelected(parent: AdapterView<*>) {}
-            }
 
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
 
+        //Type spinner
         binding.spinnerType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -122,27 +130,31 @@ class CalculateFragment : Fragment() {
             ) {
                 val int = parent.getItemAtPosition(position)
                 calculateViewModel.useWeaponType(int as String)
-               // Log.i("Weapon Type", "$int")
+                // Log.i("Weapon Type", "$int")
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+        //Component Spinner
+        binding.spinnerCompType.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                    val int = parent.getItemAtPosition(position)
+                    //Log.i("Weapon Type", "//** CompID $int")
+                    calculateViewModel.useComponent(int as String)
+                    // Log.i("Weapon Type", "CompID $int")
+                }
+
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
 
-        binding.spinnerCompType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
-                val int = parent.getItemAtPosition(position)
-                //Log.i("Weapon Type", "//** CompID $int")
-                calculateViewModel.useComponent(int as String)
-               // Log.i("Weapon Type", "CompID $int")
-            }
-                override fun onNothingSelected(parent: AdapterView<*>) {}
-            }
-
-
+        //Combat Intensity spinner
         binding.spinnerCombat.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -152,8 +164,43 @@ class CalculateFragment : Fragment() {
             ) {
                 val combat = parent.getItemAtPosition(position)
                 calculateViewModel.useCombat(combat as String)
-               // Log.i("Weapon Combat", "$combat")
+                // Log.i("Weapon Combat", "$combat")
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+
+        //ComponentAmmo spinner
+        binding.spinnerCompAmmo.onItemSelectedListener = object : AdapterView.OnItemSelectedListener  {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                val comp = parent.getItemAtPosition(position)
+                calculateViewModel.useComponentAmmo(comp as String)
+                // Log.i("Weapon Combat", "$combat")
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+
+        }
+
+        //Ammo spinner
+        binding.spinnerAmmoType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                val comp = parent.getItemAtPosition(position)
+                calculateViewModel.useAmmo(comp as String)
+                // Log.i("Weapon Combat", "$combat")
+            }
+
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 

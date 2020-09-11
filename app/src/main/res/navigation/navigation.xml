@@ -103,7 +103,16 @@
         android:label="fragment_calculate"
         tools:layout="@layout/fragment_calculate" >
         <action
-            android:id="@+id/action_CalculateSelection_to_landingScreen"
-            app:destination="@id/landingScreen" />
+            android:id="@+id/calculateSelection_to_outputCalculation"
+            app:destination="@id/CalculationOutputScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/CalculationOutputScreen"
+        android:name="com.intelliteq.fea.ammocalculator.calculationOutput.OutputFragment"
+        android:label="fragment_output"
+        tools:layout="@layout/fragment_output" >
+        <argument
+            android:name="CalculationKey"
+            app:argType="long" />
     </fragment>
 </navigation>

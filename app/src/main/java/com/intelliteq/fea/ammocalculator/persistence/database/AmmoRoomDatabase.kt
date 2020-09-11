@@ -4,17 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentAmmoDao
-import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentDao
-import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponAmmoDao
-import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponDao
-import com.intelliteq.fea.ammocalculator.persistence.models.Component
-import com.intelliteq.fea.ammocalculator.persistence.models.ComponentAmmo
-import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
-import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
+import com.intelliteq.fea.ammocalculator.persistence.daos.*
+import com.intelliteq.fea.ammocalculator.persistence.models.*
 
 @Database(
-    entities = [Weapon::class, WeaponAmmo::class, Component::class, ComponentAmmo::class],
+    entities = [Weapon::class, WeaponAmmo::class, Component::class, ComponentAmmo::class, SingleWeaponCalculation::class],
     version = 1,
     exportSchema = false
 )
@@ -23,6 +17,7 @@ abstract class AmmoRoomDatabase : RoomDatabase() {
     abstract val weaponAmmoDao: WeaponAmmoDao
     abstract val componentDao: ComponentDao
     abstract val componentAmmoDao: ComponentAmmoDao
+    abstract val singleWeaponCalculationDao: SingleWeaponCalculationDao
 
 
     companion object {

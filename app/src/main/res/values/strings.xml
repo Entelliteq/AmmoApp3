@@ -22,9 +22,8 @@
     <string name="confirmation">confirmation</string>
     <string name="save">save</string>
     <string name="edit">edit</string>
-    <string name="calculate_screen">Calculate Screen</string>
     <string name="reset">reset</string>
-    <string name="calculate">calculate</string>
+    <string name="calculate">Calculate</string>
     <string name="choose_weapon">Weapon By Type and Desc</string>
     <string name="number_of_weapons">Number of Weapons:</string>
     <string name="number_of_days">Number of Days:</string>
@@ -35,12 +34,14 @@
     <string name="ammo_type">Ammo Type:</string>
     <string name="component_type">Component Type:</string>
     <string name="component_ammo">Component Ammo:</string>
+    <string name="calculation_complete">Calculation Complete</string>
+    <string name="add_another_weapon">Add Another Weapon</string>
     <string-array name="combat_types">
-        <item>Training</item>
-        <item>Security</item>
-        <item>Sustain</item>
-        <item>Light Assault</item>
-        <item>Medium Assault</item>
-        <item>Heavy Assault</item>
+        <item name="train">Training</item>
+        <item name="security">Security</item>
+        <item name="sustain">Sustain</item>
+        <item name="light">Light Assault</item>
+        <item name="medium">Medium Assault</item>
+        <item name="heavy">Heavy Assault</item>
     </string-array>
 </resources>
