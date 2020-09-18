@@ -4,8 +4,7 @@ import androidx.room.*
 import com.intelliteq.fea.ammocalculator.persistence.models.GroupCalculation
 import com.intelliteq.fea.ammocalculator.persistence.models.SingleWeaponCalculation
 
-@Dao
-interface GroupCalculationDao {
+interface GroupCalculationsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg model: GroupCalculation)
 
