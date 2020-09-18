@@ -38,9 +38,10 @@ class CalculateFragment : Fragment() {
         val dataSourceCompAmmo = AmmoRoomDatabase.getAppDatabase(application)!!.componentAmmoDao
         val dataSourceCalculation =
             AmmoRoomDatabase.getAppDatabase(application)!!.singleWeaponCalculationDao
+        val arguments = CalculateFragmentArgs.fromBundle(arguments)
 
         //creating a view model using the factory
-        val viewModelFactory = CalculateViewModelFactory(
+        val viewModelFactory = CalculateViewModelFactory(arguments.calculationKey,
             dataSourceWeapon, dataSourceAmmo,
             dataSourceComp, dataSourceCompAmmo, dataSourceCalculation, application
         )

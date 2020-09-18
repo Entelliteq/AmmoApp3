@@ -33,10 +33,11 @@ class OutputFragment : Fragment() {
         //getting the application, arguments set and database
         val application = requireNotNull(this.activity).application
 
-        val dataSourceCalculation = AmmoRoomDatabase.getAppDatabase(application)!!.singleWeaponCalculationDao
+        val dataSourceCalculation = AmmoRoomDatabase.getAppDatabase(application)!!.calculationsDao
+        val arguments = OutputFragmentArgs.fromBundle(arguments)
 
         //creating a view model using the factory
-        val viewModelFactory = CalculationOutputViewModelFactory( dataSourceCalculation, application)
+        val viewModelFactory = CalculationOutputViewModelFactory( arguments.calculationKey, dataSourceCalculation, application)
 
         val calculateOutputViewModel = ViewModelProvider(this, viewModelFactory)
             .get(CalculationOutputViewModel::class.java)

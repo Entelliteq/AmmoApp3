@@ -2,14 +2,14 @@ package com.intelliteq.fea.ammocalculator.calculationOutput
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
-import com.intelliteq.fea.ammocalculator.persistence.daos.GroupCalculationsDao
-import com.intelliteq.fea.ammocalculator.persistence.daos.SingleWeaponCalculationDao
+import com.intelliteq.fea.ammocalculator.persistence.daos.CalculationsDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
 class CalculationOutputViewModel(
-    val GroupCalculation: GroupCalculationsDao,
+    val calculationKey: Long,
+    val calculations: CalculationsDao,
     val application: Application
 ) : ViewModel() {
 

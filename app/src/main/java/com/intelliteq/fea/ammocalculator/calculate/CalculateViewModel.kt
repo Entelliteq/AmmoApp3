@@ -11,6 +11,7 @@ import com.intelliteq.fea.ammocalculator.persistence.models.*
 import kotlinx.coroutines.*
 
 class CalculateViewModel(
+    val calculationKey: Long ,
     val weaponDatabase: WeaponDao,
     val ammoDatabase: WeaponAmmoDao,
     val compoDatabase: ComponentDao,

@@ -105,6 +105,13 @@
         <action
             android:id="@+id/calculateSelection_to_outputCalculation"
             app:destination="@id/CalculationOutputScreen" />
+        <action
+            android:id="@+id/another_weapon_to_calculation"
+            app:destination="@id/CalculateSelection" />
+        <argument
+            android:name="CalculationKey"
+            app:argType="long"
+            android:defaultValue="-1L" />
     </fragment>
     <fragment
         android:id="@+id/CalculationOutputScreen"
