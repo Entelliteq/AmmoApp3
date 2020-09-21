@@ -5,16 +5,19 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "single_calculation_table")
-class SingleWeaponCalculation (
+data class SingleWeaponCalculation (
 
     @PrimaryKey(autoGenerate = true)
-    var calculationId: Long =0L,
+    var weapon_calculationId: Long =0L,
 
-    @ColumnInfo(name= "assault_type")
-    var assaultType: Int = 0,
+    @ColumnInfo(name = "id_group_calculation")
+    var group_calculationID: Long = 0L,
 
-    @ColumnInfo(name = "num_days")
-    var numberOfDays: Int = 0,
+//    @ColumnInfo(name= "assault_type")
+//    var assaultType: Int = 0,
+//
+//    @ColumnInfo(name = "num_days")
+//    var numberOfDays: Int = 0,
 
     @ColumnInfo(name = "num_weapons")
     var numberOfWeapons: Int = 0,

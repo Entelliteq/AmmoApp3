@@ -33,9 +33,7 @@ class ConfirmationFragment : Fragment() {
                 view: View -> view.findNavController().navigate(R.id.confirmation_to_calculate)
         }
 
-        binding.edit.setOnClickListener {
-                view: View -> view.findNavController().navigate(R.id.confirmation_to_weapon_input)
-        }
+
 
 
         // Inflate the layout for this fragment

@@ -13,6 +13,7 @@ class CalculateViewModelFactory  (
     private val componentDatabase: ComponentDao,
     private val componentAmmoDatabase: ComponentAmmoDao,
     private val singleWeaponCalculationDatabase: SingleWeaponCalculationDao,
+    val calculationsDatabase: CalculationsDao,
     private val application: Application
 ) : ViewModelProvider.Factory {
 
@@ -20,7 +21,7 @@ class CalculateViewModelFactory  (
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CalculateViewModel::class.java)) {
             return CalculateViewModel(calculationKey, weaponDatabase, ammoDatabase, componentDatabase,
-                componentAmmoDatabase, singleWeaponCalculationDatabase, application) as T
+                componentAmmoDatabase, singleWeaponCalculationDatabase, calculationsDatabase, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

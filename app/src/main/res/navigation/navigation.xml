@@ -93,25 +93,22 @@
         <action
             android:id="@+id/confirmation_to_calculate"
             app:destination="@id/CalculateSelection" />
-        <action
-            android:id="@+id/confirmation_to_weapon_input"
-            app:destination="@id/WeaponInput" />
     </fragment>
     <fragment
         android:id="@+id/CalculateSelection"
         android:name="com.intelliteq.fea.ammocalculator.calculate.CalculateFragment"
         android:label="fragment_calculate"
         tools:layout="@layout/fragment_calculate" >
-        <action
-            android:id="@+id/calculateSelection_to_outputCalculation"
-            app:destination="@id/CalculationOutputScreen" />
-        <action
-            android:id="@+id/another_weapon_to_calculation"
-            app:destination="@id/CalculateSelection" />
         <argument
-            android:name="CalculationKey"
+            android:name="CalcKey"
             app:argType="long"
             android:defaultValue="-1L" />
+        <action
+            android:id="@+id/calculate_to_output"
+            app:destination="@id/CalculationOutputScreen" />
+        <action
+            android:id="@+id/action_CalculateSelection_self"
+            app:destination="@id/CalculateSelection" />
     </fragment>
     <fragment
         android:id="@+id/CalculationOutputScreen"
@@ -121,5 +118,11 @@
         <argument
             android:name="CalculationKey"
             app:argType="long" />
+        <action
+            android:id="@+id/action_CalculationOutputScreen_to_landingScreen"
+            app:destination="@id/landingScreen" />
+        <action
+            android:id="@+id/action_CalculationOutputScreen_to_CalculateSelection"
+            app:destination="@id/CalculateSelection" />
     </fragment>
 </navigation>

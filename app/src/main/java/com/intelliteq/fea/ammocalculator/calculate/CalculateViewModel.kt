@@ -11,12 +11,13 @@ import com.intelliteq.fea.ammocalculator.persistence.models.*
 import kotlinx.coroutines.*
 
 class CalculateViewModel(
-    val calculationKey: Long ,
+    var calculationKey: Long,
     val weaponDatabase: WeaponDao,
     val ammoDatabase: WeaponAmmoDao,
     val compoDatabase: ComponentDao,
     val compAmmoDatabase: ComponentAmmoDao,
     val singleWeaponCalculationDatabase: SingleWeaponCalculationDao,
+    val calculationsDatabase: CalculationsDao,
     val application: Application
 ) : ViewModel() {
 
@@ -38,12 +39,6 @@ class CalculateViewModel(
     private val _numberOfWeaponsPicker = MutableLiveData<Int>()
     val numberOfWeaponsPicker: LiveData<Int>
         get() = _numberOfWeaponsPicker
-
-
-    //Navigation Mutable Live Data
-    private val _navigateToCalculateScreen = MutableLiveData<SingleWeaponCalculation>()
-    val navigateToCalculateScreen: LiveData<SingleWeaponCalculation>
-        get() = _navigateToCalculateScreen
 
 
     fun useCombat(combat: String) {
@@ -274,53 +269,147 @@ class CalculateViewModel(
     //TODO: need to add verification of all fields
 
 
-    private var singleCalculation = MutableLiveData<SingleWeaponCalculation?>()
+    private var singleWeapon = MutableLiveData<SingleWeaponCalculation?>()
+    private var calculation = MutableLiveData<Calculations?>()
 
-//    private fun initializeCalculate() {
-//        uiScope.launch {
-//            var thisCalculation = SingleWeaponCalculation()
-//            singleWeaponCalculationDatabase.insert(thisCalculation)
-//            singleCalculation.value = getCalculationFromDatabase()
-//        }
-//    }
+    //Navigation Mutable Live Data
+    private val _navigateToInputAnotherAmmoScreen = MutableLiveData<SingleWeaponCalculation>()
+    val navigateToInputAnotherAmmoScreen: LiveData<SingleWeaponCalculation>
+        get() = _navigateToInputAnotherAmmoScreen
 
-    private suspend fun getCalculationFromDatabase(): SingleWeaponCalculation? {
+    private val _navigateToOutputScreen = MutableLiveData<Long>()
+    val navigateToOutputScreen: LiveData<Long>
+        get() = _navigateToOutputScreen
+
+    fun doneNavigation() {
+        // _navigateToInputAnotherAmmoScreen.value = null
+        //initializeSignleWeapon()
+        Log.i("Called calc", "")
+    }
+
+    fun doneNavigationToOutput() {
+        _navigateToOutputScreen.value = null
+    }
+
+    init {
+        if (calculationKey < 1) {
+            initializeCalculation()
+            Log.i("Init calc ", " $calculationKey")
+        }
+        initializeSignleWeapon()
+        Log.i("Init calc weap:", " $calculationKey")
+    }
+
+
+    fun initializeSignleWeapon() {
+        uiScope.launch {
+            val newWeapon = SingleWeaponCalculation()
+            Log.i("NEW Single Calc", "**^^${calculationKey}")
+            //newWeapon.group_calculationID = calculationKey
+            insertSingleWeapon(newWeapon)
+            singleWeapon.value = getSingleWeaponFromDatabase()
+            Log.i("NEW Single Calc", "**^^${singleWeapon.value}")
+            Log.i("NEW Single Calc", "**^^${calculationKey}")
+        }
+
+    }
+
+    private suspend fun getSingleWeaponFromDatabase(): SingleWeaponCalculation? {
         return withContext(Dispatchers.IO) {
-            var calc = singleWeaponCalculationDatabase.getNewCalculation()
+            var weapon = singleWeaponCalculationDatabase.getNewCalculation()
+            Log.i("NEW Weapon Calc", "*^${weapon}")
+            weapon
+        }
+    }
+
+
+    fun initializeCalculation() {
+        uiScope.launch {
+            val newCalculation = Calculations()
+            newCalculation.numberOfDays = getDays()
+            newCalculation.assaultType = intensity
+            insertCalculation(newCalculation)
+            calculationKey = getCalculationFromDatabase()!!.calculationId
+            Log.i("NEW Calc Key:", "!!*${calculationKey}")
+        }
+    }
+
+    private suspend fun getCalculationFromDatabase(): Calculations? {
+        return withContext(Dispatchers.IO) {
+            var calc = calculationsDatabase.getNewCalculation()
             calc
         }
     }
 
-    fun calculate() {
+    fun onCalculate() {
         uiScope.launch {
-            var thisCalculation = SingleWeaponCalculation()
-            insert(thisCalculation)
-            singleCalculation.value = getCalculationFromDatabase()
-            singleCalculation.value!!.assaultType = intensity
-            singleCalculation.value!!.weaponAmmoIdCalculation = chosenAmmo.value!!.ammoId
-            singleCalculation.value!!.componentAmmoIdCalculation =
-                chosenComponentAmmo.value!!.componentAmmoId
-            singleCalculation.value!!.numberOfDays = getDays()
-            singleCalculation.value!!.numberOfWeapons = getNumberWeapons()
-            singleCalculation.value!!.weaponIDCalculation = chosenWeapon.value!!.weaponAutoId
-            update(singleCalculation.value!!)
-            _navigateToCalculateScreen.value = singleCalculation.value
-            Log.i("WEapon Calc", "****${singleCalculation.value}")
+            _navigateToOutputScreen.value = calculationKey
+            Log.i("Called Here", "am i here $calculationKey")
         }
     }
 
-    private suspend fun insert(calc: SingleWeaponCalculation) {
+    fun onAddWeapon() {
+        uiScope.launch {
+            val thisweapon = singleWeapon.value ?: return@launch
+            thisweapon.weaponAmmoIdCalculation = chosenAmmo.value!!.ammoId
+            thisweapon.componentAmmoIdCalculation =
+                chosenComponentAmmo.value!!.componentAmmoId
+            thisweapon.numberOfWeapons = getNumberWeapons()
+            thisweapon.weaponIDCalculation = chosenWeapon.value!!.weaponAutoId
+            thisweapon.group_calculationID = calculationKey
+            updateSingle(thisweapon)
+            _navigateToInputAnotherAmmoScreen.value = thisweapon
+            Log.i("ADD Weapon single", "**${singleWeapon.value}")
+            Log.i("ADD this weap", "**${thisweapon}")
+            Log.i("ADD calc key", " key:**${calculationKey}")
+            // Log.i("NEW Calc Key", "**${thisweapon.calculationId}")
+
+        }
+    }
+
+    private suspend fun updateSingle(thisweapon: SingleWeaponCalculation) {
+        withContext(Dispatchers.IO) {
+            singleWeaponCalculationDatabase.update(thisweapon)
+        }
+    }
+
+
+    private suspend fun insertSingleWeapon(calc: SingleWeaponCalculation) {
         withContext(Dispatchers.IO) {
             singleWeaponCalculationDatabase.insert(calc)
         }
 
     }
 
-    private suspend fun update(calc: SingleWeaponCalculation) {
+    private suspend fun insertCalculation(newCalculation: Calculations) {
         withContext(Dispatchers.IO) {
-            singleWeaponCalculationDatabase.update(calc)
+            calculationsDatabase.insert(newCalculation)
         }
     }
+
+    //
+//    fun initializeNewWeapon() {
+//        uiScope.launch {
+//            val newWeaponCalculation = SingleWeaponCalculation()
+//            insert(newWeaponCalculation)
+//            singleCalculation.value = getSingleCalculationFromDatabase()
+//
+//        }
+//    }
+//
+
+
+    private suspend fun updateCalculationsDatabase(newCalculation: Calculations) {
+        withContext(Dispatchers.IO) {
+            calculationsDatabase.update(newCalculation)
+        }
+    }
+
+//    private suspend fun update(calc: SingleWeaponCalculation) {
+//        withContext(Dispatchers.IO) {
+//            singleWeaponCalculationDatabase.update(calc)
+//        }
+//    }
 
     private fun getDays(): Int {
         if (numberOfDaysPicker.value == null) {

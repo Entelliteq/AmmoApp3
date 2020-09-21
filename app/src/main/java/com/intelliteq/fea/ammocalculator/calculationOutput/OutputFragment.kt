@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.intelliteq.fea.ammocalculator.R
 import com.intelliteq.fea.ammocalculator.databinding.FragmentOutputBinding
 import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
@@ -30,6 +31,13 @@ class OutputFragment : Fragment() {
         val binding: FragmentOutputBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_output, container, false)
 
+        binding.recalculate.setOnClickListener {
+                view: View -> view.findNavController().navigate(R.id.CalculateSelection)
+        }
+
+        binding.home.setOnClickListener {
+            view: View -> view.findNavController().navigate(R.id.landingScreen)
+        }
         //getting the application, arguments set and database
         val application = requireNotNull(this.activity).application
 

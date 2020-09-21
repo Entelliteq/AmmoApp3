@@ -1,11 +1,11 @@
 package com.intelliteq.fea.ammocalculator.calculate
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewParent
 import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -38,12 +38,13 @@ class CalculateFragment : Fragment() {
         val dataSourceCompAmmo = AmmoRoomDatabase.getAppDatabase(application)!!.componentAmmoDao
         val dataSourceCalculation =
             AmmoRoomDatabase.getAppDatabase(application)!!.singleWeaponCalculationDao
+        val dataSourceCalculations = AmmoRoomDatabase.getAppDatabase(application)!!.calculationsDao
         val arguments = CalculateFragmentArgs.fromBundle(arguments)
 
         //creating a view model using the factory
-        val viewModelFactory = CalculateViewModelFactory(arguments.calculationKey,
+        val viewModelFactory = CalculateViewModelFactory(arguments.calcKey,
             dataSourceWeapon, dataSourceAmmo,
-            dataSourceComp, dataSourceCompAmmo, dataSourceCalculation, application
+            dataSourceComp, dataSourceCompAmmo, dataSourceCalculation, dataSourceCalculations, application
         )
         val calculateViewModel =
             ViewModelProvider(this, viewModelFactory)
@@ -75,19 +76,28 @@ class CalculateFragment : Fragment() {
 
 
         //to calculate screen
-        calculateViewModel.navigateToCalculateScreen.observe(viewLifecycleOwner,
+        calculateViewModel.navigateToOutputScreen.observe(
+            viewLifecycleOwner,
             Observer { calculation ->
                 calculation?.let {
                     this.findNavController()
                         .navigate(
-                            CalculateFragmentDirections.CalculateSelectionToOutputCalculation(
-                                calculation.calculationId
-                            )
-                        )
+                            CalculateFragmentDirections.CalculateToOutput(calculation))
+                    calculateViewModel.doneNavigationToOutput()
                 }
-
             })
 
+
+//
+//        //back to input more weapon
+        calculateViewModel.navigateToInputAnotherAmmoScreen.observe(viewLifecycleOwner,
+        Observer { calc ->
+            calc?.let {
+                this.findNavController()
+                    .navigate(CalculateFragmentDirections.ActionCalculateSelectionSelf())
+                calculateViewModel.doneNavigation()
+            }
+        })
 
 
         //FEA spinner

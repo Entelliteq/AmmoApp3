@@ -17,16 +17,16 @@ interface SingleWeaponCalculationDao {
     @Delete
     fun delete(vararg  model: SingleWeaponCalculation)
 
-    @Query("SELECT * FROM single_calculation_table WHERE calculationId = :key" )
+    @Query("SELECT * FROM single_calculation_table WHERE weapon_calculationId = :key" )
     fun get(key: Long?): SingleWeaponCalculation
 
     @Query("SELECT count(*) FROM single_calculation_table")
     fun countAll() : Int
 
-    @Query("SELECT * FROM single_calculation_table ORDER BY calculationId DESC LIMIT 1" )
+    @Query("SELECT * FROM single_calculation_table ORDER BY weapon_calculationId DESC LIMIT 1" )
     fun getNewCalculation() : SingleWeaponCalculation
 
-    @Query("SELECT count(*) FROM single_calculation_table WHERE calculationId = :key")
+    @Query("SELECT count(*) FROM single_calculation_table WHERE weapon_calculationId = :key")
     fun countAllCalculations(key: Long?) : Int
 
     @Query("SELECT * FROM single_calculation_table WHERE weapon_id_for_calculation = :key")

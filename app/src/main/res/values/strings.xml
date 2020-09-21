@@ -36,6 +36,8 @@
     <string name="component_ammo">Component Ammo:</string>
     <string name="calculation_complete">Calculation Complete</string>
     <string name="add_another_weapon">Add Another Weapon</string>
+    <string name="recalculate">New Calculation</string>
+    <string name="landing">landing</string>
     <string-array name="combat_types">
         <item name="train">Training</item>
         <item name="security">Security</item>

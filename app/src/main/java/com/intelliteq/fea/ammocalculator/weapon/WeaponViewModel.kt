@@ -90,8 +90,9 @@ class WeaponViewModel (
             thisWeapon.weaponTypeID = weaponTypeEditText.value.toString()
             thisWeapon.FEA_id = thisWeapon.weaponAutoId.toInt()
             update(thisWeapon)
+            Log.i("called HERE", "weap")
             _navigateToInputWeaponAmmo.value = weapon.value
-            //Log.i("WEAPON updated", "///// ${thisWeapon}")
+            Log.i("WEAPON updated", "///// ${thisWeapon}")
 
 
         }
