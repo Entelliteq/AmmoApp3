@@ -15,10 +15,10 @@ import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
 
 /**
  * A simple [Fragment] subclass.
- * Use the [OutputFragment.newInstance] factory method to
+ * Use the [CalculationOutputFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class OutputFragment : Fragment() {
+class CalculationOutputFragment : Fragment() {
 
 
 
@@ -31,18 +31,12 @@ class OutputFragment : Fragment() {
         val binding: FragmentOutputBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_output, container, false)
 
-        binding.recalculate.setOnClickListener {
-                view: View -> view.findNavController().navigate(R.id.CalculateSelection)
-        }
 
-        binding.home.setOnClickListener {
-            view: View -> view.findNavController().navigate(R.id.landingScreen)
-        }
         //getting the application, arguments set and database
         val application = requireNotNull(this.activity).application
 
         val dataSourceCalculation = AmmoRoomDatabase.getAppDatabase(application)!!.calculationsDao
-        val arguments = OutputFragmentArgs.fromBundle(arguments)
+        val arguments = CalculationOutputFragmentArgs.fromBundle(requireArguments())
 
         //creating a view model using the factory
         val viewModelFactory = CalculationOutputViewModelFactory( arguments.calculationKey, dataSourceCalculation, application)
@@ -52,7 +46,16 @@ class OutputFragment : Fragment() {
 
         binding.calculationOutputViewModel
         binding.lifecycleOwner = this
-            
+
+
+        binding.recalculate.setOnClickListener {
+                view: View -> view.findNavController()
+            .navigate(CalculationOutputFragmentDirections.ActionCalculationOutputScreenToCalculateSelection(-1))
+        }
+
+        binding.home.setOnClickListener {
+                view: View -> view.findNavController().navigate(R.id.landingScreen)
+        }
         // Inflate the layout for this fragment
         return binding.root
     }

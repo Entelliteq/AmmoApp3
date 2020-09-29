@@ -13,7 +13,7 @@
         android:id="@+id/constraintLayoutOutputScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.intelliteq.fea.ammocalculator.calculationOutput.OutputFragment">
+        tools:context="com.intelliteq.fea.ammocalculator.calculationOutput.CalculationOutputFragment">
 
         <TextView
             android:id="@+id/OutputTextView"

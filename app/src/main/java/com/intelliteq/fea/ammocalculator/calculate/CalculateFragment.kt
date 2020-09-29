@@ -39,12 +39,12 @@ class CalculateFragment : Fragment() {
         val dataSourceCalculation =
             AmmoRoomDatabase.getAppDatabase(application)!!.singleWeaponCalculationDao
         val dataSourceCalculations = AmmoRoomDatabase.getAppDatabase(application)!!.calculationsDao
-        val arguments = CalculateFragmentArgs.fromBundle(arguments)
+        val arguments = CalculateFragmentArgs.fromBundle(requireArguments())
 
         //creating a view model using the factory
         val viewModelFactory = CalculateViewModelFactory(arguments.calcKey,
             dataSourceWeapon, dataSourceAmmo,
-            dataSourceComp, dataSourceCompAmmo, dataSourceCalculation, dataSourceCalculations, application
+            dataSourceComp, dataSourceCompAmmo, dataSourceCalculation, dataSourceCalculations
         )
         val calculateViewModel =
             ViewModelProvider(this, viewModelFactory)
@@ -55,11 +55,11 @@ class CalculateFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.pickerWeapons.setOnValueChangedListener { picker, oldVal, newVal ->
-            calculateViewModel.getWeaponNumber(newVal)
+            calculateViewModel.getNumberOfWeapons(newVal)
         }
 
         binding.pickerDays.setOnValueChangedListener { pickerDays, oldVal, newVal ->
-            calculateViewModel.getDayNumber(newVal)
+            calculateViewModel.getHowManyDays(newVal)
         }
 
         calculateViewModel.weapons.observe(viewLifecycleOwner, Observer {
@@ -76,26 +76,26 @@ class CalculateFragment : Fragment() {
 
 
         //to calculate screen
-        calculateViewModel.navigateToOutputScreen.observe(
+        calculateViewModel.navigateToOutput.observe(
             viewLifecycleOwner,
-            Observer { calculation ->
-                calculation?.let {
+            Observer { calc ->
+                calc?.let {
                     this.findNavController()
-                        .navigate(
-                            CalculateFragmentDirections.CalculateToOutput(calculation))
+                        .navigate(CalculateFragmentDirections.actionCalculateSelectionToCalculationOutputScreen(calc))
                     calculateViewModel.doneNavigationToOutput()
+                    Log.i("Calc frag","/////$calc")
                 }
-            })
 
+            }
+        )
 
-//
-//        //back to input more weapon
-        calculateViewModel.navigateToInputAnotherAmmoScreen.observe(viewLifecycleOwner,
+        //back to input more weapon
+        calculateViewModel.navigateToAddAnotherWeaponForCalculation.observe(viewLifecycleOwner,
         Observer { calc ->
             calc?.let {
                 this.findNavController()
-                    .navigate(CalculateFragmentDirections.ActionCalculateSelectionSelf())
-                calculateViewModel.doneNavigation()
+                    .navigate(CalculateFragmentDirections.actionCalculateSelectionSelf(calc.group_calculationID))
+                calculateViewModel.doneNavigationToAddAnother()
             }
         })
 
@@ -174,7 +174,7 @@ class CalculateFragment : Fragment() {
                 id: Long
             ) {
                 val combat = parent.getItemAtPosition(position)
-                calculateViewModel.useCombat(combat as String)
+                calculateViewModel.combatToIntValues(combat as String)
                 // Log.i("Weapon Combat", "$combat")
             }
 

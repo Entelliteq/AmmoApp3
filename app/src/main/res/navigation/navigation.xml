@@ -99,20 +99,19 @@
         android:name="com.intelliteq.fea.ammocalculator.calculate.CalculateFragment"
         android:label="fragment_calculate"
         tools:layout="@layout/fragment_calculate" >
-        <argument
-            android:name="CalcKey"
-            app:argType="long"
-            android:defaultValue="-1L" />
-        <action
-            android:id="@+id/calculate_to_output"
-            app:destination="@id/CalculationOutputScreen" />
         <action
             android:id="@+id/action_CalculateSelection_self"
             app:destination="@id/CalculateSelection" />
+        <argument
+            android:name="calcKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_CalculateSelection_to_CalculationOutputScreen"
+            app:destination="@id/CalculationOutputScreen" />
     </fragment>
     <fragment
         android:id="@+id/CalculationOutputScreen"
-        android:name="com.intelliteq.fea.ammocalculator.calculationOutput.OutputFragment"
+        android:name="com.intelliteq.fea.ammocalculator.calculationOutput.CalculationOutputFragment"
         android:label="fragment_output"
         tools:layout="@layout/fragment_output" >
         <argument

@@ -26,14 +26,14 @@ class ConfirmationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding : FragmentConfirmationBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_confirmation, container, false )
+        val binding: FragmentConfirmationBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_confirmation, container, false
+        )
 
-        binding.save.setOnClickListener {
-                view: View -> view.findNavController().navigate(R.id.confirmation_to_calculate)
+        binding.save.setOnClickListener { view: View ->
+            view.findNavController()
+                .navigate(ConfirmationFragmentDirections.ConfirmationToCalculate(-1))
         }
-
-
 
 
         // Inflate the layout for this fragment
@@ -41,9 +41,6 @@ class ConfirmationFragment : Fragment() {
     }
 
 }
-
-
-
 
 
 //import kotlinx.coroutines.CoroutineScope

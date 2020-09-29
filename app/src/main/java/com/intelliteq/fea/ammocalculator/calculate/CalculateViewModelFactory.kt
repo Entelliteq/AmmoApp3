@@ -1,6 +1,6 @@
 package com.intelliteq.fea.ammocalculator.calculate
 
-import android.app.Application
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.intelliteq.fea.ammocalculator.persistence.daos.*
@@ -13,15 +13,14 @@ class CalculateViewModelFactory  (
     private val componentDatabase: ComponentDao,
     private val componentAmmoDatabase: ComponentAmmoDao,
     private val singleWeaponCalculationDatabase: SingleWeaponCalculationDao,
-    val calculationsDatabase: CalculationsDao,
-    private val application: Application
+    val calculationsDatabase: CalculationsDao
 ) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CalculateViewModel::class.java)) {
             return CalculateViewModel(calculationKey, weaponDatabase, ammoDatabase, componentDatabase,
-                componentAmmoDatabase, singleWeaponCalculationDatabase, calculationsDatabase, application) as T
+                componentAmmoDatabase, singleWeaponCalculationDatabase, calculationsDatabase) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

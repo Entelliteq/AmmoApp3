@@ -17,17 +17,20 @@ class LandingScreenFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?
+    ): View? {
         val binding: FragmentLandingScreenBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_landing_screen, container, false)
+            inflater, R.layout.fragment_landing_screen, container, false
+        )
 
 
-        binding.newInputButton.setOnClickListener {
-            view: View -> view.findNavController().navigate(R.id.landing_to_weapon_input)
+        binding.newInputButton.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.landing_to_weapon_input)
         }
 
-        binding.newCalculationButton.setOnClickListener {
-                view: View -> view.findNavController().navigate(R.id.action_landingScreen_to_CalculateSelection)
+        binding.newCalculationButton.setOnClickListener { view: View ->
+            view.findNavController()
+                .navigate(LandingScreenFragmentDirections.ActionLandingScreenToCalculateSelection(-1))
         }
 
         // Inflate the layout for this fragment
