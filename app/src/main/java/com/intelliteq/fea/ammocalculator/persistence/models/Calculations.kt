@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "calculations_table")
-class Calculations (
+data class Calculations (
 
     @PrimaryKey(autoGenerate = true)
     var calculationId: Long =0L,

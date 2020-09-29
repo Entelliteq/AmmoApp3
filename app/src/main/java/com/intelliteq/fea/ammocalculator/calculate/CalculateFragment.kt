@@ -62,6 +62,8 @@ class CalculateFragment : Fragment() {
             calculateViewModel.getHowManyDays(newVal)
         }
 
+
+
         calculateViewModel.weapons.observe(viewLifecycleOwner, Observer {
             it?.let {
                 binding.spinnerFea
@@ -110,6 +112,7 @@ class CalculateFragment : Fragment() {
             ) {
                 val int = parent.getItemAtPosition(position)
                 calculateViewModel.useWeaponFea(int as Int)
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}

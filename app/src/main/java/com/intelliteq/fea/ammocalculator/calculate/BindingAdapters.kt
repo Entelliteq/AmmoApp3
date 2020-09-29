@@ -93,6 +93,10 @@ fun setSpinnerEntriesComponentAmmoType(spinner: Spinner, entries: List<Component
     Log.i("Weapon Comp", "Ammo type $entries")
 }
 
+@BindingAdapter("android:visibleOrNot")
+fun View.setVisibility(visible: Boolean) {
+    visibility = if(visible) View.VISIBLE else View.INVISIBLE
+}
 
 
 fun convertEntriesToFEA(entries: List<Weapon>?) : List<Int> {

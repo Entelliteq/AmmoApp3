@@ -38,6 +38,9 @@
     <string name="add_another_weapon">Add Another Weapon</string>
     <string name="recalculate">New Calculation</string>
     <string name="landing">landing</string>
+    <string name="num_days">Num Days</string>
+    <string name="set_day_and_combat">Set Day and Combat</string>
+    <string name="combat">Combat</string>
     <string-array name="combat_types">
         <item name="train">Training</item>
         <item name="security">Security</item>

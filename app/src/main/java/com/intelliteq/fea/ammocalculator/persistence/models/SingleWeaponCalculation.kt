@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class SingleWeaponCalculation (
 
     @PrimaryKey(autoGenerate = true)
-    var weapon_calculationId: Long =0L,
+    var single_calculationId: Long =0L,
 
     @ColumnInfo(name = "id_group_calculation")
     var group_calculationID: Long = 0L,
