@@ -1,11 +1,13 @@
 package com.intelliteq.fea.ammocalculator.calculationOutput
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.intelliteq.fea.ammocalculator.R
@@ -36,10 +38,12 @@ class CalculationOutputFragment : Fragment() {
         val application = requireNotNull(this.activity).application
 
         val dataSourceCalculation = AmmoRoomDatabase.getAppDatabase(application)!!.calculationsDao
+        val dataSourceSinlge = AmmoRoomDatabase.getAppDatabase(application)!!.singleWeaponCalculationDao
         val arguments = CalculationOutputFragmentArgs.fromBundle(requireArguments())
 
         //creating a view model using the factory
-        val viewModelFactory = CalculationOutputViewModelFactory( arguments.calculationKey, dataSourceCalculation, application)
+        val viewModelFactory = CalculationOutputViewModelFactory(
+            arguments.calculationKey,   dataSourceCalculation, dataSourceSinlge)
 
         val calculateOutputViewModel = ViewModelProvider(this, viewModelFactory)
             .get(CalculationOutputViewModel::class.java)
@@ -56,6 +60,26 @@ class CalculationOutputFragment : Fragment() {
         binding.home.setOnClickListener {
                 view: View -> view.findNavController().navigate(R.id.landingScreen)
         }
+
+        val adapter = WeaponOutputAdapter()
+        binding.RecyclerViewWeapons.adapter = adapter
+
+        calculateOutputViewModel.weapon.observe(viewLifecycleOwner, Observer {
+            weapon ->
+            weapon?.let {
+                adapter.data = weapon
+            }
+        })
+
+        calculateOutputViewModel.single.observe(viewLifecycleOwner, Observer {
+            single ->
+            single?.let {
+                adapter.quantity = single
+            }
+        })
+
+
+
         // Inflate the layout for this fragment
         return binding.root
     }

@@ -1,6 +1,5 @@
 package com.intelliteq.fea.ammocalculator.persistence.models
 
-import androidx.lifecycle.ViewModel
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,6 +9,7 @@ data class Weapon(
     @PrimaryKey(autoGenerate = true)
     var weaponAutoId: Long = 0L,
 
+    //not used
     @ColumnInfo(name= "weapon_id_unique")
     var weaponId: Long = 0,
 

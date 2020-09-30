@@ -21,7 +21,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:text="@string/calculate"
+            android:text="@string/input"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#000000" />
 
@@ -42,7 +42,7 @@
                 android:onClick="@{() -> calculateViewModel.onAddWeapon()}"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/add_another_weapon"
+                android:text="@string/add_weapon"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <LinearLayout

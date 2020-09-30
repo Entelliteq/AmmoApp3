@@ -83,7 +83,7 @@ class CalculateFragment : Fragment() {
             Observer { calc ->
                 calc?.let {
                     this.findNavController()
-                        .navigate(CalculateFragmentDirections.actionCalculateSelectionToCalculationOutputScreen(calc))
+                        .navigate(CalculateFragmentDirections.ActionCalculateSelectionToCalculationOutputScreen(calc))
                     calculateViewModel.doneNavigationToOutput()
                     Log.i("Calc frag","/////$calc")
                 }

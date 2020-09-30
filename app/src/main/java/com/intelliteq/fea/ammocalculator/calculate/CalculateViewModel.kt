@@ -275,6 +275,8 @@ class CalculateViewModel(
     fun onCalculate() {
         uiScope.launch {
             _navigateToOutput.value = calculationKey
+
+
         }
     }
 
@@ -294,6 +296,7 @@ class CalculateViewModel(
             visibilityDaysAndIntensityOutput.value = true
             setTypeAndDays()
         }
+        Log.i("calc OUT", "calc")
         initializeSingle()
     }
 
@@ -323,6 +326,7 @@ class CalculateViewModel(
             calculationKey = getCalculationFromDatabase()!!.calculationId
             newCalculation.calculationId = calculationKey
             updateCalculationsDatabase(newCalculation)
+            Log.i("calc", "init $newCalculation")
         }
     }
 
@@ -335,7 +339,7 @@ class CalculateViewModel(
         }
     }
 
-    fun combatIntToString(combat: Int) {
+    fun combatIntToString(combat: Int) : String {
 
         when (combat) {
             1 -> intensityString.value = "Training"
@@ -345,6 +349,7 @@ class CalculateViewModel(
             5 -> intensityString.value = "Medium Assault"
             else -> intensityString.value = "Heavy Assault"
         }
+        return intensityString.value.toString()
     }
 
 
@@ -371,6 +376,7 @@ class CalculateViewModel(
             visibilityDaysAndIntensityOutput.value = true
             visibilityDaysAndIntensity.value = false
             daysChosen.value = thisCalc.numberOfDays.toString()
+            Log.i("calc", "submit ${calculation.value}")
         }
     }
 
@@ -421,7 +427,7 @@ class CalculateViewModel(
         }
     }
 
-    private fun getDays(): Int {
+     fun getDays(): Int {
         return if (numberOfDaysPicker.value == null) {
             1
         } else {

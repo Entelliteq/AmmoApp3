@@ -34,5 +34,4 @@ interface WeaponDao {
     @Query("SELECT * FROM weapon_table WHERE weapon_description =:descKey")
     fun getWeaponByDesc(descKey: String) : Weapon?
 
-
 }
