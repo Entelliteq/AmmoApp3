@@ -54,6 +54,10 @@
     <string name="new_calculation">New Calculation</string>
     <string name="saved_calculation">Saved Calculation</string>
     <string name="new_input">New Input</string>
+    <string name="ammo_type_out">Ammo type:</string>
+    <string name="total">Total</string>
+    <string name="dodic_out">DODIC</string>
+    <string name="per_weapon">Per Weapon</string>
     <string-array name="combat_types">
         <item name="train">Training</item>
         <item name="security">Security</item>

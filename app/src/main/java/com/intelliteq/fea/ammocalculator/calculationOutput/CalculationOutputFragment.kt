@@ -61,8 +61,11 @@ class CalculationOutputFragment : Fragment() {
                 view: View -> view.findNavController().navigate(R.id.landingScreen)
         }
 
+        //adapters
         val adapter = WeaponOutputAdapter()
         binding.RecyclerViewWeapons.adapter = adapter
+        val adapterAmmo = AmmoOutputAdapter()
+        binding.RecyclerViewAmmo.adapter = adapterAmmo
 
         calculateOutputViewModel.weapon.observe(viewLifecycleOwner, Observer {
             weapon ->

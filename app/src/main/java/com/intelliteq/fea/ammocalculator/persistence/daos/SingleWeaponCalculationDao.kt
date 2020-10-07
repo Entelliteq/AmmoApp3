@@ -39,7 +39,7 @@ interface SingleWeaponCalculationDao {
     @Query("SELECT * FROM single_calculation_table WHERE component_ammo_id_for_calculation = :key")
     fun getComponentAmmoForCalculation(key: Long?) : List<SingleWeaponCalculation>
 
-    @Query("SELECT * FROM single_calculation_table WHERE id_group_calculation = :key LIMIT 1")
+    @Query("SELECT * FROM single_calculation_table WHERE id_group_calculation = :key ")
     fun getUsingCalculationID(key: Long) : LiveData<List<SingleWeaponCalculation>>
 
 

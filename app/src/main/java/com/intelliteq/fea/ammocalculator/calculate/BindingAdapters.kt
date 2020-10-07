@@ -126,7 +126,7 @@ fun convertEntriesToDescription(entries: List<Weapon>?) : List<String> {
 fun convertEntriesToAmmoType(entries: List<WeaponAmmo>?) : List<String> {
     val type = mutableListOf<String>()
     entries?.forEach {
-        type.add(it.ammoType)
+        type.add(it.ammoType.toString())
     }
     return type
 }
@@ -142,7 +142,7 @@ fun convertEntriesToComponent(entries: List<Component>?) : List<String> {
 fun convertEntriesToComponentAmmo(entries: List<ComponentAmmo>?) : List<String> {
     val type = mutableListOf<String>()
     entries?.forEach {
-        type.add(it.componentAmmoTypeID)
+        type.add(it.componentAmmoTypeID.toString())
     }
     return type
 }

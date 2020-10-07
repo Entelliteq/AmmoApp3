@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="ammoOutputListItem"
+            type="com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:cardCornerRadius="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/ammo_type_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/ammo_type_out"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/dodic_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/ammo_type_output_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="5.56mm Ball, M855A"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintBaseline_toBaselineOf="@+id/ammo_type_tv"
+                app:layout_constraintStart_toEndOf="@+id/ammo_type_tv"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/dodic_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/dodic_out"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ammo_type_tv" />
+
+            <TextView
+                android:id="@+id/dodic_out_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="AB56"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintBaseline_toBaselineOf="@+id/dodic_tv"
+                app:layout_constraintStart_toEndOf="@+id/dodic_tv" />
+
+            <TextView
+                android:id="@+id/per_weapon_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/per_weapon"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/dodic_out_tv"
+                app:layout_constraintStart_toEndOf="@+id/dodic_out_tv" />
+
+            <TextView
+                android:id="@+id/per_weapon_out_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="360"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintBaseline_toBaselineOf="@+id/per_weapon_tv"
+                app:layout_constraintStart_toEndOf="@+id/per_weapon_tv" />
+
+            <TextView
+                android:id="@+id/total_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/total"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/per_weapon_out_tv"
+                app:layout_constraintBaseline_toBaselineOf="@+id/per_weapon_out_tv" />
+
+            <TextView
+                android:id="@+id/total_out_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="12240"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintBaseline_toBaselineOf="@+id/total_tv"
+                app:layout_constraintStart_toEndOf="@+id/total_tv" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

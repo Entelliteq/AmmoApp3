@@ -1,5 +1,6 @@
 package com.intelliteq.fea.ammocalculator.calculationOutput
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -15,7 +16,6 @@ class WeaponOutputAdapter: RecyclerView.Adapter<WeaponOutputAdapter.ViewHolder>(
     var data = listOf<Weapon>()
         set(value) {
             field = value
-            //Log.i("OUT", "$field")
             notifyDataSetChanged()
         }
 
@@ -29,7 +29,7 @@ class WeaponOutputAdapter: RecyclerView.Adapter<WeaponOutputAdapter.ViewHolder>(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        val quantity = quantity[0]
+        val quantity = quantity[position]
         holder.bind(item, quantity)
 
     }
