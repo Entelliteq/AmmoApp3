@@ -15,51 +15,16 @@ data class ComponentAmmo(
     @ColumnInfo(name = "component_id_for_component_ammo")
     var componentId: Long = 0,
 
-    @ColumnInfo(name = "component_ammo_type_id")
-    var componentAmmoTypeID: String? = "",
-
-    @ColumnInfo(name = "component_ammo_description")
-    var componentAmmoDescription: String? = "",
-
-    @ColumnInfo(name="component_ammo_dodic")
-    var componentAmmoDODIC: String? = "",
+//    @ColumnInfo(name = "component_ammo_type_id")
+//    var componentAmmoTypeID: String? = "",
+//
+//    @ColumnInfo(name = "component_ammo_description")
+//    var componentAmmoDescription: String? = "",
+//
+//    @ColumnInfo(name="component_ammo_dodic")
+//    var componentAmmoDODIC: String? = "",
 
     @ColumnInfo(name= "weapon_id_for_component_ammo")
     var weaponIdComponentAmmo: Long = 0L
 
-) //: Ammo(), Parcelable {
-//    constructor(parcel: Parcel) : this(
-//        parcel.readLong(),
-//        parcel.readLong(),
-//        parcel.readString(),
-//        parcel.readString(),
-//        parcel.readString(),
-//        parcel.readLong()
-//    ) {
-//    }
-//
-//    override fun writeToParcel(parcel: Parcel, flags: Int) {
-//        parcel.writeLong(componentAmmoId)
-//        parcel.writeLong(componentId)
-//        parcel.writeString(componentAmmoTypeID)
-//        parcel.writeString(componentAmmoDescription)
-//        parcel.writeString(componentAmmoDODIC)
-//        parcel.writeLong(weaponIdComponentAmmo)
-//    }
-//
-//    override fun describeContents(): Int {
-//        return 0
-//    }
-//
-//    companion object CREATOR : Parcelable.Creator<ComponentAmmo> {
-//        override fun createFromParcel(parcel: Parcel): ComponentAmmo {
-//            return ComponentAmmo(parcel)
-//        }
-//
-//        override fun newArray(size: Int): Array<ComponentAmmo?> {
-//            return arrayOfNulls(size)
-//        }
-//    }
-//
-//
-//}
+) : Ammo()

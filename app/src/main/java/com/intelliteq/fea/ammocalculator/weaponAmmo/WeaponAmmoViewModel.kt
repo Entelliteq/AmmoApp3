@@ -123,9 +123,9 @@ class WeaponAmmoViewModel(
                 thisammo.weaponId = weaponKey
                //Log.i("This ammo weapon id", "${thisammo.weaponId}")
                 //Log.i("This weapon key", "${weaponKey}")
-                thisammo.ammoType = weaponAmmoTypeEditText.value.toString()
+                thisammo.ammoTypeID = weaponAmmoTypeEditText.value.toString()
                 thisammo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
-                thisammo.DODIC = weaponAmmoDODICEditText.value.toString()
+                thisammo.ammoDODIC = weaponAmmoDODICEditText.value.toString()
                 thisammo.trainingRate = weaponAmmoTrainingEditText.value!!.toInt()
                 thisammo.securityRate = weaponAmmoSecurityEditText.value!!.toInt()
                 thisammo.sustainRate = weaponAmmoSustainEditText.value!!.toInt()
@@ -148,9 +148,9 @@ class WeaponAmmoViewModel(
             uiScope.launch {
                 val thisammo = weaponAmmo.value ?: return@launch
                 thisammo.weaponId = weaponKey
-                thisammo.ammoType = weaponAmmoTypeEditText.value.toString()
+                thisammo.ammoTypeID = weaponAmmoTypeEditText.value.toString()
                 thisammo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
-                thisammo.DODIC = weaponAmmoDODICEditText.value.toString()
+                thisammo.ammoDODIC = weaponAmmoDODICEditText.value.toString()
                 thisammo.trainingRate = weaponAmmoTrainingEditText.value!!.toInt()
                 thisammo.securityRate = weaponAmmoSecurityEditText.value!!.toInt()
                 thisammo.sustainRate = weaponAmmoSustainEditText.value!!.toInt()
@@ -195,9 +195,9 @@ class WeaponAmmoViewModel(
             uiScope.launch {
                 val thisammo = weaponAmmo.value ?: return@launch
                 thisammo.weaponId = weaponKey
-                thisammo.ammoType = weaponAmmoTypeEditText.value.toString()
+                thisammo.ammoTypeID = weaponAmmoTypeEditText.value.toString()
                 thisammo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
-                thisammo.DODIC = weaponAmmoDODICEditText.value.toString()
+                thisammo.ammoDODIC = weaponAmmoDODICEditText.value.toString()
                 thisammo.trainingRate = weaponAmmoTrainingEditText.value!!.toInt()
                 thisammo.securityRate = weaponAmmoSecurityEditText.value!!.toInt()
                 thisammo.sustainRate = weaponAmmoSustainEditText.value!!.toInt()

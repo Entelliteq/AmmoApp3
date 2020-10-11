@@ -41,8 +41,8 @@ class AmmoOutputAdapter : RecyclerView.Adapter<AmmoOutputAdapter.ViewHolder>() {
             item: WeaponAmmo
         ) {
             val res = itemView.context.resources
-            type.text = item.ammoType
-            dodic.text = item.DODIC
+            type.text = item.ammoTypeID
+            dodic.text = item.ammoDODIC
 
 
 
