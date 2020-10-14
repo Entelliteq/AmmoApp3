@@ -109,9 +109,9 @@ class ComponentAmmoViewModel (
         if(checkEditTexts()) {
             uiScope.launch {
                 val thisCompAmmo = componentAmmo.value ?: return@launch
-                thisCompAmmo.ammoTypeID = componentAmmoTypeEditText.value.toString()
-                thisCompAmmo.ammoDescription = componentAmmoDescriptionEditText.value.toString()
-                thisCompAmmo.ammoDODIC = componentAmmoDODICEditText.value.toString()
+                thisCompAmmo.componentAmmoTypeID = componentAmmoTypeEditText.value.toString()
+                thisCompAmmo.componentAmmoDescription = componentAmmoDescriptionEditText.value.toString()
+                thisCompAmmo.componentAmmoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
                 thisCompAmmo.weaponIdComponentAmmo = weaponKey
                 update(thisCompAmmo)
@@ -130,9 +130,9 @@ class ComponentAmmoViewModel (
         if(checkEditTexts()) {
             uiScope.launch {
                 val thisCompAmmo = componentAmmo.value ?: return@launch
-                thisCompAmmo.ammoTypeID = componentAmmoTypeEditText.value.toString()
-                thisCompAmmo.ammoDescription = componentAmmoDescriptionEditText.value.toString()
-                thisCompAmmo.ammoDODIC = componentAmmoDODICEditText.value.toString()
+                thisCompAmmo.componentAmmoTypeID = componentAmmoTypeEditText.value.toString()
+                thisCompAmmo.componentAmmoDescription = componentAmmoDescriptionEditText.value.toString()
+                thisCompAmmo.componentAmmoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
                 thisCompAmmo.weaponIdComponentAmmo = weaponKey
                 update(thisCompAmmo)
@@ -179,9 +179,9 @@ class ComponentAmmoViewModel (
         if(checkEditTexts()) {
             uiScope.launch {
                 val thisCompAmmo = componentAmmo.value ?: return@launch
-                thisCompAmmo.ammoTypeID = componentAmmoTypeEditText.value.toString()
-                thisCompAmmo.ammoDescription = componentAmmoDescriptionEditText.value.toString()
-                thisCompAmmo.ammoDODIC = componentAmmoDODICEditText.value.toString()
+                thisCompAmmo.componentAmmoTypeID = componentAmmoTypeEditText.value.toString()
+                thisCompAmmo.componentAmmoDescription = componentAmmoDescriptionEditText.value.toString()
+                thisCompAmmo.componentAmmoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
                 thisCompAmmo.weaponIdComponentAmmo = weaponKey
                 update(thisCompAmmo)

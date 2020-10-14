@@ -14,11 +14,11 @@ data class WeaponAmmo(
     @ColumnInfo(name = "weapon_for_ammo")
     var weaponId: Long = 0L,
 
-//    @ColumnInfo(name = "dodic_for_ammo")
-//    var DODIC: String? = "",
-//
-//    @ColumnInfo(name = "ammo_description")
-//    var ammoDescription: String? = "",
+    @ColumnInfo(name = "dodic_for_ammo")
+    var DODIC: String? = "",
+
+    @ColumnInfo(name = "ammo_description")
+    var ammoDescription: String? = "",
 
     @ColumnInfo(name = "training_rating_ammo")
     var trainingRate: Int = 0,
@@ -36,10 +36,10 @@ data class WeaponAmmo(
     var mediumAssaultRate: Int = 0,
 
     @ColumnInfo(name = "heavy_assault_rating_ammo")
-    var heavyAssaultRate: Int = 0
+    var heavyAssaultRate: Int = 0,
 
-//    @ColumnInfo(name="ammo_type")
-//    var ammoType: String? = ""
+    @ColumnInfo(name="ammo_type")
+    var ammoType: String? = ""
 
-) : Ammo()
+)
 

@@ -21,7 +21,7 @@ class CalculationOutputViewModel(
 
     val weapon = calculations.getSelectedWeapons(calculationKey)
     val single = singleWeapon.getUsingCalculationID(calculationKey)
-   // val ammos = calculations.getSelectedAmmos(calculationKey)
+
 
 
     val oneCalc = calculations.getOneCalc(calculationKey)

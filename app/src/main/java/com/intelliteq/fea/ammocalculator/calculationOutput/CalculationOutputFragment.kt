@@ -64,8 +64,8 @@ class CalculationOutputFragment : Fragment() {
         //adapters
         val adapter = WeaponOutputAdapter()
         binding.RecyclerViewWeapons.adapter = adapter
-        val adapterAmmo = AmmoOutputAdapter()
-        binding.RecyclerViewAmmo.adapter = adapterAmmo
+
+
 
         calculateOutputViewModel.weapon.observe(viewLifecycleOwner, Observer {
             weapon ->
@@ -81,12 +81,7 @@ class CalculationOutputFragment : Fragment() {
             }
         })
 
-//        calculateOutputViewModel.ammos.observe(viewLifecycleOwner, Observer {
-//            ammo ->
-//            ammo?.let {
-//                adapterAmmo.data = ammo
-//            }
-//        })
+
 
 
         // Inflate the layout for this fragment

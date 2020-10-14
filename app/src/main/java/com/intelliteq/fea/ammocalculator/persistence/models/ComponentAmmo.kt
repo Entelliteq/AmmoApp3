@@ -15,16 +15,16 @@ data class ComponentAmmo(
     @ColumnInfo(name = "component_id_for_component_ammo")
     var componentId: Long = 0,
 
-//    @ColumnInfo(name = "component_ammo_type_id")
-//    var componentAmmoTypeID: String? = "",
-//
-//    @ColumnInfo(name = "component_ammo_description")
-//    var componentAmmoDescription: String? = "",
-//
-//    @ColumnInfo(name="component_ammo_dodic")
-//    var componentAmmoDODIC: String? = "",
+    @ColumnInfo(name = "component_ammo_type_id")
+    var componentAmmoTypeID: String? = "",
+
+    @ColumnInfo(name = "component_ammo_description")
+    var componentAmmoDescription: String? = "",
+
+    @ColumnInfo(name="component_ammo_dodic")
+    var componentAmmoDODIC: String? = "",
 
     @ColumnInfo(name= "weapon_id_for_component_ammo")
     var weaponIdComponentAmmo: Long = 0L
 
-) : Ammo()
+)

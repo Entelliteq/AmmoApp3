@@ -19,6 +19,7 @@ abstract class AmmoRoomDatabase : RoomDatabase() {
     abstract val componentAmmoDao: ComponentAmmoDao
     abstract val singleWeaponCalculationDao: SingleWeaponCalculationDao
     abstract val calculationsDao : CalculationsDao
+    
 
 
     companion object {

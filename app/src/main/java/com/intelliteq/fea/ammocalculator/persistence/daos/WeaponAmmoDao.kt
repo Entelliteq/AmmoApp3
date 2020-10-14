@@ -39,6 +39,6 @@ interface WeaponAmmoDao {
     @Query("SELECT * FROM weapon_ammo_table WHERE weapon_for_ammo = :key")
     fun getAllAmmosForThisWeapon(key: Long?) : List<WeaponAmmo>
 
-    @Query("SELECT * FROM weapon_ammo_table WHERE  ammo_type_id = :typeKey")
+    @Query("SELECT * FROM weapon_ammo_table WHERE  ammo_type = :typeKey")
     fun getAmmoType(typeKey: String) : WeaponAmmo?
 }
