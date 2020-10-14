@@ -2,6 +2,7 @@ package com.intelliteq.fea.ammocalculator.persistence.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
 import com.intelliteq.fea.ammocalculator.persistence.models.Calculations
 import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
 
@@ -35,5 +36,8 @@ interface CalculationsDao {
 
     @Query("SELECT * FROM calculations_table WHERE calculationId = :key LIMIT 1")
     fun getOneCalc(key: Long) : LiveData<Calculations>
+
+    //@Query("SELECT a.* FROM calculations_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND a.ammo_type_id = s.weapon_id_for_calculation ")//OR a.ammo_type_id = s.component_ammo_id_for_calculation")
+   // fun getSelectedAmmos(key: Long) : LiveData<List<Ammo>>
 
 }

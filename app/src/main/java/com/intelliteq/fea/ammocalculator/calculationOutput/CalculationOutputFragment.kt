@@ -81,6 +81,12 @@ class CalculationOutputFragment : Fragment() {
             }
         })
 
+//        calculateOutputViewModel.ammos.observe(viewLifecycleOwner, Observer {
+//            ammo ->
+//            ammo?.let {
+//                adapterAmmo.data = ammo
+//            }
+//        })
 
 
         // Inflate the layout for this fragment
