@@ -5,10 +5,12 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentDao
 import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponDao
+import com.intelliteq.fea.ammocalculator.persistence.models.Component
 import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
 import kotlinx.coroutines.*
-import java.nio.file.WatchEvent
+
 
 /**
  * ViewModel class for Weapon Fragment
@@ -17,7 +19,8 @@ import java.nio.file.WatchEvent
  * @param database: WeaponDao
  */
 class WeaponViewModel (
-    val database: WeaponDao,
+    val weaponDatabase: WeaponDao,
+    val componentDatabase: ComponentDao,
     application: Application) : AndroidViewModel(application) {
 
     //create job and scope of coroutine
@@ -27,7 +30,8 @@ class WeaponViewModel (
 
     //create weapon to watch
     private var weapon = MutableLiveData<Weapon?>()
-    lateinit var weapons : ArrayList<Weapon>
+    private var component = MutableLiveData<Component?>()
+
 
 
     //reading the user input
@@ -56,8 +60,15 @@ class WeaponViewModel (
     private fun initializeWeapon() {
         uiScope.launch {
             val newWeapon = Weapon()
-            insert(newWeapon)
+            val newComponent = Component()
+            insertWeapon(newWeapon)
             weapon.value = getWeaponFromDatabase()
+            newComponent.weaponId = weapon.value!!.weaponAutoId
+            insertComponent(newComponent)
+            component.value = getComponentFromDatabase()
+
+           // Log.i("WEAPON updated", "////W: ${weapon.value}")
+           // Log.i("WEAPON updated", "////C: ${component.value}")
         }
     }
 
@@ -67,8 +78,19 @@ class WeaponViewModel (
      */
     private suspend fun getWeaponFromDatabase() : Weapon? {
         return withContext(Dispatchers.IO) {
-            var weapon = database.getNewWeapon()
+            var weapon = weaponDatabase.getNewWeapon()
             weapon
+        }
+    }
+
+    /**
+     * Gets component from the database that was inserted
+     * @return Component object from database
+     */
+    private suspend fun getComponentFromDatabase() : Component? {
+        return withContext(Dispatchers.IO) {
+            var comp = componentDatabase.getNewComponent()
+            comp
         }
     }
 
@@ -85,14 +107,18 @@ class WeaponViewModel (
      */
     fun onInputAmmo() {
         uiScope.launch {
-            val thisWeapon = weapon.value?: return@launch
-            thisWeapon.weaponDescription = weaponDescriptionEditText.value.toString()
-            thisWeapon.weaponTypeID = weaponTypeEditText.value.toString()
-            thisWeapon.FEA_id = thisWeapon.weaponAutoId.toInt()
-            update(thisWeapon)
-            Log.i("called HERE", "weap")
+            val thisComponent = component.value?: return@launch
+            thisComponent.componentDescription = weaponDescriptionEditText.value.toString()
+            thisComponent.componentTypeId = weaponTypeEditText.value.toString()
+            thisComponent.FEA_id = thisComponent.componentAutoId.toInt()
+            thisComponent.primaryWeapon = true
+            weapon.value!!.componentId = thisComponent.componentAutoId
+            updateWeapon(weapon.value!!)
+            updateComponent(thisComponent)
+          //  Log.i("called HERE", "weap")
             _navigateToInputWeaponAmmo.value = weapon.value
-            Log.i("WEAPON updated", "///// ${thisWeapon}")
+          //  Log.i("WEAPON updated", "////W: ${weapon.value}")
+          //  Log.i("WEAPON updated", "////C: ${thisComponent}")
 
 
         }
@@ -103,21 +129,39 @@ class WeaponViewModel (
      * Suspend function to insert into database
      * @param weapon: to be inserted
      */
-    private suspend fun insert(weapon: Weapon) {
+    private suspend fun insertWeapon(weapon: Weapon) {
         withContext(Dispatchers.IO) {
-            database.insert(weapon)
+            weaponDatabase.insert(weapon)
         }
+    }
 
-
+    /**
+     * Suspend function to insert into database
+     * @param comp: to be inserted
+     */
+    private suspend fun insertComponent(comp: Component) {
+        withContext(Dispatchers.IO) {
+            componentDatabase.insert(comp)
+        }
     }
 
     /**
      * Suspend function to update componentAmmo into database
      * @param weapon: to be updated
      */
-    private suspend fun update(weapon: Weapon) {
+    private suspend fun updateWeapon(weapon: Weapon) {
         withContext(Dispatchers.IO) {
-            database.update(weapon)
+            weaponDatabase.update(weapon)
+        }
+    }
+
+     /**
+     * Suspend function to update componentAmmo into database
+     * @param comp: to be updated
+     */
+    private suspend fun updateComponent(comp: Component) {
+        withContext(Dispatchers.IO) {
+            componentDatabase.update(comp)
         }
     }
 

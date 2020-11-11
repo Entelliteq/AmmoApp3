@@ -1,63 +1,47 @@
 <resources>
     <string name="app_name">AmmoApp3</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="description_weapon">Description Weapon</string>
-    <string name="weapon_type">Weapon Type</string>
-    <string name="input_weapons">Input Weapon</string>
-    <string name="input_ammo">Input Ammo</string>
-    <string name="add_another_ammo">Add Another Ammo</string>
-    <string name="verify">Verify All Inputs</string>
-    <string name="add_component">Add Component</string>
-    <string name="type">Component Type</string>
-    <string name="description">Description</string>
-    <string name="dodic">Ammo DODIC</string>
-    <string name="add_another_component">Add Another Component</string>
-    <string name="input_component">Input Component</string>
-    <string name="input_ammo_for_component">Input Component Ammo</string>
-    <string name="dodic_of_ammo">DODIC of Ammo</string>
-    <string name="description__ammo_comp">Description</string>
-    <string name="type_of_ammo_comp">Type of Ammo</string>
-    <string name="add_another_component_ammo">Add Another Ammo</string>
-    <string name="confirmation">confirmation</string>
-    <string name="save">save</string>
-    <string name="edit">edit</string>
-    <string name="reset">reset</string>
-    <string name="calculate">Calculate</string>
-    <string name="choose_weapon">Weapon By Type and Desc</string>
-    <string name="number_of_weapons">Number of Weapons:</string>
-    <string name="number_of_days">Number of Days:</string>
-    <string name="combat_type">Combat Type:</string>
-    <string name="fea_id">FEA ID:</string>
-    <string name="weapon_type2">Weapon Type:</string>
-    <string name="weapon_desc">Weapon Desc:</string>
-    <string name="ammo_type">Ammo Type:</string>
-    <string name="component_type">Component Type:</string>
-    <string name="component_ammo">Component Ammo:</string>
-    <string name="calculation_complete">Calculation Complete</string>
-    <string name="add_another_weapon">Add Another Weapon</string>
-    <string name="recalculate">New Calculation</string>
-    <string name="landing">landing</string>
-    <string name="num_days">Num Days</string>
-    <string name="set_day_and_combat">Set Day and Combat</string>
-    <string name="combat">Combat</string>
-    <string name="weapons">Weapons</string>
-    <string name="ammunition">Ammunition</string>
-    <string name="days">No. Days:</string>
-    <string name="operation">Operation type:</string>
-    <string name="type_out">Type:</string>
-    <string name="fea">FEA:</string>
-    <string name="quantity">Quantity:</string>
-    <string name="description_out">Description:</string>
-    <string name="input">Selection</string>
-    <string name="add_weapon">Add Weapon</string>
+
+    <!-- Titles -->
+    <string name="inputHeader">Input</string>
+    <string name="componentHeader">Component</string>
+    <string name="weaponHeader">Weapon</string>
+    <string name="ammunitionHeader">Ammunition</string>
+    <string name="calculate">Calculation</string>
     <string name="new_calculation">New Calculation</string>
     <string name="saved_calculation">Saved Calculation</string>
-    <string name="new_input">New Input</string>
-    <string name="ammo_type_out">Ammo type:</string>
-    <string name="total">Total</string>
-    <string name="dodic_out">DODIC</string>
-    <string name="per_weapon">Per Weapon</string>
+    <string name="calculation_complete">Calculation Complete</string>
+    <string name="weapons">Weapons</string>
+    <string name="ammunition">Ammunition</string>
+
+    <string name="combat">Intensity:</string>
+    <string name="num_days">Num Days:</string>
+    <string name="days">No. Days:</string>
+    <string name="operation">Operation type:</string>
+    <string name="set_day_and_combat">Set Day and Intensity</string>
+
+    <!-- Type, Description, Dodic -->
+    <string name="weapon_type">Weapon Type:</string>
+    <string name="weapon_description">Weapon Description</string>
+    <string name="weapon_desc">Weapon Desc:</string>
+    <string name="description">Description</string>
+    <string name="dodic">Ammo DODIC</string>
+    <string name="component_type">Component:</string>
+
+    <!-- Ammo -->
+    <string name="input_ammo">Input Ammo</string>
+    <string name="ammo_type">Weapon Ammo:</string>
+    <string name="add_another_ammo">Add Another Ammo</string>
+    <string name="component_ammo">Component Ammo:</string>
+
+
+    <!-- Combat Intensity -->
+    <string name="training_intensity">Training Intensity</string>
+    <string name="security_intensity">Security Intensity</string>
+    <string name="sustain_intensity">Sustain Intensity</string>
+    <string name="light_assault_intensity">Light Assault Intensity</string>
+    <string name="medium_assault_intensity">Medium Assault Intensity</string>
+    <string name="heavy_assault_intensity">Heavy Assault Intensity</string>
+
     <string-array name="combat_types">
         <item name="train">Training</item>
         <item name="security">Security</item>
@@ -66,4 +50,55 @@
         <item name="medium">Medium Assault</item>
         <item name="heavy">Heavy Assault</item>
     </string-array>
+
+    <!-- Component -->
+    <string name="add_another_component">Add Another Component</string>
+    <string name="add_component">Add Component</string>
+    <string name="component_description">Add Component Description</string>
+
+    <!-- Buttons -->
+    <string name="verify_inputs">Validate All Items</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="reset">Reset</string>
+    <string name="add_another_weapon">Add Another Weapon//</string>
+    <string name="recalculate">New Calculation</string>
+    <string name="landing">landing</string>
+    <string name="input">Selection</string>
+    <string name="add_weapon">Add Weapon</string>
+    <string name="send">Send</string>
+    <string name="cancel">Cancel</string>
+    <string name="home">Home</string>
+    <string name="reenter">Re-enter</string>
+
+    <!-- Spinner options -->
+    <string name="choose_weapon">Weapon By Type and Desc</string>
+    <string name="number_of_weapons">Number of Weapons:</string>
+    <string name="number_of_days">Number of Days:</string>
+    <string name="combat_type">Intensity Type:</string>
+    <string name="fea_id">FEA ID:</string>
+
+
+    <!-- Cards -->
+    <string name="type_out">Type:</string>
+    <string name="fea">FEA:</string>
+    <string name="quantity">Quantity:</string>
+    <string name="description_out">Description:</string>
+
+
+    <string name="new_input">New Input</string>
+    <string name="ammo_type_out">Ammo type:</string>
+    <string name="total">Total</string>
+    <string name="dodic_out">DODIC</string>
+    <string name="per_weapon">Per Weapon</string>
+    <string name="input_componentHeader">Input Component</string>
+    <string name="ammo_desc">Ammo desc.</string>
+    <string name="tbd">tbd</string>
+
+    <!-- Unclassified -->
+
+
+
+
+
 </resources>

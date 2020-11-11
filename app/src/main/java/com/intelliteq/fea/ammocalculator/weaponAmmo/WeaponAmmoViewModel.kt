@@ -1,21 +1,24 @@
 package com.intelliteq.fea.ammocalculator.weaponAmmo
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponAmmoDao
-import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
+import com.intelliteq.fea.ammocalculator.persistence.daos.AmmoDao
+import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentDao
+import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
 import kotlinx.coroutines.*
 
 /**
  * ViewModel class for WeaponAmmo Fragment
  *
  * @param weaponKey: from Weapon input
- * @param database: WeaponAmmoDao
+ * @param database: AmmoDao
  */
 class WeaponAmmoViewModel(
     private val weaponKey: Long = 0L,
-    val database: WeaponAmmoDao
+    val database: AmmoDao,
+    val compDatabase: ComponentDao
 ) : ViewModel() {
 
     //create job and scope of coroutine
@@ -23,7 +26,7 @@ class WeaponAmmoViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     //weaponAmmo to watch
-    private var weaponAmmo = MutableLiveData<WeaponAmmo?>()
+    private var weaponAmmo = MutableLiveData<Ammo?>()
 
 
     //reading user input
@@ -43,12 +46,12 @@ class WeaponAmmoViewModel(
         get() = _checkStatusOfInputs
 
     //Navigation Mutable Live Data
-    private val _navigateToInputComponent = MutableLiveData<WeaponAmmo>()
-    val navigateToInputComponent: LiveData<WeaponAmmo>
+    private val _navigateToInputComponent = MutableLiveData<Long>()
+    val navigateToInputComponent: LiveData<Long>
         get() = _navigateToInputComponent
 
-    private val _navigateToAddAnotherAmmo = MutableLiveData<WeaponAmmo>()
-    val navigateToAddAnotherAmmo: LiveData<WeaponAmmo>
+    private val _navigateToAddAnotherAmmo = MutableLiveData<Ammo>()
+    val navigateToAddAnotherAmmo: LiveData<Ammo>
         get() = _navigateToAddAnotherAmmo
 
     private val _navigateToConfirmation = MutableLiveData<Long>()
@@ -60,7 +63,7 @@ class WeaponAmmoViewModel(
      */
     init {
         initializeAmmo()
-        //Log.i("WEapon key", "$weaponKey")
+        //Log.i("Weapon key", "$weaponKey")
     }
 
     /**
@@ -69,9 +72,10 @@ class WeaponAmmoViewModel(
      */
     private fun initializeAmmo() {
         uiScope.launch {
-            val newAmmo = WeaponAmmo()
+            val newAmmo = Ammo()
             insert(newAmmo)
             weaponAmmo.value = getAmmoFromDatabase()
+            Log.i("Weapon amo1", "${weaponAmmo.value!!.ammoAutoId}")
         }
     }
 
@@ -79,9 +83,10 @@ class WeaponAmmoViewModel(
      * Gets weapon ammo from the database that was inserted
      * @return WeaponAmmo object from database
      */
-    private suspend fun getAmmoFromDatabase(): WeaponAmmo? {
+    private suspend fun getAmmoFromDatabase(): Ammo? {
         return withContext(Dispatchers.IO) {
             var weaponammo = database.getNewAmmo()
+            //Log.i("Weapon ammo2 auto", "${weaponammo!!.ammoAutoId}")
             weaponammo
         }
     }
@@ -90,9 +95,10 @@ class WeaponAmmoViewModel(
      * Suspend function to insert into database
      * @param ammo: to be inserted
      */
-    private suspend fun insert(ammo: WeaponAmmo) {
+    private suspend fun insert(ammo: Ammo) {
         withContext(Dispatchers.IO) {
             database.insert(ammo)
+            //Log.i("Weapon amo3", "${ammo.ammoAutoId}")
         }
     }
 
@@ -120,22 +126,32 @@ class WeaponAmmoViewModel(
         if (checkEditTexts()) {
             uiScope.launch {
                 val thisammo = weaponAmmo.value ?: return@launch
-                thisammo.weaponId = weaponKey
+
+                thisammo.componentId = getComponentID(weaponKey)  //changed 10/27
                //Log.i("This ammo weapon id", "${thisammo.weaponId}")
-                //Log.i("This weapon key", "${weaponKey}")
-                thisammo.ammoType = weaponAmmoTypeEditText.value.toString()
+                Log.i("This ammo:", "${thisammo}")
+            //    thisammo.ammoTypeId = weaponAmmoTypeEditText.value.toString()
                 thisammo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
-                thisammo.DODIC = weaponAmmoDODICEditText.value.toString()
+                thisammo.ammoDODIC = weaponAmmoDODICEditText.value.toString()
                 thisammo.trainingRate = weaponAmmoTrainingEditText.value!!.toInt()
                 thisammo.securityRate = weaponAmmoSecurityEditText.value!!.toInt()
+                thisammo.weaponId =weaponKey
+                thisammo.primaryAmmo = true
                 thisammo.sustainRate = weaponAmmoSustainEditText.value!!.toInt()
                 thisammo.lightAssaultRate = weaponAmmoLightEditText.value!!.toInt()
                 thisammo.mediumAssaultRate = weaponAmmoMediumEditText.value!!.toInt()
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToAddAnotherAmmo.value = thisammo
-               // Log.i("WEAPON AMMO updated ", " $thisammo")
+                //Log.i("WEAPON AMMO 4 ", " ${thisammo}")
             }
+        }
+    }
+
+    private suspend fun getComponentID(id: Long)  : Long {
+        return withContext(Dispatchers.IO) {
+            val id = compDatabase.getCompID(id)
+            id
         }
     }
 
@@ -147,19 +163,21 @@ class WeaponAmmoViewModel(
         if (checkEditTexts()) {
             uiScope.launch {
                 val thisammo = weaponAmmo.value ?: return@launch
-                thisammo.weaponId = weaponKey
-                thisammo.ammoType = weaponAmmoTypeEditText.value.toString()
+                thisammo.componentId = weaponKey
+            //    thisammo.ammoTypeId = weaponAmmoTypeEditText.value.toString()
                 thisammo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
-                thisammo.DODIC = weaponAmmoDODICEditText.value.toString()
+                thisammo.ammoDODIC = weaponAmmoDODICEditText.value.toString()
                 thisammo.trainingRate = weaponAmmoTrainingEditText.value!!.toInt()
                 thisammo.securityRate = weaponAmmoSecurityEditText.value!!.toInt()
+                thisammo.weaponId =weaponKey
+                thisammo.primaryAmmo = true
                 thisammo.sustainRate = weaponAmmoSustainEditText.value!!.toInt()
                 thisammo.lightAssaultRate = weaponAmmoLightEditText.value!!.toInt()
                 thisammo.mediumAssaultRate = weaponAmmoMediumEditText.value!!.toInt()
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToConfirmation.value = weaponKey
-                //Log.i("WEAPON AMMO updated ", " $thisammo")
+                //Log.i("WEAPON AMMO 5 ", " ${thisammo}")
             }
         }
 
@@ -194,10 +212,12 @@ class WeaponAmmoViewModel(
         if (checkEditTexts()) {
             uiScope.launch {
                 val thisammo = weaponAmmo.value ?: return@launch
-                thisammo.weaponId = weaponKey
-                thisammo.ammoType = weaponAmmoTypeEditText.value.toString()
+                thisammo.componentId = weaponKey
+             //   thisammo.ammoTypeId = weaponAmmoTypeEditText.value.toString()
                 thisammo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
-                thisammo.DODIC = weaponAmmoDODICEditText.value.toString()
+                thisammo.ammoDODIC = weaponAmmoDODICEditText.value.toString()
+                thisammo.weaponId =weaponKey
+                thisammo.primaryAmmo = true
                 thisammo.trainingRate = weaponAmmoTrainingEditText.value!!.toInt()
                 thisammo.securityRate = weaponAmmoSecurityEditText.value!!.toInt()
                 thisammo.sustainRate = weaponAmmoSustainEditText.value!!.toInt()
@@ -205,8 +225,8 @@ class WeaponAmmoViewModel(
                 thisammo.mediumAssaultRate = weaponAmmoMediumEditText.value!!.toInt()
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
-                _navigateToInputComponent.value = thisammo
-                //Log.i("WEAPON AMMO updated ", " $thisammo")
+                _navigateToInputComponent.value = weaponKey
+               // Log.i("WEAPON AMMO 6 ", " ${thisammo}")
             }
         }
     }
@@ -215,9 +235,10 @@ class WeaponAmmoViewModel(
      * Suspend function to update componentAmmo into database
      * @param ammo: to be updated
      */
-    private suspend fun update(ammo: WeaponAmmo) {
+    private suspend fun update(ammo: Ammo) {
         withContext(Dispatchers.IO) {
             database.update(ammo)
+           // Log.i("Weapon amo7", "${ammo.ammoAutoId}")
         }
     }
 

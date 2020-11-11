@@ -1,22 +1,23 @@
 package com.intelliteq.fea.ammocalculator.componentAmmo
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentAmmoDao
-import com.intelliteq.fea.ammocalculator.persistence.models.ComponentAmmo
+import com.intelliteq.fea.ammocalculator.persistence.daos.AmmoDao
+import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
 import kotlinx.coroutines.*
 
 /**
  * ViewModel class for ComponentAmmo Fragment
  *
  * @param componentKey: from Component input
- * @param database: ComponentAmmoDao
+ * @param database: AmmoDao
  */
 class ComponentAmmoViewModel (
     private val componentKey: Long = 0L,
     private val weaponKey: Long = 0L,
-    val database: ComponentAmmoDao
+    val database: AmmoDao
 ) : ViewModel() {
 
     //Job and CoroutineScope
@@ -24,12 +25,19 @@ class ComponentAmmoViewModel (
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     //watching componentAmmo
-    private var componentAmmo = MutableLiveData<ComponentAmmo?>()
+    private var componentAmmo = MutableLiveData<Ammo?>()
 
     //read user input
     val componentAmmoTypeEditText = MutableLiveData<String>()
     val componentAmmoDescriptionEditText = MutableLiveData<String>()
     val componentAmmoDODICEditText = MutableLiveData<String>()
+    val componentAmmoTrainingEditText = MutableLiveData<String>()
+    val componentAmmoSecurityEditText = MutableLiveData<String>()
+    val componentAmmoSustainEditText = MutableLiveData<String>()
+    val componentAmmoLightEditText = MutableLiveData<String>()
+    val componentAmmoMediumEditText = MutableLiveData<String>()
+    val componentAmmoHeavyEditText = MutableLiveData<String>()
+
 
     //check if all edit texts are filled
     private val _checkStatusOfInputs = MutableLiveData<Boolean>()
@@ -37,23 +45,26 @@ class ComponentAmmoViewModel (
         get() = _checkStatusOfInputs
 
     //Navigation Mutable Live Data
-    private val _navigateToInputAnotherComponentAmmo = MutableLiveData<ComponentAmmo>()
-    val navigateToInputAnotherComponentAmmo: LiveData<ComponentAmmo>
+    private val _navigateToInputAnotherComponentAmmo = MutableLiveData<Array<Long>>()
+    val navigateToInputAnotherComponentAmmo: LiveData<Array<Long>>
         get() = _navigateToInputAnotherComponentAmmo
 
-    private val _navigateToConfirmation = MutableLiveData<ComponentAmmo>()
-    val navigateToConfirmation: LiveData<ComponentAmmo>
+    private val _navigateToConfirmation = MutableLiveData<Long>()
+    val navigateToConfirmation: LiveData<Long>
         get() = _navigateToConfirmation
 
-    private val _navigateToAnotherComponent = MutableLiveData<ComponentAmmo>()
-    val navigateToAnotherComponent: LiveData<ComponentAmmo>
+    private val _navigateToAnotherComponent = MutableLiveData<Long>()
+    val navigateToAnotherComponent: LiveData<Long>
         get() = _navigateToAnotherComponent
+
+    var keys = arrayOf(componentKey, weaponKey)
 
     /**
      * Initializing the componentAmmo variable
      */
     init {
         initializeComponentAmmo()
+        Log.i("COMP1", "initialized ammo")
 
     }
 
@@ -63,7 +74,7 @@ class ComponentAmmoViewModel (
      */
     private fun initializeComponentAmmo() {
         uiScope.launch {
-            val newComponentAmmo = ComponentAmmo()
+            val newComponentAmmo = Ammo()
             insert(newComponentAmmo)
             componentAmmo.value = getComponentAmmoFromDatabase()
         }
@@ -73,9 +84,9 @@ class ComponentAmmoViewModel (
      * Gets componentAmmo from the database that was inserted
      * @return ComponentAmmo object from database
      */
-    private suspend fun getComponentAmmoFromDatabase() : ComponentAmmo? {
+    private suspend fun getComponentAmmoFromDatabase() : Ammo? {
         return withContext(Dispatchers.IO) {
-            var compammo = database.getNewComponentAmmo()
+            var compammo = database.getNewAmmo()
             compammo
         }
     }
@@ -84,7 +95,7 @@ class ComponentAmmoViewModel (
      * Suspend function to insert into database
      * @param compAmmo: to be inserted
      */
-    private suspend fun insert(compAmmo: ComponentAmmo) {
+    private suspend fun insert(compAmmo: Ammo) {
         withContext(Dispatchers.IO) {
             database.insert(compAmmo)
         }
@@ -109,13 +120,20 @@ class ComponentAmmoViewModel (
         if(checkEditTexts()) {
             uiScope.launch {
                 val thisCompAmmo = componentAmmo.value ?: return@launch
-                thisCompAmmo.componentAmmoTypeID = componentAmmoTypeEditText.value.toString()
-                thisCompAmmo.componentAmmoDescription = componentAmmoDescriptionEditText.value.toString()
-                thisCompAmmo.componentAmmoDODIC = componentAmmoDODICEditText.value.toString()
+               // thisCompAmmo.ammoTypeId = componentAmmoTypeEditText.value.toString()
+                thisCompAmmo.ammoDescription = componentAmmoDescriptionEditText.value.toString()
+                thisCompAmmo.ammoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
-                thisCompAmmo.weaponIdComponentAmmo = weaponKey
+                thisCompAmmo.weaponId = weaponKey
+                thisCompAmmo.trainingRate = componentAmmoTrainingEditText.value!!.toInt()
+                thisCompAmmo.securityRate = componentAmmoSecurityEditText.value!!.toInt()
+                thisCompAmmo.sustainRate = componentAmmoSustainEditText.value!!.toInt()
+                thisCompAmmo.lightAssaultRate = componentAmmoLightEditText.value!!.toInt()
+                thisCompAmmo.mediumAssaultRate = componentAmmoMediumEditText.value!!.toInt()
+                thisCompAmmo.heavyAssaultRate = componentAmmoHeavyEditText.value!!.toInt()
+
                 update(thisCompAmmo)
-                _navigateToInputAnotherComponentAmmo.value = thisCompAmmo
+                _navigateToInputAnotherComponentAmmo.value = keys
                 //Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
 
             }
@@ -130,13 +148,19 @@ class ComponentAmmoViewModel (
         if(checkEditTexts()) {
             uiScope.launch {
                 val thisCompAmmo = componentAmmo.value ?: return@launch
-                thisCompAmmo.componentAmmoTypeID = componentAmmoTypeEditText.value.toString()
-                thisCompAmmo.componentAmmoDescription = componentAmmoDescriptionEditText.value.toString()
-                thisCompAmmo.componentAmmoDODIC = componentAmmoDODICEditText.value.toString()
+               // thisCompAmmo.ammoTypeId = componentAmmoTypeEditText.value.toString()
+                thisCompAmmo.ammoDescription = componentAmmoDescriptionEditText.value.toString()
+                thisCompAmmo.ammoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
-                thisCompAmmo.weaponIdComponentAmmo = weaponKey
+                thisCompAmmo.weaponId = weaponKey
+                thisCompAmmo.trainingRate = componentAmmoTrainingEditText.value!!.toInt()
+                thisCompAmmo.securityRate = componentAmmoSecurityEditText.value!!.toInt()
+                thisCompAmmo.sustainRate = componentAmmoSustainEditText.value!!.toInt()
+                thisCompAmmo.lightAssaultRate = componentAmmoLightEditText.value!!.toInt()
+                thisCompAmmo.mediumAssaultRate = componentAmmoMediumEditText.value!!.toInt()
+                thisCompAmmo.heavyAssaultRate = componentAmmoHeavyEditText.value!!.toInt()
                 update(thisCompAmmo)
-                _navigateToAnotherComponent.value = thisCompAmmo
+                _navigateToAnotherComponent.value = weaponKey
                 //Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
             }
         }
@@ -149,7 +173,7 @@ class ComponentAmmoViewModel (
      * @return Boolean that is true if they are valid
      */
     fun checkEditTexts() : Boolean {
-        if (componentAmmoTypeEditText.value.isNullOrEmpty() ||
+        if (//componentAmmoTypeEditText.value.isNullOrEmpty() ||
                 componentAmmoDODICEditText.value.isNullOrEmpty() ||
                 componentAmmoDescriptionEditText.value.isNullOrEmpty()) {
             _checkStatusOfInputs.value = false
@@ -164,7 +188,7 @@ class ComponentAmmoViewModel (
      * Suspend function to update componentAmmo into database
      * @param compAmmo: to be updated
      */
-    private suspend fun update(compAmmo: ComponentAmmo) {
+    private suspend fun update(compAmmo: Ammo) {
         withContext(Dispatchers.IO) {
             database.update(compAmmo)
         }
@@ -179,13 +203,19 @@ class ComponentAmmoViewModel (
         if(checkEditTexts()) {
             uiScope.launch {
                 val thisCompAmmo = componentAmmo.value ?: return@launch
-                thisCompAmmo.componentAmmoTypeID = componentAmmoTypeEditText.value.toString()
-                thisCompAmmo.componentAmmoDescription = componentAmmoDescriptionEditText.value.toString()
-                thisCompAmmo.componentAmmoDODIC = componentAmmoDODICEditText.value.toString()
+                //thisCompAmmo.ammoTypeId = componentAmmoTypeEditText.value.toString()
+                thisCompAmmo.ammoDescription = componentAmmoDescriptionEditText.value.toString()
+                thisCompAmmo.ammoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
-                thisCompAmmo.weaponIdComponentAmmo = weaponKey
+                thisCompAmmo.weaponId = weaponKey
+                thisCompAmmo.trainingRate = componentAmmoTrainingEditText.value!!.toInt()
+                thisCompAmmo.securityRate = componentAmmoSecurityEditText.value!!.toInt()
+                thisCompAmmo.sustainRate = componentAmmoSustainEditText.value!!.toInt()
+                thisCompAmmo.lightAssaultRate = componentAmmoLightEditText.value!!.toInt()
+                thisCompAmmo.mediumAssaultRate = componentAmmoMediumEditText.value!!.toInt()
+                thisCompAmmo.heavyAssaultRate = componentAmmoHeavyEditText.value!!.toInt()
                 update(thisCompAmmo)
-                _navigateToConfirmation.value = thisCompAmmo
+                _navigateToConfirmation.value = weaponKey
                 //Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
 
             }

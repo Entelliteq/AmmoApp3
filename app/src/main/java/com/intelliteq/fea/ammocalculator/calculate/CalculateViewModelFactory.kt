@@ -9,18 +9,17 @@ import java.lang.IllegalArgumentException
 class CalculateViewModelFactory  (
     private val calculationKey: Long,
     private val weaponDatabase: WeaponDao,
-    private val ammoDatabase: WeaponAmmoDao,
+    private val ammoDatabase: AmmoDao,
     private val componentDatabase: ComponentDao,
-    private val componentAmmoDatabase: ComponentAmmoDao,
-    private val singleWeaponCalculationDatabase: SingleWeaponCalculationDao,
-    val calculationsDatabase: CalculationsDao
+    private val perWeaponCalculationDatabase: PerWeaponCalculationDao,
+    val calculationDatabase: CalculationDao
 ) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CalculateViewModel::class.java)) {
             return CalculateViewModel(calculationKey, weaponDatabase, ammoDatabase, componentDatabase,
-                componentAmmoDatabase, singleWeaponCalculationDatabase, calculationsDatabase) as T
+                perWeaponCalculationDatabase, calculationDatabase) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

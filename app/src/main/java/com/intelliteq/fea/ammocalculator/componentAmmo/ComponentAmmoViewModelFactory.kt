@@ -3,6 +3,7 @@ package com.intelliteq.fea.ammocalculator.componentAmmo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.intelliteq.fea.ammocalculator.persistence.daos.AmmoDao
 import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentAmmoDao
 import java.lang.IllegalArgumentException
 
@@ -12,7 +13,7 @@ import java.lang.IllegalArgumentException
 class ComponentAmmoViewModelFactory (
     private val componentKey: Long = 0L,
     private val weaponKey: Long = 0L,
-    private val database: ComponentAmmoDao
+    private val database: AmmoDao
 ) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")

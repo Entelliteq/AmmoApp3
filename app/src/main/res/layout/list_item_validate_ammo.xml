@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="ammoValidateListItem"
+            type="com.intelliteq.fea.ammocalculator.persistence.models.Ammo" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#F1F2FA"
+        android:padding="5dp"
+        android:layout_margin="3dp"
+        app:cardCornerRadius="12dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dodic_tv"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="DODIC:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="100dp"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:text="Description:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/dodic_tv"
+                app:layout_constraintStart_toStartOf="@+id/dodic_tv" />
+
+            <LinearLayout
+                android:id="@+id/layout_desc_dodic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/dodic_tv">
+
+                <TextView
+                    android:id="@+id/confWpnAmmoTypDODIC"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@{ammoValidateListItem.ammoDODIC}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/confWpnAmmoDesc"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="3"
+
+                    android:gravity="center_vertical"
+                    android:text="@{ammoValidateListItem.ammoDescription}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/intensity_tv"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Combat Intensity:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_desc_dodic" />
+
+            <LinearLayout
+                android:id="@+id/layout_train_sec_sus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/intensity_tv">
+
+                <TextView
+                    android:id="@+id/train_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="Training:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textStyle="italic|bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/security_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+
+                    android:gravity="center_vertical"
+                    android:text="Security:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textStyle="italic|bold"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/dodic_tv"
+                    app:layout_constraintStart_toStartOf="@+id/dodic_tv" />
+
+                <TextView
+                    android:id="@+id/sustain_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+
+                    android:gravity="center_vertical"
+                    android:text="Sustain:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textStyle="italic|bold"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/dodic_tv"
+                    app:layout_constraintStart_toStartOf="@+id/dodic_tv" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_entered_train_sec_sus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_train_sec_sus">
+
+                <TextView
+                    android:id="@+id/confTrain"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:setString="@{ammoValidateListItem.trainingRate}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/confSecurity"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:setString="@{ammoValidateListItem.securityRate}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/dodic_tv"
+                    app:layout_constraintStart_toStartOf="@+id/dodic_tv" />
+
+                <TextView
+                    android:id="@+id/confSustain"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:setString="@{ammoValidateListItem.sustainRate}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/dodic_tv"
+                    app:layout_constraintStart_toStartOf="@+id/dodic_tv" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_assault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/layout_entered_train_sec_sus">
+
+                <TextView
+                    android:id="@+id/light_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="Light:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textStyle="italic|bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/medium_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+
+                    android:gravity="center_vertical"
+                    android:text="Medium:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textStyle="italic|bold"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/dodic_tv"
+                    app:layout_constraintStart_toStartOf="@+id/dodic_tv" />
+
+                <TextView
+                    android:id="@+id/heavy_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+
+                    android:gravity="center_vertical"
+                    android:text="Heavy:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textStyle="italic|bold"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/dodic_tv"
+                    app:layout_constraintStart_toStartOf="@+id/dodic_tv" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_entered_assault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/layout_assault">
+
+                <TextView
+                    android:id="@+id/confLight"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:setString="@{ammoValidateListItem.lightAssaultRate}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/confMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:setString="@{ammoValidateListItem.mediumAssaultRate}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/dodic_tv"
+                    app:layout_constraintStart_toStartOf="@+id/dodic_tv" />
+
+                <TextView
+                    android:id="@+id/confHeavy"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:setString="@{ammoValidateListItem.heavyAssaultRate}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/dodic_tv"
+                    app:layout_constraintStart_toStartOf="@+id/dodic_tv" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

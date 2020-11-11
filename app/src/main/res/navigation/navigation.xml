@@ -84,9 +84,9 @@
     </fragment>
     <fragment
         android:id="@+id/Confirmation"
-        android:name="com.intelliteq.fea.ammocalculator.confirmation.ConfirmationFragment"
+        android:name="com.intelliteq.fea.ammocalculator.validation.ValidationFragment"
         android:label="fragment_confirmation"
-        tools:layout="@layout/fragment_confirmation" >
+        tools:layout="@layout/fragment_validation" >
         <argument
             android:name="weaponKey"
             app:argType="long" />
@@ -123,5 +123,11 @@
         <action
             android:id="@+id/action_CalculationOutputScreen_to_CalculateSelection"
             app:destination="@id/CalculateSelection" />
+        <argument
+            android:name="days"
+            app:argType="integer" />
+        <argument
+            android:name="intensity"
+            app:argType="string" />
     </fragment>
 </navigation>

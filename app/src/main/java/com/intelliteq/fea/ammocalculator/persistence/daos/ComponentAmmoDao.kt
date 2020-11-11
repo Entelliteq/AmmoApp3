@@ -19,7 +19,7 @@ interface ComponentAmmoDao {
     @Delete
     fun delete(vararg  model: ComponentAmmo)
 
-    @Query("SELECT * FROM component_ammo_table WHERE componentAmmoId = :key" )
+    @Query("SELECT * FROM component_ammo_table WHERE componentAutoId = :key")
     fun get(key: Long?): ComponentAmmo
 
     @Query("SELECT * FROM component_ammo_table")
@@ -28,7 +28,7 @@ interface ComponentAmmoDao {
     @Query("SELECT count(*) FROM component_ammo_table")
     fun countAll() : Int
 
-    @Query("SELECT * FROM component_ammo_table ORDER BY componentAmmoId DESC LIMIT 1" )
+    @Query("SELECT * FROM component_ammo_table ORDER BY componentAutoId DESC LIMIT 1")
     fun getNewComponentAmmo() : ComponentAmmo?
 
     @Query("SELECT count(*) FROM component_ammo_table WHERE weapon_id_for_component_ammo = :key")

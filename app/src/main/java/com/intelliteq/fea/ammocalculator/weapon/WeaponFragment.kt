@@ -30,10 +30,11 @@ class WeaponFragment : Fragment() {
 
         //getting the application and database
         val application = requireNotNull(this.activity).application
-        val dataSource = AmmoRoomDatabase.getAppDatabase(application)!!.weaponDao
+        val dataSourceWeapon = AmmoRoomDatabase.getAppDatabase(application)!!.weaponDao
+        val dataSourceComponent = AmmoRoomDatabase.getAppDatabase(application)!!.componentDao
 
         //creating a view model using the factory
-        val viewModelFactory = WeaponViewModelFactory(dataSource, application)
+        val viewModelFactory = WeaponViewModelFactory(dataSourceWeapon, dataSourceComponent, application)
         val weaponViewModel = ViewModelProvider(this, viewModelFactory)
             .get(WeaponViewModel::class.java)
 
@@ -49,7 +50,7 @@ class WeaponFragment : Fragment() {
                 weapon?.let {
                     this.findNavController()
                         .navigate(WeaponFragmentDirections.WeaponInputToAmmoInput(weapon.weaponAutoId))
-                    Log.i("Called here ", "frag")
+                 // Log.i("Wpn", "$weapon //add ammo ->")
                     weaponViewModel.doneNavigation()
                 }
 

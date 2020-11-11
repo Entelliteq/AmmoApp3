@@ -2,30 +2,27 @@ package com.intelliteq.fea.ammocalculator.persistence.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.intelliteq.fea.ammocalculator.persistence.models.ComponentAmmo
-import com.intelliteq.fea.ammocalculator.persistence.models.SingleWeaponCalculation
-import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
-import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
+import com.intelliteq.fea.ammocalculator.persistence.models.PerWeaponCalculation
 
 @Dao
-interface SingleWeaponCalculationDao {
+interface PerWeaponCalculationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg model: SingleWeaponCalculation)
+    fun insert(vararg model: PerWeaponCalculation)
 
     @Update
-    fun update(vararg  model: SingleWeaponCalculation)
+    fun update(vararg  model: PerWeaponCalculation)
 
     @Delete
-    fun delete(vararg  model: SingleWeaponCalculation)
+    fun delete(vararg  model: PerWeaponCalculation)
 
     @Query("SELECT * FROM single_calculation_table WHERE single_calculationId = :key" )
-    fun get(key: Long?): SingleWeaponCalculation
+    fun get(key: Long?): PerWeaponCalculation
 
     @Query("SELECT count(*) FROM single_calculation_table")
     fun countAll() : Int
 
     @Query("SELECT * FROM single_calculation_table ORDER BY single_calculationId DESC LIMIT 1" )
-    fun getNewCalculation() : SingleWeaponCalculation
+    fun getNewCalculation() : PerWeaponCalculation
 
     @Query("SELECT count(*) FROM single_calculation_table WHERE single_calculationId = :key")
     fun countAllCalculations(key: Long?) : Int
@@ -34,13 +31,13 @@ interface SingleWeaponCalculationDao {
     fun getWeaponForCalculation(key: Long?) : Long
 
     @Query("SELECT * FROM single_calculation_table WHERE ammo_id_for_calculation = :key")
-    fun getWeaponAmmoForCalculation(key: Long?) : List<SingleWeaponCalculation>
+    fun getWeaponAmmoForCalculation(key: Long?) : List<PerWeaponCalculation>
 
     @Query("SELECT * FROM single_calculation_table WHERE component_ammo_id_for_calculation = :key")
-    fun getComponentAmmoForCalculation(key: Long?) : List<SingleWeaponCalculation>
+    fun getComponentAmmoForCalculation(key: Long?) : List<PerWeaponCalculation>
 
     @Query("SELECT * FROM single_calculation_table WHERE id_group_calculation = :key ")
-    fun getUsingCalculationID(key: Long) : LiveData<List<SingleWeaponCalculation>>
+    fun getUsingCalculationID(key: Long) : LiveData<List<PerWeaponCalculation>>
 
 
 }

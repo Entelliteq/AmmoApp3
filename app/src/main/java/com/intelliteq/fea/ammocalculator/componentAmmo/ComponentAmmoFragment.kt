@@ -34,7 +34,7 @@ class ComponentAmmoFragment : Fragment() {
         //getting the application, arguments set and database
         val application = requireNotNull(this.activity).application
         val arguments = ComponentAmmoFragmentArgs.fromBundle(arguments)
-        val dataSource = AmmoRoomDatabase.getAppDatabase(application)!!.componentAmmoDao
+        val dataSource = AmmoRoomDatabase.getAppDatabase(application)!!.ammoDao
 
         //creating a view model using the factory
         val viewModelFactory =
@@ -69,7 +69,7 @@ class ComponentAmmoFragment : Fragment() {
             Observer { comp ->
                 comp?.let {
                     this.findNavController()
-                        .navigate(ComponentAmmoFragmentDirections.ComponentAmmoToVerify(comp.weaponIdComponentAmmo))
+                        .navigate(ComponentAmmoFragmentDirections.ComponentAmmoToVerify(comp))
                     componentAmmoViewModel.doneNavigatingToVerify()
                 }
             }
@@ -80,7 +80,7 @@ class ComponentAmmoFragment : Fragment() {
             Observer { comp ->
                 comp?.let {
                     this.findNavController()
-                        .navigate(ComponentAmmoFragmentDirections.ComponentAmmoIToComponent(comp.weaponIdComponentAmmo))
+                        .navigate(ComponentAmmoFragmentDirections.ComponentAmmoIToComponent(comp))
                     componentAmmoViewModel.doneNavigateToAnotherComponent()
                 }
             }
@@ -91,8 +91,7 @@ class ComponentAmmoFragment : Fragment() {
             viewLifecycleOwner,
             Observer {
                 this.findNavController()
-                    .navigate(ComponentAmmoFragmentDirections.ComponentAmmoInputToSelf(
-                        it.componentId, it.weaponIdComponentAmmo))
+                    .navigate(ComponentAmmoFragmentDirections.ComponentAmmoInputToSelf(it[0], it[1]))
             }
         )
 

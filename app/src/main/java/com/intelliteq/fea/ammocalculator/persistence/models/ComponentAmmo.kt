@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "component_ammo_table")
 data class ComponentAmmo(
     @PrimaryKey(autoGenerate = true)
-    var componentAmmoId: Long =0L,
+    var componentAutoId: Long =0L,
 
     @ColumnInfo(name = "component_id_for_component_ammo")
     var componentId: Long = 0,

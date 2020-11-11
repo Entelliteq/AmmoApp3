@@ -1,6 +1,7 @@
 package com.intelliteq.fea.ammocalculator.weaponAmmo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.intelliteq.fea.ammocalculator.R
 import com.intelliteq.fea.ammocalculator.databinding.FragmentWeaponAmmoBinding
 import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
+import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
 
 
 /**
@@ -34,10 +36,11 @@ class WeaponAmmoFragment : Fragment() {
         //getting the application, arguments set and database
         val application = requireNotNull(this.activity).application
         val arguments = WeaponAmmoFragmentArgs.fromBundle(arguments)
-        val dataSource = AmmoRoomDatabase.getAppDatabase(application)!!.weaponAmmoDao
+        val dataSource = AmmoRoomDatabase.getAppDatabase(application)!!.ammoDao
+        val dataComp = AmmoRoomDatabase.getAppDatabase(application)!!.componentDao
 
         //creating a view model using the factory
-        val viewModelFactory = WeaponAmmoViewModelFactory(arguments.weaponKey, dataSource)
+        val viewModelFactory = WeaponAmmoViewModelFactory(arguments.weaponKey, dataSource, dataComp)
         val weaponAmmoViewModel =
             ViewModelProvider(this, viewModelFactory)
                 .get(WeaponAmmoViewModel::class.java)
@@ -64,7 +67,7 @@ class WeaponAmmoFragment : Fragment() {
             Observer { weaponAmmo ->
                 weaponAmmo?.let {
                     this.findNavController()
-                        .navigate(WeaponAmmoFragmentDirections.AmmoInputToComponentInput(weaponAmmo.weaponId))
+                        .navigate(WeaponAmmoFragmentDirections.AmmoInputToComponentInput(weaponAmmo))
                     weaponAmmoViewModel.doneNavigatingToComp()
                 }
             })
@@ -75,7 +78,8 @@ class WeaponAmmoFragment : Fragment() {
             Observer { weaponAmmo ->
                 weaponAmmo?.let {
                     this.findNavController()
-                        .navigate(WeaponAmmoFragmentDirections.WeaponAmmoInputToSelf(weaponAmmo.weaponId))
+                        .navigate(WeaponAmmoFragmentDirections.WeaponAmmoInputToSelf(weaponAmmo.weaponId))//passing component to add another ammo to
+                    //Log.i("WpnAmmo", "${weaponAmmo}  //adding another ammo ->")
                     weaponAmmoViewModel.doneNavigatingToAmmo()
                 }
             })

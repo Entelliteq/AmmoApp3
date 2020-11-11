@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.intelliteq.fea.ammocalculator.R
 import com.intelliteq.fea.ammocalculator.databinding.FragmentCalculateBinding
@@ -33,18 +34,17 @@ class CalculateFragment : Fragment() {
         val application = requireNotNull(this.activity).application
 
         val dataSourceWeapon = AmmoRoomDatabase.getAppDatabase(application)!!.weaponDao
-        val dataSourceAmmo = AmmoRoomDatabase.getAppDatabase(application)!!.weaponAmmoDao
+        val dataSourceAmmo = AmmoRoomDatabase.getAppDatabase(application)!!.ammoDao
         val dataSourceComp = AmmoRoomDatabase.getAppDatabase(application)!!.componentDao
-        val dataSourceCompAmmo = AmmoRoomDatabase.getAppDatabase(application)!!.componentAmmoDao
         val dataSourceCalculation =
-            AmmoRoomDatabase.getAppDatabase(application)!!.singleWeaponCalculationDao
-        val dataSourceCalculations = AmmoRoomDatabase.getAppDatabase(application)!!.calculationsDao
+            AmmoRoomDatabase.getAppDatabase(application)!!.perWeaponCalculationDao
+        val dataSourceCalculations = AmmoRoomDatabase.getAppDatabase(application)!!.calculationDao
         val arguments = CalculateFragmentArgs.fromBundle(requireArguments())
 
         //creating a view model using the factory
         val viewModelFactory = CalculateViewModelFactory(arguments.calcKey,
             dataSourceWeapon, dataSourceAmmo,
-            dataSourceComp, dataSourceCompAmmo, dataSourceCalculation, dataSourceCalculations
+            dataSourceComp, dataSourceCalculation, dataSourceCalculations
         )
         val calculateViewModel =
             ViewModelProvider(this, viewModelFactory)
@@ -60,6 +60,11 @@ class CalculateFragment : Fragment() {
 
         binding.pickerDays.setOnValueChangedListener { pickerDays, oldVal, newVal ->
             calculateViewModel.getHowManyDays(newVal)
+        }
+
+        binding.reset.setOnClickListener {
+                view: View -> view.findNavController()
+            .navigate(CalculateFragmentDirections.ActionCalculateSelectionSelf(-1))
         }
 
 
@@ -83,9 +88,11 @@ class CalculateFragment : Fragment() {
             Observer { calc ->
                 calc?.let {
                     this.findNavController()
-                        .navigate(CalculateFragmentDirections.ActionCalculateSelectionToCalculationOutputScreen(calc))
+                        .navigate(CalculateFragmentDirections
+                            .ActionCalculateSelectionToCalculationOutputScreen(
+                                calc.calculationId, calc.numberOfDays, calc.assaultIntensity))
                     calculateViewModel.doneNavigationToOutput()
-                    Log.i("Calc frag","/////$calc")
+                  //  Log.i("Calc frag","/////$calc")
                 }
 
             }
@@ -96,7 +103,8 @@ class CalculateFragment : Fragment() {
         Observer { calc ->
             calc?.let {
                 this.findNavController()
-                    .navigate(CalculateFragmentDirections.actionCalculateSelectionSelf(calc.group_calculationID))
+                    .navigate(CalculateFragmentDirections.actionCalculateSelectionSelf(
+                        calc.group_calculationID))
                 calculateViewModel.doneNavigationToAddAnother()
             }
         })
@@ -150,6 +158,8 @@ class CalculateFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
+
+
         //Component Spinner
         binding.spinnerCompType.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -160,8 +170,9 @@ class CalculateFragment : Fragment() {
                     id: Long
                 ) {
                     val int = parent.getItemAtPosition(position)
-                    //Log.i("Weapon Type", "//** CompID $int")
+                    Log.i("Type", "//** CompID $int")
                     calculateViewModel.useComponent(int as String)
+                 //   calculateViewModel.doneSpinnerComp()
                     // Log.i("Weapon Type", "CompID $int")
                 }
 
@@ -177,7 +188,7 @@ class CalculateFragment : Fragment() {
                 id: Long
             ) {
                 val combat = parent.getItemAtPosition(position)
-                calculateViewModel.combatToIntValues(combat as String)
+                calculateViewModel.assaultIntensityStringToIntValues(combat as String)
                 // Log.i("Weapon Combat", "$combat")
             }
 
@@ -195,10 +206,14 @@ class CalculateFragment : Fragment() {
             ) {
                 val comp = parent.getItemAtPosition(position)
                 calculateViewModel.useComponentAmmo(comp as String)
-                // Log.i("Weapon Combat", "$combat")
+              //  Log.i("error", "comp ammo: $comp")
+             //   Log.i("error", "position: $position")
+                //calculateViewModel.doneSpinnerCompAmmo()
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {}
+            override fun onNothingSelected(parent: AdapterView<*>) {
+               // Log.i("error", "nothing selected")
+            }
 
         }
 
@@ -212,7 +227,7 @@ class CalculateFragment : Fragment() {
             ) {
                 val comp = parent.getItemAtPosition(position)
                 calculateViewModel.useAmmo(comp as String)
-                // Log.i("Weapon Combat", "$combat")
+              //  Log.i("Ammo1", "weapon ammo: $comp")
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}

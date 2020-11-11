@@ -94,12 +94,12 @@ class ComponentViewModel(
         uiScope.launch {
             val thisComponent = component.value ?:return@launch
             thisComponent.weaponId = weaponKey
-            thisComponent.componentTypeID = componentTypeEditText.value.toString()
+            thisComponent.componentTypeId = componentTypeEditText.value.toString()
             thisComponent.componentDescription = componentDescriptionEditText.value.toString()
-            thisComponent.FEA_id = thisComponent.weaponId.toInt()
+            thisComponent.FEA_id = thisComponent.componentAutoId.toInt()
             update(thisComponent)
             _navigateToConfirmation.value = weaponKey
-            Log.i("WEAPON COMP V updated ", " ${thisComponent}")
+         //   Log.i("WEAPON COMP V updated ", " ${thisComponent}")
         }
 
     }
@@ -112,12 +112,12 @@ class ComponentViewModel(
         uiScope.launch {
             val thisComponent = component.value ?:return@launch
             thisComponent.weaponId = weaponKey
-            thisComponent.componentTypeID = componentTypeEditText.value.toString()
+            thisComponent.componentTypeId = componentTypeEditText.value.toString()
             thisComponent.componentDescription = componentDescriptionEditText.value.toString()
-            thisComponent.FEA_id = thisComponent.weaponId.toInt()
+            thisComponent.FEA_id = thisComponent.componentAutoId.toInt()
             update(thisComponent)
             _navigateToInputComponentAmmo.value = component.value
-           //Log.i("WEAPON COMP CA updated ", " ${thisComponent}")
+          // Log.i("WEAPON COMP CA updated ", " ${thisComponent}")
         }
 
     }
@@ -140,12 +140,12 @@ class ComponentViewModel(
         uiScope.launch {
             val thisComponent = component.value ?:return@launch
             thisComponent.weaponId = weaponKey
-            thisComponent.componentTypeID = componentTypeEditText.value.toString()
+            thisComponent.componentTypeId = componentTypeEditText.value.toString()
             thisComponent.componentDescription = componentDescriptionEditText.value.toString()
-            thisComponent.FEA_id = thisComponent.weaponId.toInt()
+            thisComponent.FEA_id = thisComponent.componentAutoId.toInt()
             update(thisComponent)
             _navigateToAnotherComponent.value = weaponKey
-            //Log.i("WEAPON COMP AC updated ", " ${thisComponent}")
+           // Log.i("WEAPON COMP AC updated ", " ${thisComponent}")
         }
     }
 

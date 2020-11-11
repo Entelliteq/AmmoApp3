@@ -1,4 +1,4 @@
-package com.intelliteq.fea.ammocalculator.calculate
+package com.intelliteq.fea.ammocalculator.adapters
 
 
 
@@ -6,16 +6,10 @@ import android.R
 import android.content.res.Resources
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.NumberPicker
-import android.widget.Spinner
+import android.widget.*
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
-import com.intelliteq.fea.ammocalculator.persistence.models.Component
-import com.intelliteq.fea.ammocalculator.persistence.models.ComponentAmmo
-import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
-import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
+import com.intelliteq.fea.ammocalculator.persistence.models.*
 
 
 /**
@@ -30,43 +24,43 @@ fun setMinMaxPicker(view: NumberPicker, min: Int, max: Int, value: Int) {
 }
 
 @BindingAdapter("android:entriesFea")
-fun setSpinnerEntriesFea(spinner: Spinner, entries: List<Weapon>?) {
+fun setSpinnerEntriesFea(spinner: Spinner, entries: List<Component>?) {
     val entriesInt = convertEntriesToFEA(entries)
-    //Log.i("Weapon Bind", "$entries")
+  //  Log.i("Weapon Bind", "$entries")
     val arrayAdapter = ArrayAdapter(spinner.context, R.layout.simple_spinner_item, entriesInt)
     arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
     spinner.adapter = arrayAdapter
-    //Log.i("Weapon", "$entries")
+  //  Log.i("Bind", "FEA entries $entries")
 }
 
 
 @BindingAdapter("android:entriesType")
-fun setSpinnerEntriesType(spinner: Spinner, entries: List<Weapon>?) {
+fun setSpinnerEntriesType(spinner: Spinner, entries: List<Component>?) {
     val entriesInt = convertEntriesToType(entries)
     //Log.i("Weapon Bind", "$entries")
     val arrayAdapter = ArrayAdapter(spinner.context, R.layout.simple_spinner_item, entriesInt)
     arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
     spinner.adapter = arrayAdapter
-    //Log.i("Weapon", "$entries")
+  //  Log.i("BIND", "Type $entries")
 
 }
 
 @BindingAdapter("android:entriesDescription")
-fun setSpinnerEntriesDescription(spinner: Spinner, entries: List<Weapon>?) {
+fun setSpinnerEntriesDescription(spinner: Spinner, entries: List<Component>?) {
     val entriesInt = convertEntriesToDescription(entries)
     //Log.i("Weapon Bind", "$entries")
     val arrayAdapter = ArrayAdapter(spinner.context, R.layout.simple_spinner_item, entriesInt)
     arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
     spinner.adapter = arrayAdapter
     spinner.onItemSelectedListener
-    //Log.i("Weapon", "$entries")
+   // Log.i("Bind", "Desc entries $entries")
 
 }
 
 @BindingAdapter("android:entriesAmmoType")
-fun setSpinnerEntriesAmmoType(spinner: Spinner, entries: List<WeaponAmmo>?) {
+fun setSpinnerEntriesAmmoType(spinner: Spinner, entries: List<Ammo>?) {
     val entriesInt = convertEntriesToAmmoType(entries)
-    //Log.i("Weapon Bind", "$entries")
+   // Log.i("Error", "Spinner Type/dodic $entries")
     val arrayAdapter = ArrayAdapter(spinner.context, R.layout.simple_spinner_item, entriesInt)
     arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
     spinner.adapter = arrayAdapter
@@ -84,22 +78,29 @@ fun setSpinnerEntriesComponentType(spinner: Spinner, entries: List<Component>?) 
 }
 
 @BindingAdapter("android:entriesCompAmmoType")
-fun setSpinnerEntriesComponentAmmoType(spinner: Spinner, entries: List<ComponentAmmo>?) {
+fun setSpinnerEntriesComponentAmmoType(spinner: Spinner, entries: List<Ammo>?) {
+
     val entriesInt = convertEntriesToComponentAmmo(entries)
     //Log.i("Weapon Bind", "$entries")
     val arrayAdapter = ArrayAdapter(spinner.context, R.layout.simple_spinner_item, entriesInt)
     arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
     spinner.adapter = arrayAdapter
-    Log.i("Weapon Comp", "Ammo type $entries")
+    Log.i("Weapon ammo", "Ammo type $entries")
 }
 
-@BindingAdapter("android:visibleOrNot")
+@BindingAdapter("android:visibleOrGone")
 fun View.setVisibility(visible: Boolean) {
-    visibility = if(visible) View.VISIBLE else View.INVISIBLE
+    visibility = if(visible) View.VISIBLE else View.GONE
 }
 
 
-fun convertEntriesToFEA(entries: List<Weapon>?) : List<Int> {
+@BindingAdapter("android:setString")
+fun TextView.setString(item: Int) {
+    text = item.toString()
+}
+
+
+fun convertEntriesToFEA(entries: List<Component>?) : List<Int> {
     val feas = mutableListOf<Int>()
     entries?.forEach {
         if(it.FEA_id != 0)  feas.add(it.FEA_id)
@@ -107,26 +108,29 @@ fun convertEntriesToFEA(entries: List<Weapon>?) : List<Int> {
     return    feas
 }
 
-fun convertEntriesToType(entries: List<Weapon>?) : List<String> {
+fun convertEntriesToType(entries: List<Component>?) : List<String> {
     val type = mutableListOf<String>()
     entries?.forEach {
-        if(it.FEA_id != 0) type.add(it.weaponTypeID)
+        if(it.FEA_id != 0) type.add(it.componentTypeId)
     }
     return type
 }
 
-fun convertEntriesToDescription(entries: List<Weapon>?) : List<String> {
+fun convertEntriesToDescription(entries: List<Component>?) : List<String> {
     val type = mutableListOf<String>()
     entries?.forEach {
-        if(it.FEA_id != 0) type.add(it.weaponDescription)
+        if(it.FEA_id != 0) type.add(it.componentDescription)
     }
     return type
 }
 
-fun convertEntriesToAmmoType(entries: List<WeaponAmmo>?) : List<String> {
+fun convertEntriesToAmmoType(entries: List<Ammo>?) : List<String> {
+
     val type = mutableListOf<String>()
     entries?.forEach {
-        type.add(it.ammoType.toString())
+        type.add(it.ammoDODIC.toString())
+      //  Log.i("ERROR1", "${it.ammoDODIC}")
+
     }
     return type
 }
@@ -134,15 +138,16 @@ fun convertEntriesToAmmoType(entries: List<WeaponAmmo>?) : List<String> {
 fun convertEntriesToComponent(entries: List<Component>?) : List<String> {
     val type = mutableListOf<String>()
     entries?.forEach {
-        type.add(it.componentTypeID)
+        type.add(it.componentTypeId)
     }
     return type
 }
 
-fun convertEntriesToComponentAmmo(entries: List<ComponentAmmo>?) : List<String> {
+fun convertEntriesToComponentAmmo(entries: List<Ammo>?) : List<String> {
+   // Log.i("ERROR2", "here")
     val type = mutableListOf<String>()
     entries?.forEach {
-        type.add(it.componentAmmoTypeID.toString())
+        type.add(it.ammoDODIC.toString())
     }
     return type
 }

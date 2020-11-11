@@ -6,7 +6,7 @@
     <data>
         <variable
             name="ammoOutputListItem"
-            type="com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo" />
+            type="com.intelliteq.fea.ammocalculator.persistence.models.Ammo" />
 
     </data>
 
@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        app:cardCornerRadius="16dp">
+        android:backgroundTint="#F1F2FA"
+        app:cardCornerRadius="12dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -27,7 +28,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/ammo_type_out"
+                android:text="@string/ammo_desc"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/dodic_tv"

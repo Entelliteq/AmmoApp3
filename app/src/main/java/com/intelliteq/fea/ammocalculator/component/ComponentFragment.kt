@@ -63,7 +63,7 @@ class ComponentFragment : Fragment() {
             Observer { comp ->
                 comp?.let {
                     this.findNavController()
-                        .navigate((ComponentFragmentDirections.ComponentInputToAmmoInput(comp.componentId, comp.weaponId)))
+                        .navigate((ComponentFragmentDirections.ComponentInputToAmmoInput(comp.componentAutoId, comp.weaponId)))
                     componentViewModel.doneNavigatingToComponentAmmo()
                 }
             }

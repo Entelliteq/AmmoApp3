@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "single_calculation_table")
-data class SingleWeaponCalculation (
+data class PerWeaponCalculation (
 
     @PrimaryKey(autoGenerate = true)
     var single_calculationId: Long =0L,

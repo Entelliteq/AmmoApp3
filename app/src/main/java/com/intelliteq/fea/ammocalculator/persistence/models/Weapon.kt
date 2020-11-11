@@ -9,16 +9,19 @@ data class Weapon(
     @PrimaryKey(autoGenerate = true)
     var weaponAutoId: Long = 0L,
 
-    //not used
-    @ColumnInfo(name= "weapon_id_unique")
-    var weaponId: Long = 0,
+    @ColumnInfo(name = "component_id")
+    var componentId: Long = 0L
 
-    @ColumnInfo(name= "fea_id_weapon")
-    var FEA_id: Int = 0,
-
-    @ColumnInfo(name = "weapon_type_id")
-    var weaponTypeID: String = "",
-
-    @ColumnInfo(name = "weapon_description")
-    var weaponDescription: String = ""
+//    //not used
+//    @ColumnInfo(name= "weapon_id_unique")
+//    var weaponId: Long = 0,
+//
+//    @ColumnInfo(name= "fea_id_weapon")
+//    var FEA_id: Int = 0,
+//
+//    @ColumnInfo(name = "weapon_type_id")
+//    var weaponTypeID: String = "",
+//
+//    @ColumnInfo(name = "weapon_description")
+//    var weaponDescription: String = ""
 )

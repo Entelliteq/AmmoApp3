@@ -8,7 +8,7 @@ import com.intelliteq.fea.ammocalculator.persistence.daos.*
 import com.intelliteq.fea.ammocalculator.persistence.models.*
 
 @Database(
-    entities = [Weapon::class, WeaponAmmo::class, Component::class, ComponentAmmo::class, SingleWeaponCalculation::class, Calculations::class],
+    entities = [Weapon::class, WeaponAmmo::class, Ammo::class, Component::class, ComponentAmmo::class, PerWeaponCalculation::class, Calculation::class],
     version = 1,
     exportSchema = false
 )
@@ -17,8 +17,9 @@ abstract class AmmoRoomDatabase : RoomDatabase() {
     abstract val weaponAmmoDao: WeaponAmmoDao
     abstract val componentDao: ComponentDao
     abstract val componentAmmoDao: ComponentAmmoDao
-    abstract val singleWeaponCalculationDao: SingleWeaponCalculationDao
-    abstract val calculationsDao : CalculationsDao
+    abstract val perWeaponCalculationDao: PerWeaponCalculationDao
+    abstract val calculationDao : CalculationDao
+    abstract val ammoDao: AmmoDao
     
 
 

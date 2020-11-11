@@ -10,79 +10,33 @@
             type="com.intelliteq.fea.ammocalculator.calculate.CalculateViewModel" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E7E8F4"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textViewCalculate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:text="@string/input"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="#000000" />
-
-        <LinearLayout
-            android:id="@+id/buttonsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="8dp"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/addWeapon"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:onClick="@{() -> calculateViewModel.onAddWeapon()}"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/add_weapon"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:id="@+id/reset"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-
-                    android:text="@string/reset"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-                <Button
-                    android:id="@+id/calculate"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:onClick="@{() -> calculateViewModel.onCalculate()}"
-                    android:text="@string/calculate"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-            </LinearLayout>
-        </LinearLayout>
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
         <ScrollView
 
             android:id="@+id/scrollviewCalculate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/buttonsLayout"
-            android:layout_below="@+id/textViewCalculate"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp">
+           >
 
 
             <LinearLayout
@@ -91,24 +45,36 @@
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="#DEE1F6"
+                    android:text="Select Days and Combat Type:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#121211"
+                    android:visibleOrGone="@{calculateViewModel.visibilityDaysAndIntensity}" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibleOrGone="@{calculateViewModel.visibilityDaysAndIntensity}">
 
 
                     <TextView
                         android:id="@+id/numberDaysCalc"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="10dp"
                         android:layout_weight="3"
-                        android:background="#E9E9E9"
                         android:gravity="center_vertical|start"
                         android:text="@string/number_of_days"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="#000000"
+                        android:visibleOrGone="@{calculateViewModel.visibilityDaysAndIntensity}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ammoTypeCalc" />
 
@@ -116,9 +82,12 @@
                         android:id="@+id/pickerDays"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
+
+                        android:layout_marginTop="10dp"
                         android:default="@{1}"
+                        android:gravity="center_vertical|start"
                         android:max="@{21}"
-                        android:visibleOrNot="@{calculateViewModel.visibilityDaysAndIntensity}"
+                        android:visibleOrGone="@{calculateViewModel.visibilityDaysAndIntensity}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/numberDaysCalc"
                         app:layout_constraintTop_toTopOf="parent"
@@ -127,9 +96,6 @@
                     </NumberPicker>
 
                 </LinearLayout>
-
-
-
 
 
                 <LinearLayout
@@ -142,13 +108,13 @@
                         android:id="@+id/combatTypeCalc"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="8dp"
                         android:layout_weight="3"
-                        android:background="#E9E9E9"
                         android:gravity="start|center_vertical"
                         android:text="@string/combat_type"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="#000000"
+                        android:visibleOrGone="@{calculateViewModel.visibilityDaysAndIntensity}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ammoTypeCalc" />
 
@@ -157,10 +123,11 @@
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginEnd="8dp"
                         android:entries="@array/combat_types"
+                        android:visibleOrGone="@{calculateViewModel.visibilityDaysAndIntensity}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/combatTypeCalc"
-                        android:visibleOrNot="@{calculateViewModel.visibilityDaysAndIntensity}"
                         app:layout_constraintTop_toTopOf="parent">
 
                     </Spinner>
@@ -174,14 +141,16 @@
 
                     <Button
                         android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:onClick="@{() -> calculateViewModel.onSubmit()}"
+                        android:backgroundTint="@color/buttonsColor"
+                        android:onClick="@{() -> calculateViewModel.onSubmitDayAndIntensity()}"
                         android:text="@string/set_day_and_combat"
-                        android:visibleOrNot="@{calculateViewModel.visibilityDaysAndIntensity}"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#F8F1F1"
+                        android:visibleOrGone="@{calculateViewModel.visibilityDaysAndIntensity}" />
 
 
                 </LinearLayout>
@@ -197,12 +166,11 @@
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="2"
-                        android:background="#E9E9E9"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="@string/num_days"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="#000000"
-                        android:visibleOrNot="@{calculateViewModel.visibilityDaysAndIntensityOutput}" />
+                        android:visibleOrGone="@{calculateViewModel.visibilityDaysAndIntensityOutput}" />
 
                     <TextView
                         android:id="@+id/days_out_tv"
@@ -212,51 +180,55 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:text="@{calculateViewModel.daysChosen}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:visibleOrNot="@{calculateViewModel.visibilityDaysAndIntensityOutput}" />
+                        android:visibleOrGone="@{calculateViewModel.visibilityDaysAndIntensityOutput}" />
 
                     <TextView
                         android:id="@+id/intensity_tv"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="2"
-                        android:background="#E9E9E9"
                         android:gravity="center_vertical|center_horizontal"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:text="@string/combat"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="#000000"
-                        android:visibleOrNot="@{calculateViewModel.visibilityDaysAndIntensityOutput}"
-                        android:text="@string/combat"/>
+                        android:visibleOrGone="@{calculateViewModel.visibilityDaysAndIntensityOutput}" />
 
                     <TextView
                         android:id="@+id/intensity_out_tv"
                         android:layout_width="0dp"
-                        android:layout_height="50dp"
+                        android:layout_height="60dp"
                         android:layout_weight="2"
                         android:gravity="center_vertical"
+                        android:text="@{calculateViewModel.assaultIntensityString}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="#000000"
-                        android:visibleOrNot="@{calculateViewModel.visibilityDaysAndIntensityOutput}"
-                        android:text="@{calculateViewModel.intensityString}"/>
+                        android:visibleOrGone="@{calculateViewModel.visibilityDaysAndIntensityOutput}" />
 
                 </LinearLayout>
 
 
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#DEE1F6"
+                    android:text="Select Weapon and Quantity:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#000000" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="30dp"
+
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/feaTextView"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:layout_marginTop="10dp"
                         android:layout_weight="4"
-                        android:background="#E9E9E9"
                         android:gravity="start|center_vertical"
-
                         android:paddingStart="10dp"
                         android:text="@string/fea_id"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -267,8 +239,9 @@
                         android:layout_width="275dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
-                        android:entriesFea="@{calculateViewModel.weapons}"
+                        android:layout_marginEnd="8dp"
 
+                        android:entriesFea="@{calculateViewModel.weapons}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/feaTextView"
                         app:layout_constraintTop_toTopOf="parent">
@@ -287,12 +260,10 @@
                         android:id="@+id/weaponTypeCalc"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:layout_marginTop="10dp"
                         android:layout_weight="2"
-                        android:background="#E9E9E9"
                         android:gravity="start|center_vertical"
                         android:paddingStart="10dp"
-                        android:text="@string/weapon_type2"
+                        android:text="@string/weapon_type"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="#000000" />
 
@@ -301,9 +272,9 @@
                         android:layout_width="230dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginEnd="8dp"
                         android:entriesType="@{calculateViewModel.weapons}"
                         app:layout_constraintEnd_toEndOf="parent"
-
                         app:layout_constraintStart_toEndOf="@+id/weaponTypeCalc"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -321,9 +292,8 @@
                         android:id="@+id/weaponDescCalc"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:layout_marginTop="10dp"
                         android:layout_weight="3"
-                        android:background="#E9E9E9"
+
                         android:gravity="start|center_vertical"
                         android:paddingStart="10dp"
                         android:text="@string/weapon_desc"
@@ -337,8 +307,8 @@
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginEnd="8dp"
                         android:entriesDescription="@{calculateViewModel.weapons}"
-
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/weaponDescCalc"
                         app:layout_constraintTop_toTopOf="parent">
@@ -350,7 +320,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
 
@@ -359,7 +328,7 @@
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="3"
-                        android:background="#E9E9E9"
+
                         android:gravity="start|center_vertical"
                         android:paddingStart="10dp"
                         android:text="@string/number_of_weapons"
@@ -384,40 +353,15 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="40dp"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:id="@+id/ammoTypeCalc"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="3"
-                        android:background="#E9E9E9"
-                        android:gravity="start|center_vertical"
-                        android:paddingStart="10dp"
-                        android:text="@string/ammo_type"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textColor="#000000"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/numberWeaponsCalc" />
-
-                    <Spinner
-                        android:id="@+id/spinnerAmmoType"
-                        android:layout_width="225dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_horizontal"
-                        android:entriesAmmoType="@{calculateViewModel.chosenAmmoList}"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/ammoTypeCalc"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </LinearLayout>
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#DEE1F6"
+                    android:text="Select Component:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#000000" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -428,9 +372,8 @@
                         android:id="@+id/compTypeCalc"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:layout_marginTop="10dp"
                         android:layout_weight="3"
-                        android:background="#E9E9E9"
+
                         android:gravity="start|center_vertical"
                         android:paddingStart="10dp"
                         android:text="@string/component_type"
@@ -444,6 +387,7 @@
                         android:layout_width="175dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginEnd="8dp"
                         android:entriesCompType="@{calculateViewModel.chosenComponentList}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/compTypeCalc"
@@ -452,6 +396,52 @@
                     </Spinner>
 
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#DEE1F6"
+                    android:text="Select Ammunition:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/ammoTypeCalc"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="3"
+                        android:gravity="start|center_vertical"
+                        android:paddingStart="10dp"
+                        android:text="@string/ammo_type"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#000000"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/numberWeaponsCalc" />
+
+                    <Spinner
+                        android:id="@+id/spinnerAmmoType"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="2"
+                        android:entriesAmmoType="@{calculateViewModel.chosenAmmoList}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ammoTypeCalc"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -464,9 +454,8 @@
                         android:id="@+id/compAmmoCalc"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
-                        android:layout_marginTop="10dp"
                         android:layout_weight="3"
-                        android:background="#E9E9E9"
+
                         android:gravity="start|center_vertical"
                         android:paddingStart="10dp"
                         android:text="@string/component_ammo"
@@ -480,6 +469,7 @@
                         android:layout_width="175dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginEnd="8dp"
                         android:entriesCompAmmoType="@{calculateViewModel.chosenComponentAmmoList}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/compAmmoCalc"
@@ -494,7 +484,60 @@
             </LinearLayout>
         </ScrollView>
 
+        <LinearLayout
+            android:id="@+id/buttonsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/addWeapon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/buttonsColor"
+                android:onClick="@{() -> calculateViewModel.onAddWeapon()}"
+                android:text="@string/add_weapon"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#F8F1F1" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/reset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/buttonsColor"
+                    android:text="@string/reset"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="#F8F1F1" />
+
+                <Button
+                    android:id="@+id/calculate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/buttonsColor"
+                    android:onClick="@{() -> calculateViewModel.onCalculate()}"
+                    android:text="@string/calculate"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="#F8F1F1" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </layout>
