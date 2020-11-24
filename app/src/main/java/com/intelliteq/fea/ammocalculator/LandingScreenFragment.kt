@@ -33,6 +33,11 @@ class LandingScreenFragment : Fragment() {
                 .navigate(LandingScreenFragmentDirections.ActionLandingScreenToCalculateSelection(-1))
         }
 
+        binding.savedCalculationButton.setOnClickListener { view: View ->
+            view.findNavController()
+                .navigate(LandingScreenFragmentDirections.ActionLandingScreenToSavedCalculationsFragment())
+        }
+
         // Inflate the layout for this fragment
         return binding.root
 

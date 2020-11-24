@@ -1,10 +1,13 @@
-package com.intelliteq.fea.ammocalculator.calculationOutput
+package com.intelliteq.fea.ammocalculator .calculationOutput
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.intelliteq.fea.ammocalculator.persistence.daos.CalculationDao
 import com.intelliteq.fea.ammocalculator.persistence.daos.PerWeaponCalculationDao
 import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
+import com.intelliteq.fea.ammocalculator.persistence.models.Calculation
 import kotlinx.coroutines.*
 
 class CalculationOutputViewModel(
@@ -22,22 +25,43 @@ class CalculationOutputViewModel(
 
     val weapon = calculation.getSelectedWeapons(calculationKey)
     val perWeaponCalcUsed = perWeapon.getUsingCalculationID(calculationKey)
-    val calculationUsed = calculation.getLive(calculationKey)
+    val calculationUsed = calculation.getThisCalculation(calculationKey)
 
     val ammos = calculation.getSelectedAmmos(calculationKey)
+    var _name = MutableLiveData<String>()
+    val name: LiveData<String>
+        get() = _name
 
 
-//    init {
-//       Log.i("out1 init", "from int///////// ${ammos.value}")
-//
-//    }
 
-
-    fun test() {
-        val uniqueAmmos = listOf<Ammo>()
-        Log.i("sort b4", "from init2///////// ${ammos.value}")
-        ammos.value?.sortedBy { it.ammoDODIC }
-        Log.i("sort after", "from init2///////// ${ammos.value}")
+    fun saveNameFromDialog(saveThis: String) {
+        saveName(saveThis)
     }
+
+
+    fun saveName( nameEntered: String) {
+        uiScope.launch {
+
+            calculationUsed.value?.calculationName  = nameEntered
+            Log.i("days13", "calc used: ${calculationUsed.value}")
+            updateDatabase()
+
+        }
+    }
+
+    private suspend fun updateDatabase(){
+        withContext(Dispatchers.IO) {
+            calculation.update(calculationUsed.value!!)
+        }
+    }
+
+    /**
+     * Cancelling all jobs
+     */
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
 }
 

@@ -13,11 +13,11 @@
     <string name="weapons">Weapons</string>
     <string name="ammunition">Ammunition</string>
 
-    <string name="combat">Intensity:</string>
+    <string name="combat">Operation:</string>
     <string name="num_days">Num Days:</string>
     <string name="days">No. Days:</string>
     <string name="operation">Operation type:</string>
-    <string name="set_day_and_combat">Set Day and Intensity</string>
+    <string name="set_day_and_combat">Set Day and Operation</string>
 
     <!-- Type, Description, Dodic -->
     <string name="weapon_type">Weapon Type:</string>
@@ -43,6 +43,7 @@
     <string name="heavy_assault_intensity">Heavy Assault Intensity</string>
 
     <string-array name="combat_types">
+        <item name="none">none</item>
         <item name="train">Training</item>
         <item name="security">Security</item>
         <item name="sustain">Sustain</item>
@@ -75,7 +76,7 @@
     <string name="choose_weapon">Weapon By Type and Desc</string>
     <string name="number_of_weapons">Number of Weapons:</string>
     <string name="number_of_days">Number of Days:</string>
-    <string name="combat_type">Intensity Type:</string>
+    <string name="combat_type">Operation Type:</string>
     <string name="fea_id">FEA ID:</string>
 
 
@@ -94,11 +95,14 @@
     <string name="input_componentHeader">Input Component</string>
     <string name="ammo_desc">Ammo desc.</string>
     <string name="tbd">tbd</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="saved_calculations">Saved Calculations</string>
+    <string name="weapon_quantity">Weapon Type: %1$s</string>
+    <string name="original_count">Original Weapon Count: %1$s</string>
+    <string name="original_values">Original values for </string>
 
     <!-- Unclassified -->
-
-
-
 
 
 </resources>

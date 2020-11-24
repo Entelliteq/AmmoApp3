@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_landingScreen_to_CalculateSelection"
             app:destination="@id/CalculateSelection" />
+        <action
+            android:id="@+id/action_landingScreen_to_savedCalculationsFragment"
+            app:destination="@id/savedCalculationsFragment" />
     </fragment>
     <fragment
         android:id="@+id/WeaponInput"
@@ -128,6 +131,42 @@
             app:argType="integer" />
         <argument
             android:name="intensity"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedCalculationsFragment"
+        android:name="com.intelliteq.fea.ammocalculator.savedCalculations.SavedCalculationsFragment"
+        android:label="SavedCalculationsFragment"
+        tools:layout="@layout/fragment_saved_calculations">
+        <action
+            android:id="@+id/savedCalculationsFragment_to_modifyCalculationFragment"
+            app:destination="@id/ModifyCalculationFragment" />
+        <action
+            android:id="@+id/action_savedCalculationsFragment_to_landingScreen"
+            app:destination="@id/landingScreen"
+            app:popUpTo="@id/landingScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/ModifyCalculationFragment"
+        android:name="com.intelliteq.fea.ammocalculator.modifyCalculation.ModifyCalculationFragment"
+        android:label="ModifyCalculationFragment"
+        tools:layout="@layout/fragment_modify_calculation">
+        <argument
+            android:name="calculationKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_ModifyCalculationFragment_to_savedCalculationsFragment"
+            app:destination="@id/savedCalculationsFragment"
+            app:popUpTo="@id/savedCalculationsFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="days"
+            app:argType="integer" />
+        <argument
+            android:name="intensity"
+            app:argType="string" />
+        <argument
+            android:name="name"
             app:argType="string" />
     </fragment>
 </navigation>

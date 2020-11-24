@@ -180,7 +180,7 @@
 
                 <EditText
                     android:id="@+id/HeavyAssaultInput"
-                    android:layout_width="match_parent"
+                    android:layout_width="355dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:ems="10"
@@ -205,7 +205,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/buttonsColor"
             android:onClick="@{()-> weaponAmmoViewModel.onAddAnotherAmmo()}"
@@ -221,7 +221,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/buttonsColor"
             android:onClick="@{()-> weaponAmmoViewModel.onAddComponent()}"
@@ -236,7 +236,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/buttonsColor"
             android:onClick="@{()-> weaponAmmoViewModel.verify()}"
@@ -246,6 +246,14 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/add_component" />
+
+        <View
+            android:id="@+id/spacer"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/verify_button"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

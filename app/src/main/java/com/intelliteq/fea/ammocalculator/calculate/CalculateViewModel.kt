@@ -112,7 +112,13 @@ class CalculateViewModel(
      * from database based on the chosen assault intensity
      */
     fun assaultIntensityStringToIntValues(combat: String) {
-        assaultIntensityString.value = combat
+        if (combat == "none") {
+            assaultIntensityString.value = "Training"
+        }
+        else {
+            assaultIntensityString.value = combat
+        }
+
 //        when (combat) {
 //            "Training" -> assaultIntensity = 1
 //            "Security" -> assaultIntensity = 2
@@ -240,15 +246,16 @@ class CalculateViewModel(
 
     private fun getChosenComponent(compID: String) {
         uiScope.launch {
-            //Log.i("Called", "$compID")
-            _chosenComponent.value = getComponentFromDatabase(compID)
-            //Log.i("error", "Comp COMP: ${chosenComponent.value}")
-            _chosenComponentAmmoList.value = getComponentAmmoListFromDatabase()
-            if(_chosenComponentAmmoList.value.isNullOrEmpty())
-            {
-                noComponentAmmo = true
-            }
-            Log.i("Called1", "Comp AMMO: ${chosenComponentAmmoList.value}")
+            Log.i("type5 id", "__$compID")
+          //  if(!compID.isNullOrEmpty()) {
+                _chosenComponent.value = getComponentFromDatabase(compID)
+                Log.i("type5", "Comp COMP: ${chosenComponent.value}")
+                _chosenComponentAmmoList.value = getComponentAmmoListFromDatabase()
+                if (_chosenComponentAmmoList.value.isNullOrEmpty()) {
+                    noComponentAmmo = true
+                }
+                Log.i("Called1", "Comp AMMO: ${chosenComponentAmmoList.value}")
+           // }
         }
     }
 
@@ -339,7 +346,7 @@ class CalculateViewModel(
     fun onCalculate() {
         uiScope.launch {
             _navigateToOutput.value = calculation.value
-          //  Log.i("calc1" , "${calculation.value}" )
+           Log.i("calc1" , "${calculation.value}" )
         }
     }
 

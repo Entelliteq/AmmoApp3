@@ -170,10 +170,10 @@ class CalculateFragment : Fragment() {
                     id: Long
                 ) {
                     val int = parent.getItemAtPosition(position)
-                    Log.i("Type", "//** CompID $int")
+                    Log.i("Type5", "//** CompID $int")
                     calculateViewModel.useComponent(int as String)
                  //   calculateViewModel.doneSpinnerComp()
-                    // Log.i("Weapon Type", "CompID $int")
+                     Log.i("Weapon Type", "CompID $int")
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {}

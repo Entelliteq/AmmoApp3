@@ -25,12 +25,13 @@ class AmmoOutputAdapter : RecyclerView.Adapter<AmmoOutputAdapter.ViewHolder>() {
         }
 
     //calculation
-    var calc = listOf<Calculation>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-            Log.i("out1", "calc: ${calc.size}")
-        }
+    var calc = Calculation()
+//    var calc = listOf<Calculation>()
+//        set(value) {
+//            field = value
+//            notifyDataSetChanged()
+//            Log.i("out1", "calc: ${calc.size}")
+//        }
 
     //single calc
     var perWeaponCalcList = listOf<PerWeaponCalculation>()
@@ -49,9 +50,10 @@ class AmmoOutputAdapter : RecyclerView.Adapter<AmmoOutputAdapter.ViewHolder>() {
 
 
         val item = ammoList[position]
-        val calcItem = calc[0] //always be 1
+        val calcItem = calc //always be 1
         val single = perWeaponCalcList[position/2]
 
+        Log.i("CALC4", "$calc")
     //    Log.i("Adapter lists", " ammos: ${ammoList.size}, calcs: ${calc.size}, singles: ${singleCalcList.size}")
         holder.bind(item, calcItem, single)
 

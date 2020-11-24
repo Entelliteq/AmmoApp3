@@ -22,7 +22,10 @@ interface CalculationDao {
     fun get(key: Long?): Calculation
 
     @Query("SELECT * FROM calculation_table WHERE calculationId = :key" )
-    fun getLive(key: Long?): LiveData<List<Calculation>>
+    fun getThisCalculation(key: Long?): LiveData<Calculation>
+
+    @Query("SELECT * FROM calculation_table WHERE calculationId = :key" )
+    fun getThisCalculationWithName(key: String): LiveData<Calculation>
 
     @Query("SELECT count(*) FROM calculation_table")
     fun countAll() : Int
@@ -50,5 +53,7 @@ interface CalculationDao {
     @Query("SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.ammo_id_for_calculation = a.ammoAutoId AND a.bool_weapon_ammo = 1 union SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.component_ammo_id_for_calculation = a.ammoAutoId AND a.bool_weapon_ammo = 0")
     fun getSelectedAmmos(key: Long) : LiveData<List<Ammo>>
 
+    @Query("select * from calculation_table where name_of_calculation > 0  ")
+    fun getAllSavedCalculations() : LiveData<List<Calculation>>
 
 }

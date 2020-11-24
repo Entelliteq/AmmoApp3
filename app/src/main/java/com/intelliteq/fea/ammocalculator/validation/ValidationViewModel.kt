@@ -55,5 +55,13 @@ class ValidationViewModel(
         }
     }
 
+    /**
+    * Cancelling all jobs
+    */
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
 
 }

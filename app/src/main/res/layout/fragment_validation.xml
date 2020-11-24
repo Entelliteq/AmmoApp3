@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="#E7E8F4"
         android:orientation="vertical">
 
         <TextView
@@ -129,6 +129,7 @@
                     android:id="@+id/RecyclerViewAmmoConfirmation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
@@ -149,6 +150,7 @@
                     android:id="@+id/RecyclerViewComponentConfirmation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <TextView
@@ -167,6 +169,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/RecyclerViewComponentAmmoConfirmation"
                     android:layout_width="match_parent"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
