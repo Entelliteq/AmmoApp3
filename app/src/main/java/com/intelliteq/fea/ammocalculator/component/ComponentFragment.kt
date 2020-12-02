@@ -62,8 +62,8 @@ class ComponentFragment : Fragment() {
             viewLifecycleOwner,
             Observer { comp ->
                 comp?.let {
-                    this.findNavController()
-                        .navigate((ComponentFragmentDirections.ComponentInputToAmmoInput(comp.componentAutoId, comp.weaponId)))
+                    this.findNavController() //changed order of input here ->
+                        .navigate((ComponentFragmentDirections.ComponentInputToAmmoInput(comp.weaponId, comp.componentAutoId)))
                     componentViewModel.doneNavigatingToComponentAmmo()
                 }
             }

@@ -1,0 +1,95 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="editComponentViewModel"
+            type="com.intelliteq.fea.ammocalculator.editComponentInput.EditComponentViewModel" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutEditComp2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E7E8F4"
+        tools:context="com.intelliteq.fea.ammocalculator.weapon.WeaponFragment">
+
+        <TextView
+            android:id="@+id/textViewEditComp3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/update"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewEditComp4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/componentHeader"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewEditComp3" />
+
+        <EditText
+            android:id="@+id/compTypeEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:autofillHints="@string/weapon_type"
+            android:ems="10"
+            android:hint="@{editComponentViewModel.componentTypeHint.toString()}"
+            android:inputType="text"
+            android:text="@{editComponentViewModel.componentTypeEditText}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewEditComp4" />
+
+        <EditText
+            android:id="@+id/compDescriptionEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:autofillHints="@string/weapon_description"
+            android:ems="10"
+            android:hint="@{editComponentViewModel.componentDescriptionHint}"
+            android:inputType="text"
+            android:text="@{editComponentViewModel.componentDescriptionEditText}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/compTypeEdit" />
+
+        <Button
+            android:id="@+id/editComponent_update_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/buttonsColor"
+            android:text="@string/update"
+            android:textColor="#F8F1F1"
+            app:layout_constraintEnd_toEndOf="@+id/compDescriptionEdit"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/compDescriptionEdit"
+            app:layout_constraintTop_toBottomOf="@+id/compDescriptionEdit" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

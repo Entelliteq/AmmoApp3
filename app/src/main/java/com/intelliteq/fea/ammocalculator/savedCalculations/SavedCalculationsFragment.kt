@@ -1,5 +1,9 @@
 package com.intelliteq.fea.ammocalculator.savedCalculations
 
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,11 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.intelliteq.fea.ammocalculator.R
 import com.intelliteq.fea.ammocalculator.R.id.action_savedCalculationsFragment_to_landingScreen
 import com.intelliteq.fea.ammocalculator.adapters.SavedCalculationsAdapter
@@ -21,6 +28,7 @@ import com.intelliteq.fea.ammocalculator.calculationOutput.CalculationOutputView
 import com.intelliteq.fea.ammocalculator.calculationOutput.CalculationOutputViewModelFactory
 import com.intelliteq.fea.ammocalculator.databinding.FragmentSavedCalculationsBinding
 import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
+import kotlinx.android.synthetic.main.fragment_saved_calculations.*
 
 
 /**
@@ -29,7 +37,6 @@ import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
  * create an instance of this fragment.
  */
 class SavedCalculationsFragment : Fragment() {
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,6 +89,10 @@ class SavedCalculationsFragment : Fragment() {
                 savedCalcAdapter.submitList(calc)
             }
         })
+
+
+
+
 
         return binding.root
     }

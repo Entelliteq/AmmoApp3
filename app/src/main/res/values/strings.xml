@@ -20,12 +20,12 @@
     <string name="set_day_and_combat">Set Day and Operation</string>
 
     <!-- Type, Description, Dodic -->
-    <string name="weapon_type">Weapon Type:</string>
+    <string name="weapon_type">Weapon Type</string>
     <string name="weapon_description">Weapon Description</string>
     <string name="weapon_desc">Weapon Desc:</string>
     <string name="description">Description</string>
     <string name="dodic">Ammo DODIC</string>
-    <string name="component_type">Component:</string>
+    <string name="component_type">Component Type</string>
 
     <!-- Ammo -->
     <string name="input_ammo">Input Ammo</string>
@@ -56,6 +56,7 @@
     <string name="add_another_component">Add Another Component</string>
     <string name="add_component">Add Component</string>
     <string name="component_description">Add Component Description</string>
+    <string name="component_desc">Component Description</string>
 
     <!-- Buttons -->
     <string name="verify_inputs">Validate All Items</string>
@@ -98,9 +99,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="saved_calculations">Saved Calculations</string>
-    <string name="weapon_quantity">Weapon Type: %1$s</string>
-    <string name="original_count">Original Weapon Count: %1$s</string>
+    <string name="weapon_quantity">Type: %1$s</string>
+    <string name="original_count">Original Count: %1$s</string>
     <string name="original_values">Original values for </string>
+    <string name="update">Update</string>
+    <string name="item">Item</string>
 
     <!-- Unclassified -->
 

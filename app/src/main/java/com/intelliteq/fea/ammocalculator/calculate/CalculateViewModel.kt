@@ -412,7 +412,7 @@ class CalculateViewModel(
             assaultIntensityString.value = calc!!.assaultIntensity
             calculation.value = calc
             //combatIntToString(assaultIntensity)
-            daysChosen.value = calc?.numberOfDays.toString()
+            daysChosen.value = calc.numberOfDays.toString()
 
          //   Log.i("calc", "SET DAY TYPE $calc")
          //   Log.i("calc", "SET DAY TYPE ${assaultIntensityString.value.toString()}")
@@ -469,7 +469,8 @@ class CalculateViewModel(
             thisWeapon.weaponIDCalculation = _chosenWeapon.value!!.componentAutoId
             thisWeapon.weaponAmmoIdCalculation = chosenAmmo.value!!.ammoAutoId
           //  Log.i("error1", "onAddWeapon: ${chosenComponentAmmo.value}")
-            if(chosenComponent.value?.componentTypeId != "") {
+            if(chosenComponent.value?.componentTypeId != "" && chosenComponentAmmo.value != null) {
+                Log.i("crash3", "_${chosenComponent.value}_")
                 thisWeapon.componentAmmoIdCalculation =
                     chosenComponentAmmo.value!!.ammoAutoId
                  Log.i("ifelse5", "here1")
@@ -485,14 +486,6 @@ class CalculateViewModel(
             }
             updateSingle(thisWeapon)
             noComponentAmmo = false
-           // Log.i("error", "weapon: ${thisWeapon}")
-            Log.i("Called1", "ammo comp  ${chosenComponentAmmo.value!!.ammoDODIC}")
-           //Log.i("error5", "ammo comp  ${thisWeapon.componentAmmoIdCalculation}")
-          // Log.i("error5", "comp : ${chosenComponent.value?.componentTypeId}")
-           // doneSpinnerComp()
-          //  doneSpinnerCompAmmo()
-        //    Log.i("error", "comp: After  ${chosenComponent.value}")
-        //    Log.i("error", "comp ammo: ${chosenComponentAmmo.value}")
             _navigateToAddAnotherWeaponForCalculation.value = thisWeapon
         }
     }

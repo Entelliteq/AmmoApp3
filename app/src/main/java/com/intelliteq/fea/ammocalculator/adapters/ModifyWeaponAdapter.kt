@@ -65,7 +65,7 @@ class ModifyWeaponAdapter(
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
+                    //Log.i("adapt3", "HERE")
                     if (p0.toString() != "") {
                         Log.i("adapt3", "changed to: ${p0.toString()}")
                         //Job and CoroutineScope

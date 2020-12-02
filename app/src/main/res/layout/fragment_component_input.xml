@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
             android:ems="10"
-            android:hint="@string/component_description"
+            android:hint="@string/component_desc"
             android:inputType="text"
             android:text="@={componentViewModel.componentDescriptionEditText}"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"

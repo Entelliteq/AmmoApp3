@@ -49,9 +49,12 @@ interface ComponentDao {
     @Query("SELECT * FROM component_table WHERE bool_weapon = 1 ")
     fun getAllWeapons() : LiveData<List<Component>>
 
-    @Query("SELECT * FROM component_table WHERE weapon_id_for_component = :key")
+    @Query("SELECT componentAutoId FROM component_table WHERE weapon_id_for_component = :key")
     fun getCompID(key: Long) : Long
 
     @Query("SELECT * FROM component_table WHERE weapon_id_for_component = :key AND bool_weapon=1")
     fun getWeapon(key: Long) : Component?
+
+    @Query("SELECT * FROM component_table WHERE weapon_id_for_component = :key AND bool_weapon=1")
+    fun getWeaponNotNull(key: Long) : Component
 }

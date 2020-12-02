@@ -21,6 +21,7 @@ fun setMinMaxPicker(view: NumberPicker, min: Int, max: Int, value: Int) {
     view.maxValue = max
     view.value = value
     view.wrapSelectorWheel = true
+    Log.i("PICK", "min: {$min}, max: $max")
 }
 
 @BindingAdapter("android:entriesFea")

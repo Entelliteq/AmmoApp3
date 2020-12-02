@@ -75,7 +75,7 @@ class WeaponAmmoViewModel(
             val newAmmo = Ammo()
             insert(newAmmo)
             weaponAmmo.value = getAmmoFromDatabase()
-            Log.i("Weapon amo1", "${weaponAmmo.value!!.ammoAutoId}")
+            //Log.i("Weapon amo1", "${weaponAmmo.value!!.ammoAutoId}")
         }
     }
 
@@ -143,14 +143,15 @@ class WeaponAmmoViewModel(
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToAddAnotherAmmo.value = thisammo
-                //Log.i("WEAPON AMMO 4 ", " ${thisammo}")
+                Log.i("Another AMMO", " ${thisammo}")
             }
         }
     }
 
-    private suspend fun getComponentID(id: Long)  : Long {
+    //changed to return compAutoID in DB 12/1
+    private suspend fun getComponentID(idEntered: Long)  : Long {
         return withContext(Dispatchers.IO) {
-            val id = compDatabase.getCompID(id)
+            val id = compDatabase.getCompID(idEntered)
             id
         }
     }
@@ -177,7 +178,7 @@ class WeaponAmmoViewModel(
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToConfirmation.value = weaponKey
-                //Log.i("WEAPON AMMO 5 ", " ${thisammo}")
+                Log.i("Verify AMMO", " ${thisammo}")
             }
         }
 
@@ -226,7 +227,7 @@ class WeaponAmmoViewModel(
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToInputComponent.value = weaponKey
-               // Log.i("WEAPON AMMO 6 ", " ${thisammo}")
+               Log.i("Add comp AMMO", " ${thisammo}")
             }
         }
     }

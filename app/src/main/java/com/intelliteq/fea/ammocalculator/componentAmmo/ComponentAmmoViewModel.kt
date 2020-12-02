@@ -57,14 +57,14 @@ class ComponentAmmoViewModel (
     val navigateToAnotherComponent: LiveData<Long>
         get() = _navigateToAnotherComponent
 
-    var keys = arrayOf(componentKey, weaponKey)
+    var keys = arrayOf(weaponKey, componentKey) //switched order 12/1
 
     /**
      * Initializing the componentAmmo variable
      */
     init {
         initializeComponentAmmo()
-        Log.i("COMP1", "initialized ammo")
+       // Log.i("COMP1", "initialized ammo")
 
     }
 
@@ -134,7 +134,7 @@ class ComponentAmmoViewModel (
 
                 update(thisCompAmmo)
                 _navigateToInputAnotherComponentAmmo.value = keys
-                //Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
+                Log.i("CompAmmo another ammo", " $thisCompAmmo")
 
             }
         }
@@ -161,7 +161,7 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.heavyAssaultRate = componentAmmoHeavyEditText.value!!.toInt()
                 update(thisCompAmmo)
                 _navigateToAnotherComponent.value = weaponKey
-                //Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
+                Log.i("CompAmmo another comp ", " $thisCompAmmo")
             }
         }
     }
@@ -216,7 +216,7 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.heavyAssaultRate = componentAmmoHeavyEditText.value!!.toInt()
                 update(thisCompAmmo)
                 _navigateToConfirmation.value = weaponKey
-                //Log.i("WEAPON CompAmmo update ", " $thisCompAmmo")
+                Log.i("CompAmmo verify", " $thisCompAmmo")
 
             }
         }

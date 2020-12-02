@@ -54,9 +54,6 @@
         <action
             android:id="@+id/component_ammo_input_to_self"
             app:destination="@id/ComponentAmmoInput" />
-        <argument
-            android:name="ComponentKey"
-            app:argType="long" />
         <action
             android:id="@+id/component_ammo_to_verify"
             app:destination="@id/Confirmation" />
@@ -66,6 +63,9 @@
         <action
             android:id="@+id/componentAmmoI_to_component"
             app:destination="@id/ComponentInput" />
+        <argument
+            android:name="componentKey"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/ComponentInput"
@@ -96,6 +96,15 @@
         <action
             android:id="@+id/confirmation_to_calculate"
             app:destination="@id/CalculateSelection" />
+        <action
+            android:id="@+id/action_Confirmation_to_editComponentFragment"
+            app:destination="@id/EditWeapon" />
+        <action
+            android:id="@+id/action_Confirmation_to_editComponentFragment2"
+            app:destination="@id/EditComponentFragment" />
+        <action
+            android:id="@+id/action_Confirmation_to_Edit_Ammo_Fragment"
+            app:destination="@id/EditAmmoFragment" />
     </fragment>
     <fragment
         android:id="@+id/CalculateSelection"
@@ -168,5 +177,49 @@
         <argument
             android:name="name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_ModifyCalculationFragment_to_landingScreen"
+            app:destination="@id/landingScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/EditWeapon"
+        android:name="com.intelliteq.fea.ammocalculator.editWeaponInput.EditWeaponFragment"
+        android:label="EditComponentFragment"
+        tools:layout="@layout/fragment_edit_weapon">
+        <argument
+            android:name="weaponKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_EditWeapon_to_Confirmation2"
+            app:destination="@id/Confirmation" />
+    </fragment>
+    <fragment
+        android:id="@+id/EditComponentFragment"
+        android:name="com.intelliteq.fea.ammocalculator.editComponentInput.EditComponentFragment"
+        android:label="EditComponentFragment"
+        tools:layout="@layout/fragment_edit_component">
+        <argument
+            android:name="componentKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_EditComponentFragment_to_Confirmation"
+            app:destination="@id/Confirmation" />
+        <argument android:name="weaponKey"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/EditAmmoFragment"
+        android:name="com.intelliteq.fea.ammocalculator.editAmmoInput.EditAmmoFragment"
+        android:label="EditAmmoFragment"
+        tools:layout="@layout/fragment_edit_ammo">
+        <argument
+            android:name="ammoKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_Edit_Ammo_Frag_to_Confirmation"
+            app:destination="@id/Confirmation" />
+        <argument
+            android:name="weaponKey"
+            app:argType="long" />
     </fragment>
 </navigation>

@@ -6,6 +6,15 @@
     tools:context="com.intelliteq.fea.ammocalculator.validation.ValidationFragment">
 
     <data>
+
+        <variable
+            name="modifyWeaponClickListener"
+            type="com.intelliteq.fea.ammocalculator.adapters.ModifyWeaponListener" />
+
+        <variable
+            name="component"
+            type="com.intelliteq.fea.ammocalculator.persistence.models.Component" />
+
         <variable
             name="validationViewModel"
             type="com.intelliteq.fea.ammocalculator.validation.ValidationViewModel" />
@@ -28,15 +37,29 @@
             android:textColor="#000000"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+            android:background="#DEE1F6"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="4dp"
+            android:text="Click Card to Edit Values"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#121211" />
+
 
         <ScrollView
             android:id="@+id/confirmScroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="4dp"
             android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1">
 
             <LinearLayout
@@ -57,61 +80,77 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#121211" />
 
-                <LinearLayout
-                    android:id="@+id/layoutWeapon"
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewValidateWeapon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_margin="3dp"
+                    android:backgroundTint="#F1F2FA"
+                    android:padding="5dp"
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="Type:"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textStyle="bold" />
-
-                    <TextView
-
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="3"
-                        android:gravity="center_vertical"
-                        android:text="Description:"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textStyle="bold" />
+                    app:cardCornerRadius="12dp">
 
 
-                </LinearLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layoutWeapon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/textViewTypeWeapon"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="16dp"
+                            android:gravity="center_vertical"
+                            android:text="Type:"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewTypeDesc"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/layoutWeapon" />
 
-                    <TextView
-                        android:id="@+id/confWpnType"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
+                        <TextView
 
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:id="@+id/textViewTypeDesc"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical"
+                            android:text="Description:"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/textViewTypeWeapon"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/textViewTypeWeapon" />
 
-                    <TextView
-                        android:id="@+id/confWpnDesc"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="3"
-                        android:gravity="center_vertical"
-                        android:text="@string/tbd"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                        <TextView
+                            android:id="@+id/confWpnType"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="16dp"
+                            android:gravity="center_vertical"
+                            android:text="tbd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/textViewTypeWeapon"
+                            app:layout_constraintEnd_toStartOf="@id/confWpnDesc"/>
+
+                        <TextView
+                            android:id="@+id/confWpnDesc"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/tbd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/confWpnType"
+                            app:layout_constraintStart_toEndOf="@+id/confWpnType"
+                            app:layout_constraintEnd_toEndOf="parent"/>
 
 
-                </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -124,6 +163,7 @@
                     android:text="Weapon Ammunition Entered:"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#121211" />
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/RecyclerViewAmmoConfirmation"
@@ -169,8 +209,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/RecyclerViewComponentAmmoConfirmation"
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 

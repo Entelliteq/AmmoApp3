@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.intelliteq.fea.ammocalculator.LandingScreenFragmentDirections
 import com.intelliteq.fea.ammocalculator.R
 import com.intelliteq.fea.ammocalculator.adapters.*
 import com.intelliteq.fea.ammocalculator.databinding.FragmentComponentInputBinding
@@ -68,7 +69,7 @@ class ModifyCalculationFragment : Fragment() {
 
         val adapter = ModifyWeaponAdapter(ModifyWeaponListener {
             weapon ->
-           Toast.makeText(context, "${weapon}", Toast.LENGTH_LONG).show()
+          // Toast.makeText(context, "${weapon}", Toast.LENGTH_LONG).show()
             Log.i("adapt", "$weapon")
         }, arguments.calculationKey, dataSourceSinlge)
 
@@ -77,6 +78,11 @@ class ModifyCalculationFragment : Fragment() {
 
         binding.RecyclerViewWeaponsModify.adapter = adapter
 
+
+        binding.editHome.setOnClickListener {
+            it.findNavController()
+                .navigate(ModifyCalculationFragmentDirections.ActionModifyCalculationFragmentToLandingScreen())
+        }
 
         binding.modifyName.text = arguments.name
 

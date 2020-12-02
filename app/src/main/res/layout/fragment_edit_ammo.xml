@@ -1,19 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
-            name="weaponAmmoViewModel"
-            type="com.intelliteq.fea.ammocalculator.weaponAmmo.WeaponAmmoViewModel" />
+            name="editAmmoViewModel"
+            type="com.intelliteq.fea.ammocalculator.editAmmoInput.EditAmmoViewModel" />
+
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout4"
+        android:id="@+id/frameLayout8"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#E7E8F4"
@@ -21,11 +18,11 @@
 
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textViewA1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="@string/inputHeader"
+            android:text="@string/update"
             android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textColor="#000000"
@@ -35,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textViewA2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ammunitionHeader"
@@ -44,16 +41,16 @@
             android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView1" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewA1" />
 
         <ScrollView
-            android:id="@+id/scrollView2"
+            android:id="@+id/scrollView4"
             android:layout_width="403dp"
             android:layout_height="286dp"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
+            app:layout_constraintTop_toBottomOf="@+id/textViewA2">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -64,14 +61,14 @@
 
 
                 <EditText
-                    android:id="@+id/DodicInput"
+                    android:id="@+id/DodicUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:ems="10"
-                    android:hint="@string/dodic"
+                    android:hint="@{editAmmoViewModel.ammoTypeHint}"
                     android:inputType="text"
-                    android:text="@={weaponAmmoViewModel.weaponAmmoDODICEditText}"
+
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="#000000"
                     app:layout_constraintEnd_toEndOf="@+id/textView2"
@@ -80,87 +77,87 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
                 <EditText
-                    android:id="@+id/DescriptionInput"
+                    android:id="@+id/DescriptionUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:layout_marginStart="16dp"
                     android:ems="10"
-                    android:hint="@string/description"
-                    android:text="@={weaponAmmoViewModel.weaponAmmoDescriptionEditText}"
+                    android:hint="@{editAmmoViewModel.ammoDescriptionHint}"
+
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="#000000"
                     app:layout_constraintEnd_toEndOf="@+id/textView2"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                    app:layout_constraintStart_toStartOf="@+id/textViewA2"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewA2" />
 
 
 
 
                 <EditText
-                    android:id="@+id/TrainingInput"
+                    android:id="@+id/TrainingUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:ems="10"
-                    android:hint="@string/training_intensity"
+                    android:hint="@{editAmmoViewModel.ammoTrainingHint}"
                     android:inputType="number"
-                    android:text="@={weaponAmmoViewModel.weaponAmmoTrainingEditText}"
+
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="#000000"
                     app:layout_constraintEnd_toEndOf="@+id/textView2"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                    app:layout_constraintStart_toStartOf="@+id/textViewA2"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewA2" />
 
                 <EditText
-                    android:id="@+id/SecurityInput"
+                    android:id="@+id/SecurityUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:ems="10"
-                    android:hint="@string/security_intensity"
+                    android:hint="@{editAmmoViewModel.ammoSecurityHint}"
                     android:inputType="number"
-                    android:text="@={weaponAmmoViewModel.weaponAmmoSecurityEditText}"
+
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="#000000"
-                    app:layout_constraintEnd_toEndOf="@+id/textView2"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewA2"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                    app:layout_constraintStart_toStartOf="@+id/textViewA2"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewA2" />
 
                 <EditText
-                    android:id="@+id/SustainInput"
+                    android:id="@+id/Sustainupdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:ems="10"
-                    android:hint="@string/sustain_intensity"
+                    android:hint="@{editAmmoViewModel.ammoSustainHint}"
                     android:inputType="number"
-                    android:text="@={weaponAmmoViewModel.weaponAmmoSustainEditText}"
+
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="#000000"
-                    app:layout_constraintEnd_toEndOf="@+id/textView2"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewA2"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                    app:layout_constraintStart_toStartOf="@+id/textViewA2"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewA2" />
 
                 <EditText
-                    android:id="@+id/LightAssaultInput"
+                    android:id="@+id/LightAssaultUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:ems="10"
-                    android:hint="@string/light_assault_intensity"
+                    android:hint="@{editAmmoViewModel.ammoLightHint}"
                     android:inputType="number"
-                    android:text="@={weaponAmmoViewModel.weaponAmmoLightEditText}"
+
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="#000000"
-                    app:layout_constraintEnd_toEndOf="@+id/textView2"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewA2"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                    app:layout_constraintStart_toStartOf="@+id/textViewA2"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewA2" />
 
                 <EditText
                     android:id="@+id/MediumAssaultInput"
@@ -168,31 +165,31 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:ems="10"
-                    android:hint="@string/medium_assault_intensity"
+                    android:hint="@{editAmmoViewModel.ammoMediumHint}"
                     android:inputType="number"
-                    android:text="@={weaponAmmoViewModel.weaponAmmoMediumEditText}"
+
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="#000000"
-                    app:layout_constraintEnd_toEndOf="@+id/textView2"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewA2"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                    app:layout_constraintStart_toStartOf="@+id/textViewA2"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewA2" />
 
                 <EditText
-                    android:id="@+id/HeavyAssaultInput"
+                    android:id="@+id/HeavyAssaultUpdate"
                     android:layout_width="355dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:ems="10"
-                    android:hint="@string/heavy_assault_intensity"
+                    android:hint="@{editAmmoViewModel.ammoHeavyHint}"
                     android:inputType="number"
-                    android:text="@={weaponAmmoViewModel.weaponAmmoHeavyEditText}"
+
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="#000000"
-                    app:layout_constraintEnd_toEndOf="@+id/textView2"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewA2"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                    app:layout_constraintStart_toStartOf="@+id/textViewA2"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewA2" />
 
             </LinearLayout>
 
@@ -201,61 +198,24 @@
 
 
         <Button
-            android:id="@+id/add_another_ammo"
+            android:id="@+id/editAmmo_Update_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/buttonsColor"
-            android:onClick="@{()-> weaponAmmoViewModel.onAddAnotherAmmo()}"
-            android:text="@string/add_another_ammo"
+            android:text="@string/update"
             android:textColor="#F8F1F1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+            app:layout_constraintTop_toBottomOf="@+id/scrollView4" />
 
-        <Button
-            android:id="@+id/add_component"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/buttonsColor"
-            android:onClick="@{()-> weaponAmmoViewModel.onAddComponent()}"
-            android:text="@string/add_component"
-            android:textColor="#F8F1F1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_another_ammo" />
 
-        <Button
-            android:id="@+id/verify_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/buttonsColor"
-            android:onClick="@{()-> weaponAmmoViewModel.verify()}"
-            android:text="@string/verify_inputs"
-            android:textColor="#F8F1F1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_component" />
 
-        <View
-            android:id="@+id/spacer"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/verify_button"/>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.intelliteq.fea.ammocalculator.databinding.ListItamSavedCalculationsBinding
 import com.intelliteq.fea.ammocalculator.persistence.models.Calculation
 
@@ -23,6 +24,8 @@ class SavedCalculationsAdapter(val clickListener: SavedCalculationsListener) :
             parent
         )
     }
+
+
 
     class ViewHolder(val binding: ListItamSavedCalculationsBinding) :
         RecyclerView.ViewHolder(binding.root) {

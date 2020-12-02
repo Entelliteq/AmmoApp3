@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="modifyAmmoClickListener"
+            type="com.intelliteq.fea.ammocalculator.adapters.ModifyAmmoListener" />
+
+        <variable
             name="ammoValidateListItem"
             type="com.intelliteq.fea.ammocalculator.persistence.models.Ammo" />
     </data>
@@ -13,9 +17,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#F1F2FA"
-        android:padding="5dp"
         android:layout_margin="3dp"
+        android:backgroundTint="#F1F2FA"
+        android:onClick="@{()-> modifyAmmoClickListener.onClick(ammoValidateListItem)}"
+        android:padding="5dp"
         app:cardCornerRadius="12dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

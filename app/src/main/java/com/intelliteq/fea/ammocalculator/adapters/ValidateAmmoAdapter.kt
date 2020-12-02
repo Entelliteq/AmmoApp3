@@ -1,5 +1,6 @@
 package com.intelliteq.fea.ammocalculator.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.intelliteq.fea.ammocalculator.databinding.ListItemValidateAmmoBinding
 import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
 import androidx.recyclerview.widget.ListAdapter
+import com.intelliteq.fea.ammocalculator.persistence.models.Component
 
-class ValidateAmmoAdapter :
+class ValidateAmmoAdapter(
+    val clickListener: ModifyAmmoListener
+) :
     ListAdapter<Ammo, ValidateAmmoAdapter.ViewHolder>(ValidateAmmoDiffCallback()) {
 
 
@@ -16,7 +20,7 @@ class ValidateAmmoAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         // Log.i("Adapter lists", " ammos: ${data.size},")
-        holder.bind(item)
+        holder.bind(item, clickListener)
 
     }
 
@@ -31,12 +35,14 @@ class ValidateAmmoAdapter :
 
 
         fun bind(
-            item: Ammo
+            item: Ammo,
+            clickListener: ModifyAmmoListener
         ) {
 
 
             binding.ammoValidateListItem = item
             binding.executePendingBindings()
+            binding.modifyAmmoClickListener = clickListener
 
         }
 
@@ -65,3 +71,11 @@ class ValidateAmmoAdapter :
     }
 
 }
+
+class ModifyAmmoListener(val clickListener: (saved: Ammo) -> Unit) {
+    fun onClick(ammo: Ammo) {
+        clickListener(ammo)
+
+    }
+}
+

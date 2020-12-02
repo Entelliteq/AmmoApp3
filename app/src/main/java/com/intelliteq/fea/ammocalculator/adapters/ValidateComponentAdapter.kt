@@ -1,5 +1,6 @@
 package com.intelliteq.fea.ammocalculator.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,20 +9,15 @@ import com.intelliteq.fea.ammocalculator.databinding.ListItemValidateComponentBi
 import com.intelliteq.fea.ammocalculator.persistence.models.Component
 import androidx.recyclerview.widget.ListAdapter
 
-class ValidateComponentAdapter :
+class ValidateComponentAdapter(
+    val clickListener: ModifyWeaponListener
+) :
     ListAdapter<Component, ValidateComponentAdapter.ViewHolder>(ValidateComponentDiffCallback()
 ) {
-//    var data = listOf<Component>()
-//        set(value) {
-//            field = value
-//            notifyDataSetChanged()
-//        }
-//
-//    override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, clickListener)
 
     }
 
@@ -33,20 +29,16 @@ class ValidateComponentAdapter :
 
     class ViewHolder(val binding: ListItemValidateComponentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-//        val type: TextView = itemView.confCompTypDODIC
-//        val desc: TextView = itemView.confCompDesc
 
 
         fun bind(
-            item: Component
+            item: Component,
+            clickListener: ModifyWeaponListener
         ) {
-
-            // type.text = item.
-//            desc.text = item.componentDescription
-//            type.text = item.componentTypeId
 
 
             binding.componentValidateListItem = item
+            binding.modifyWeaponClickListener = clickListener
             binding.executePendingBindings()
 
         }
@@ -76,3 +68,4 @@ class ValidateComponentAdapter :
     }
 
 }
+

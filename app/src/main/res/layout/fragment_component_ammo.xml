@@ -58,6 +58,21 @@
                 android:layout_marginEnd="32dp"
                 android:orientation="vertical">
 
+                <EditText
+                    android:id="@+id/DodicInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:ems="10"
+                    android:hint="@string/dodic"
+                    android:inputType="text"
+                    android:text="@={componentAmmoViewModel.componentAmmoDODICEditText}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="#000000"
+                    app:layout_constraintEnd_toEndOf="@+id/textView2"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
                 <EditText
                     android:id="@+id/DescriptionInput"
@@ -75,21 +90,7 @@
                     app:layout_constraintStart_toStartOf="@+id/textView2"
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-                <EditText
-                    android:id="@+id/DodicInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:ems="10"
-                    android:hint="@string/dodic"
-                    android:inputType="text"
-                    android:text="@={componentAmmoViewModel.componentAmmoDODICEditText}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="#000000"
-                    app:layout_constraintEnd_toEndOf="@+id/textView2"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
 
 
                 <EditText

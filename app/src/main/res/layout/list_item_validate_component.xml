@@ -5,6 +5,10 @@
     <data>
 
         <variable
+            name="modifyWeaponClickListener"
+            type="com.intelliteq.fea.ammocalculator.adapters.ModifyWeaponListener" />
+
+        <variable
             name="componentValidateListItem"
             type="com.intelliteq.fea.ammocalculator.persistence.models.Component" />
     </data>
@@ -14,6 +18,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#F1F2FA"
         android:padding="5dp"
+        android:onClick="@{() -> modifyWeaponClickListener.onClick(componentValidateListItem)}"
         android:layout_margin="3dp"
         app:cardCornerRadius="12dp">
 

@@ -1,6 +1,5 @@
 package com.intelliteq.fea.ammocalculator.validation
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,12 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.intelliteq.fea.ammocalculator.R
+import com.intelliteq.fea.ammocalculator.adapters.ModifyAmmoListener
+import com.intelliteq.fea.ammocalculator.adapters.ModifyWeaponListener
 import com.intelliteq.fea.ammocalculator.adapters.ValidateAmmoAdapter
 import com.intelliteq.fea.ammocalculator.adapters.ValidateComponentAdapter
 import com.intelliteq.fea.ammocalculator.databinding.FragmentValidationBinding
 import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
-import com.intelliteq.fea.ammocalculator.weapon.WeaponViewModel
-import kotlinx.android.synthetic.main.fragment_validation.*
 
 
 /**
@@ -54,17 +53,42 @@ class ValidationFragment : Fragment() {
 
 
         //adapters
-        val weaponAmmoValidationAdapter = ValidateAmmoAdapter()
+        val weaponAmmoValidationAdapter = ValidateAmmoAdapter(ModifyAmmoListener {
+            Log.i("EDIT2", "$it")
+            this.requireView().findNavController()
+                .navigate(ValidationFragmentDirections
+                    .ActionConfirmationToEditAmmoFragment(it.ammoAutoId, it.weaponId))
+
+         })
         binding.RecyclerViewAmmoConfirmation.adapter = weaponAmmoValidationAdapter
 
-        val componentAmmoValidationAdapter = ValidateAmmoAdapter()
+        val componentAmmoValidationAdapter = ValidateAmmoAdapter(ModifyAmmoListener {
+            Log.i("EDIT2", "$it")
+            this.requireView().findNavController()
+                .navigate(ValidationFragmentDirections
+                    .ActionConfirmationToEditAmmoFragment(it.ammoAutoId, it.weaponId))
+
+        })
         binding.RecyclerViewComponentAmmoConfirmation.adapter = componentAmmoValidationAdapter
 
-        val componentValidationAdapter = ValidateComponentAdapter()
+        val componentValidationAdapter = ValidateComponentAdapter(ModifyWeaponListener {
+            weapon ->
+            Log.i("EDIT2", "$weapon")
+            this.requireView().findNavController()
+                .navigate(ValidationFragmentDirections
+                    .actionConfirmationToEditComponentFragment2(weapon.componentAutoId, weapon.weaponId))
+            //use view model to update any text in this component
+        })
+
         binding.RecyclerViewComponentConfirmation.adapter = componentValidationAdapter
 
 
-
+        binding.cardViewValidateWeapon.setOnClickListener {
+            it.findNavController()
+                .navigate(ValidationFragmentDirections
+                    .ActionConfirmationToEditComponentFragment(arguments.weaponKey))
+            Log.i("EDIT2", "Weapon: ${arguments.weaponKey}")
+        }
         binding.save.setOnClickListener { view: View ->
             view.findNavController()
                 .navigate(ValidationFragmentDirections.ConfirmationToCalculate(-1))
