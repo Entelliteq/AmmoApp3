@@ -4,7 +4,6 @@ package com.intelliteq.fea.ammocalculator.componentAmmo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.intelliteq.fea.ammocalculator.persistence.daos.AmmoDao
-import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentAmmoDao
 import java.lang.IllegalArgumentException
 
 /**

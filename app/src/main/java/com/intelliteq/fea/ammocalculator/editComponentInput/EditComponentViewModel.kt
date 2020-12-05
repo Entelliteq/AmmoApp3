@@ -19,7 +19,7 @@ class EditComponentViewModel (
     val componentDescriptionEditText = MutableLiveData<String>()
     val componentTypeEditText = MutableLiveData<String>()
 
-    var componentOld = MutableLiveData<Component?>()
+    private var componentOld = MutableLiveData<Component?>()
     var componentDescriptionHint = MutableLiveData<String>()
     var componentTypeHint = MutableLiveData<String>()
 
@@ -45,21 +45,21 @@ class EditComponentViewModel (
 
     private suspend fun getDescriptionFromDatabase() : String {
         return withContext(Dispatchers.IO) {
-            var hint = componentDao.get(componentKey).componentDescription
+            val hint = componentDao.get(componentKey).componentDescription
             hint
         }
     }
 
     private suspend fun getTypeFromDatabase() : String {
         return withContext(Dispatchers.IO) {
-            var hint = componentDao.get(componentKey).componentTypeId
+            val hint = componentDao.get(componentKey).componentTypeId
             hint
         }
     }
 
     fun updateDescription(desc: String) {
         uiScope.launch {
-            var thisWeapon = componentOld.value?: return@launch
+            val thisWeapon = componentOld.value?: return@launch
             thisWeapon.componentDescription = desc
             update(thisWeapon)
             //  Log.i("edit4", "$thisWeapon")
@@ -69,7 +69,7 @@ class EditComponentViewModel (
 
     fun updateType(type: String) {
         uiScope.launch {
-            var thisWeapon = componentOld.value?: return@launch
+            val thisWeapon = componentOld.value?: return@launch
             thisWeapon.componentTypeId = type
             update(thisWeapon)
             //  Log.i("edit4", "$thisWeapon")

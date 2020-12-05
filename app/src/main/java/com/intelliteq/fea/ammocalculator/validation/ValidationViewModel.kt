@@ -1,25 +1,17 @@
 package com.intelliteq.fea.ammocalculator.validation
 
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.intelliteq.fea.ammocalculator.persistence.daos.AmmoDao
 import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentDao
-import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponDao
-import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
 import com.intelliteq.fea.ammocalculator.persistence.models.Component
-import com.intelliteq.fea.ammocalculator.persistence.models.ComponentAmmo
-import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
-import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
 import kotlinx.coroutines.*
 
 class ValidationViewModel(
     private val weaponKey: Long,
-    val componentDatabase: ComponentDao,
-    private val ammoDatabase: AmmoDao
+    private val componentDatabase: ComponentDao,
+    ammoDatabase: AmmoDao
 ) : ViewModel() {
 
     //Job and CoroutineScope
@@ -38,7 +30,7 @@ class ValidationViewModel(
        // Log.i("Verify1", "${weapon.value}")
     }
 
-    fun initializeWeapon() {
+    private fun initializeWeapon() {
         uiScope.launch {
             weapon.value = getWeaponFromDatabase()
            // Log.i("Verify2", "${weapon.value}")

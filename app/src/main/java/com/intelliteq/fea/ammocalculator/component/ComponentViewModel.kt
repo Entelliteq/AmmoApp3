@@ -1,6 +1,6 @@
 package com.intelliteq.fea.ammocalculator.component
 
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -70,7 +70,7 @@ class ComponentViewModel(
      */
     private suspend fun getComponentFromDatabase(): Component? {
         return withContext(Dispatchers.IO) {
-            var componentReturned = database.getNewComponent()
+            val componentReturned = database.getNewComponent()
             componentReturned
         }
     }
@@ -99,7 +99,7 @@ class ComponentViewModel(
             thisComponent.FEA_id = thisComponent.componentAutoId.toInt()
             update(thisComponent)
             _navigateToConfirmation.value = weaponKey
-           Log.i("COMP Verify ", " ${thisComponent}")
+          // Log.i("COMP Verify ", " ${thisComponent}")
         }
 
     }
@@ -117,7 +117,7 @@ class ComponentViewModel(
             thisComponent.FEA_id = thisComponent.componentAutoId.toInt()
             update(thisComponent)
             _navigateToInputComponentAmmo.value = component.value
-           Log.i("COMP add ammo ", " ${thisComponent}")
+          // Log.i("COMP add ammo ", " ${thisComponent}")
         }
 
     }
@@ -145,7 +145,7 @@ class ComponentViewModel(
             thisComponent.FEA_id = thisComponent.componentAutoId.toInt()
             update(thisComponent)
             _navigateToAnotherComponent.value = weaponKey
-           Log.i("COMP Another Comp", " ${thisComponent}")
+          // Log.i("COMP Another Comp", " ${thisComponent}")
         }
     }
 

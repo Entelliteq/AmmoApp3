@@ -1,7 +1,6 @@
 package com.intelliteq.fea.ammocalculator.editWeaponInput
 
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentDao
@@ -21,7 +20,7 @@ class EditWeaponViewModel(
     val weaponDescriptionEditText = MutableLiveData<String>()
     val weaponTypeEditText = MutableLiveData<String>()
 
-    var componentOld = MutableLiveData<Component?>()
+    private var componentOld = MutableLiveData<Component?>()
     var weaponDescriptionHint = MutableLiveData<String>()
     var weaponTypeHint = MutableLiveData<String>()
 
@@ -46,21 +45,21 @@ class EditWeaponViewModel(
 
     private suspend fun getDescriptionFromDatabase() : String {
         return withContext(Dispatchers.IO) {
-            var hint = componentDao.getWeaponNotNull(weaponKey).componentDescription
+            val hint = componentDao.getWeaponNotNull(weaponKey).componentDescription
             hint
         }
     }
 
     private suspend fun getTypeFromDatabase() : String {
         return withContext(Dispatchers.IO) {
-            var hint = componentDao.getWeaponNotNull(weaponKey).componentTypeId
+            val hint = componentDao.getWeaponNotNull(weaponKey).componentTypeId
             hint
         }
     }
 
     fun updateDescription(desc: String) {
         uiScope.launch {
-            var thisWeapon = componentOld.value?: return@launch
+            val thisWeapon = componentOld.value?: return@launch
             thisWeapon.componentDescription = desc
             update(thisWeapon)
           //  Log.i("edit4", "$thisWeapon")
@@ -70,7 +69,7 @@ class EditWeaponViewModel(
 
     fun updateType(type: String) {
         uiScope.launch {
-            var thisWeapon = componentOld.value?: return@launch
+            val thisWeapon = componentOld.value?: return@launch
             thisWeapon.componentTypeId = type
             update(thisWeapon)
           //  Log.i("edit4", "$thisWeapon")

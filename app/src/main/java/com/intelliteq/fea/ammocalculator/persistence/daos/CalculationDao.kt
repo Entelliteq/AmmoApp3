@@ -5,7 +5,6 @@ import androidx.room.*
 import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
 import com.intelliteq.fea.ammocalculator.persistence.models.Calculation
 import com.intelliteq.fea.ammocalculator.persistence.models.Component
-import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
 
 @Dao
 interface CalculationDao {

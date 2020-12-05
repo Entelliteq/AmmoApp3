@@ -3,9 +3,6 @@ package com.intelliteq.fea.ammocalculator.persistence.daos
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
-import com.intelliteq.fea.ammocalculator.persistence.models.ComponentAmmo
-import com.intelliteq.fea.ammocalculator.persistence.models.Weapon
-import com.intelliteq.fea.ammocalculator.persistence.models.WeaponAmmo
 
 
 @Dao

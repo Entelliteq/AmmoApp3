@@ -2,9 +2,7 @@ package com.intelliteq.fea.ammocalculator.editAmmoInput
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.intelliteq.fea.ammocalculator.editComponentInput.EditComponentViewModel
 import com.intelliteq.fea.ammocalculator.persistence.daos.AmmoDao
-import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentDao
 import java.lang.IllegalArgumentException
 
 class EditAmmoViewModelFactory (

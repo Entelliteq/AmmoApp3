@@ -2,25 +2,21 @@ package com.intelliteq.fea.ammocalculator.editWeaponInput
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.intelliteq.fea.ammocalculator.R
 import com.intelliteq.fea.ammocalculator.databinding.FragmentEditWeaponBinding
-import com.intelliteq.fea.ammocalculator.editAmmoInput.EditAmmoFragmentDirections
-
 import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
 import kotlinx.android.synthetic.main.fragment_edit_weapon.*
 
 
 /**
  * A simple [Fragment] subclass.
- * Use the [EditWeaponFragment.newInstance] factory method to
- * create an instance of this fragment.
  */
 class EditWeaponFragment : Fragment() {
 

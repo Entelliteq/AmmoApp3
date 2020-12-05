@@ -2,11 +2,8 @@ package com.intelliteq.fea.ammocalculator.validation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.intelliteq.fea.ammocalculator.calculate.CalculateViewModel
 import com.intelliteq.fea.ammocalculator.persistence.daos.AmmoDao
 import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentDao
-import com.intelliteq.fea.ammocalculator.persistence.daos.WeaponDao
-import java.lang.IllegalArgumentException
 
 class ValidationViewModelFactory(
     private val weaponKey: Long,

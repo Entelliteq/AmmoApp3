@@ -3,9 +3,7 @@ package com.intelliteq.fea.ammocalculator.editAmmoInput
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.intelliteq.fea.ammocalculator.persistence.daos.AmmoDao
-import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentDao
 import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
-import com.intelliteq.fea.ammocalculator.persistence.models.Component
 import kotlinx.coroutines.*
 
 class EditAmmoViewModel(
@@ -17,11 +15,8 @@ class EditAmmoViewModel(
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    //reading the user input
-    val ammoDescriptionEditText = MutableLiveData<String>()
-    val ammoTypeEditText = MutableLiveData<String>()
-
-    var ammoOld = MutableLiveData<Ammo?>()
+    //reading database
+    private var ammoOld = MutableLiveData<Ammo?>()
     var ammoDescriptionHint = MutableLiveData<String>()
     var ammoTypeHint = MutableLiveData<String>()
     var ammoTrainingHint = MutableLiveData<String>()
@@ -106,14 +101,14 @@ class EditAmmoViewModel(
 
     private suspend fun getDescriptionFromDatabase(): String {
         return withContext(Dispatchers.IO) {
-            var hint = ammoDao.get(ammoKey).ammoDescription
+            val hint = ammoDao.get(ammoKey).ammoDescription
             hint
         }.toString()
     }
 
     private suspend fun getTypeFromDatabase(): String {
         return withContext(Dispatchers.IO) {
-            var hint = ammoDao.get(ammoKey).ammoDODIC.toString()
+            val hint = ammoDao.get(ammoKey).ammoDODIC.toString()
             hint
         }
     }
@@ -127,7 +122,7 @@ class EditAmmoViewModel(
 
     fun updateDodic(dodic: String) {
         uiScope.launch {
-            var thisammo = ammoOld.value?: return@launch
+            val thisammo = ammoOld.value?: return@launch
             thisammo.ammoDODIC = dodic
             update(thisammo)
             //  Log.i("edit4", "$thisWeapon")
@@ -136,7 +131,7 @@ class EditAmmoViewModel(
 
     fun updateSustain(desc: Int) {
         uiScope.launch {
-            var thisammo = ammoOld.value?: return@launch
+            val thisammo = ammoOld.value?: return@launch
             thisammo.sustainRate = desc
             update(thisammo)
             //  Log.i("edit4", "$thisWeapon")
@@ -145,7 +140,7 @@ class EditAmmoViewModel(
 
     fun updateSecurity(desc: Int) {
         uiScope.launch {
-            var thisammo = ammoOld.value?: return@launch
+            val thisammo = ammoOld.value?: return@launch
             thisammo.securityRate = desc
             update(thisammo)
             //  Log.i("edit4", "$thisWeapon")
@@ -154,7 +149,7 @@ class EditAmmoViewModel(
 
     fun updateTraining(desc: Int) {
         uiScope.launch {
-            var thisammo = ammoOld.value?: return@launch
+            val thisammo = ammoOld.value?: return@launch
             thisammo.trainingRate = desc
             update(thisammo)
             //  Log.i("edit4", "$thisWeapon")
@@ -163,7 +158,7 @@ class EditAmmoViewModel(
 
     fun updateLight(desc: Int) {
         uiScope.launch {
-            var thisammo = ammoOld.value?: return@launch
+            val thisammo = ammoOld.value?: return@launch
             thisammo.lightAssaultRate = desc
             update(thisammo)
             //  Log.i("edit4", "$thisWeapon")
@@ -172,7 +167,7 @@ class EditAmmoViewModel(
 
     fun updateMedium(desc: Int) {
         uiScope.launch {
-            var thisammo = ammoOld.value?: return@launch
+            val thisammo = ammoOld.value?: return@launch
             thisammo.mediumAssaultRate = desc
             update(thisammo)
             //  Log.i("edit4", "$thisWeapon")
@@ -181,7 +176,7 @@ class EditAmmoViewModel(
 
     fun updateHeavy(desc: Int) {
         uiScope.launch {
-            var thisammo = ammoOld.value?: return@launch
+            val thisammo = ammoOld.value?: return@launch
             thisammo.heavyAssaultRate = desc
             update(thisammo)
             //  Log.i("edit4", "$thisWeapon")
@@ -190,7 +185,7 @@ class EditAmmoViewModel(
 
     fun updateDesc(desc: String) {
         uiScope.launch {
-            var thisammo = ammoOld.value?: return@launch
+            val thisammo = ammoOld.value?: return@launch
             thisammo.ammoDescription = desc
             update(thisammo)
             //  Log.i("edit4", "$thisWeapon")

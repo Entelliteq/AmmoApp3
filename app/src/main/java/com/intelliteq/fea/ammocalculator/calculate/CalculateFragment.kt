@@ -33,7 +33,7 @@ class CalculateFragment : Fragment() {
         //getting the application, arguments set and database
         val application = requireNotNull(this.activity).application
 
-        val dataSourceWeapon = AmmoRoomDatabase.getAppDatabase(application)!!.weaponDao
+        AmmoRoomDatabase.getAppDatabase(application)!!.weaponDao
         val dataSourceAmmo = AmmoRoomDatabase.getAppDatabase(application)!!.ammoDao
         val dataSourceComp = AmmoRoomDatabase.getAppDatabase(application)!!.componentDao
         val dataSourceCalculation =
@@ -42,9 +42,10 @@ class CalculateFragment : Fragment() {
         val arguments = CalculateFragmentArgs.fromBundle(requireArguments())
 
         //creating a view model using the factory
-        val viewModelFactory = CalculateViewModelFactory(arguments.calcKey,
-            dataSourceWeapon, dataSourceAmmo,
-            dataSourceComp, dataSourceCalculation, dataSourceCalculations
+        val viewModelFactory = CalculateViewModelFactory(
+            arguments.calcKey,
+            dataSourceAmmo, dataSourceComp,
+            dataSourceCalculation, dataSourceCalculations
         )
         val calculateViewModel =
             ViewModelProvider(this, viewModelFactory)
@@ -54,11 +55,11 @@ class CalculateFragment : Fragment() {
         binding.calculateViewModel = calculateViewModel
         binding.lifecycleOwner = this
 
-        binding.pickerWeapons.setOnValueChangedListener { picker, oldVal, newVal ->
+        binding.pickerWeapons.setOnValueChangedListener { _, _, newVal ->
             calculateViewModel.getNumberOfWeapons(newVal)
         }
 
-        binding.pickerDays.setOnValueChangedListener { pickerDays, oldVal, newVal ->
+        binding.pickerDays.setOnValueChangedListener { _, _, newVal ->
             calculateViewModel.getHowManyDays(newVal)
         }
 

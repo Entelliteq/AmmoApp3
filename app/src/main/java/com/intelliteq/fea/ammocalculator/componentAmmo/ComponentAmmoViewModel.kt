@@ -27,8 +27,6 @@ class ComponentAmmoViewModel (
     //watching componentAmmo
     private var componentAmmo = MutableLiveData<Ammo?>()
 
-    //read user input
-    val componentAmmoTypeEditText = MutableLiveData<String>()
     val componentAmmoDescriptionEditText = MutableLiveData<String>()
     val componentAmmoDODICEditText = MutableLiveData<String>()
     val componentAmmoTrainingEditText = MutableLiveData<String>()
@@ -57,7 +55,7 @@ class ComponentAmmoViewModel (
     val navigateToAnotherComponent: LiveData<Long>
         get() = _navigateToAnotherComponent
 
-    var keys = arrayOf(weaponKey, componentKey) //switched order 12/1
+    private var keys = arrayOf(weaponKey, componentKey) //switched order 12/1
 
     /**
      * Initializing the componentAmmo variable
@@ -86,7 +84,7 @@ class ComponentAmmoViewModel (
      */
     private suspend fun getComponentAmmoFromDatabase() : Ammo? {
         return withContext(Dispatchers.IO) {
-            var compammo = database.getNewAmmo()
+            val compammo = database.getNewAmmo()
             compammo
         }
     }
@@ -172,15 +170,15 @@ class ComponentAmmoViewModel (
      * Check if all the Edit Texts are filled
      * @return Boolean that is true if they are valid
      */
-    fun checkEditTexts() : Boolean {
-        if (//componentAmmoTypeEditText.value.isNullOrEmpty() ||
-                componentAmmoDODICEditText.value.isNullOrEmpty() ||
-                componentAmmoDescriptionEditText.value.isNullOrEmpty()) {
+    private fun checkEditTexts() : Boolean {
+        return if (//componentAmmoTypeEditText.value.isNullOrEmpty() ||
+            componentAmmoDODICEditText.value.isNullOrEmpty() ||
+            componentAmmoDescriptionEditText.value.isNullOrEmpty()) {
             _checkStatusOfInputs.value = false
-            return false
+            false
         } else {
             _checkStatusOfInputs.value = true
-            return true
+            true
         }
     }
 

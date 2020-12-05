@@ -11,20 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.intelliteq.fea.ammocalculator.R
 import com.intelliteq.fea.ammocalculator.databinding.FragmentEditAmmoBinding
-import com.intelliteq.fea.ammocalculator.databinding.FragmentEditComponentBinding
-import com.intelliteq.fea.ammocalculator.editComponentInput.EditComponentFragmentArgs
-import com.intelliteq.fea.ammocalculator.editComponentInput.EditComponentFragmentDirections
-import com.intelliteq.fea.ammocalculator.editComponentInput.EditComponentViewModel
-import com.intelliteq.fea.ammocalculator.editComponentInput.EditComponentViewModelFactory
 import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
 import kotlinx.android.synthetic.main.fragment_edit_ammo.*
-import kotlinx.android.synthetic.main.fragment_edit_component.*
 
 
 /**
  * A simple [Fragment] subclass.
- * Use the [EditAmmoFragment.newInstance] factory method to
- * create an instance of this fragment.
  */
 class EditAmmoFragment : Fragment() {
 

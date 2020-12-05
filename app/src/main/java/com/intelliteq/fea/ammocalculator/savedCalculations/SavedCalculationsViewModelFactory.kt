@@ -3,8 +3,6 @@ package com.intelliteq.fea.ammocalculator.savedCalculations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.intelliteq.fea.ammocalculator.persistence.daos.CalculationDao
-import com.intelliteq.fea.ammocalculator.persistence.daos.PerWeaponCalculationDao
-import java.lang.IllegalArgumentException
 
 class SavedCalculationsViewModelFactory(
     private val calculation: CalculationDao

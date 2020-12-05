@@ -22,8 +22,6 @@ import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
 
 /**
  * A simple [Fragment] subclass.
- * Use the [CalculationOutputFragment.newInstance] factory method to
- * create an instance of this fragment.
  */
 class CalculationOutputFragment : Fragment() {
 
@@ -43,7 +41,7 @@ class CalculationOutputFragment : Fragment() {
         val application = requireNotNull(this.activity).application
 
         val dataSourceCalculation = AmmoRoomDatabase.getAppDatabase(application)!!.calculationDao
-        val dataSourceSinlge =
+        val dataSourceSingle =
             AmmoRoomDatabase.getAppDatabase(application)!!.perWeaponCalculationDao
         val arguments = CalculationOutputFragmentArgs.fromBundle(requireArguments())
 
@@ -51,7 +49,7 @@ class CalculationOutputFragment : Fragment() {
         val viewModelFactory = CalculationOutputViewModelFactory(
             arguments.calculationKey,
             dataSourceCalculation,
-            dataSourceSinlge,
+            dataSourceSingle,
             arguments.days,
             arguments.intensity
         )
@@ -97,11 +95,11 @@ class CalculationOutputFragment : Fragment() {
         })
 
 
-        calculateOutputViewModel.ammos.observe(viewLifecycleOwner, Observer { ammos ->
-            ammos?.let {
-                ammoAdapter.ammoList = ammos
-                Log.i("out1 Size", "from int ${ammos}")
-                Log.i("out1 Lists1", "{${ammos}}")
+        calculateOutputViewModel.ammo.observe(viewLifecycleOwner, Observer { ammo ->
+            ammo?.let {
+                ammoAdapter.ammoList = ammo
+                Log.i("out1 Size", "from int $ammo")
+                Log.i("out1 Lists1", "{${ammo}}")
 
             }
         })
@@ -134,17 +132,17 @@ class CalculationOutputFragment : Fragment() {
             // val buttonC = dialogLayout.findViewById<Button>(R.id.cancelButton)
 
             with(alertBuilder) {
-                setTitle("Save This Calculation:").setPositiveButton("Save") { dialog, id ->
+                setTitle("Save This Calculation:").setPositiveButton("Save") { dialog, _ ->
 //                  buttonS.setOnClickListener{
 //                        saveAsEditText.text = editText.text
                     dialog.dismiss()
                     Log.i("SAve input", "${editText.text}")
-                    calculateOutputViewModel._name.value = editText.text.toString()
+                    calculateOutputViewModel.calculationName.value = editText.text.toString()
                     calculateOutputViewModel.saveNameFromDialog(editText.text.toString())
                 }
 
 
-                setNegativeButton("Cancel") { dialog, which ->
+                setNegativeButton("Cancel") { dialog, _ ->
                     Toast.makeText(this.context, "You Canceled The Save", Toast.LENGTH_LONG).show()
                     dialog.dismiss()
                 }

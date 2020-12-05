@@ -6,14 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.intelliteq.fea.ammocalculator.persistence.daos.CalculationDao
 import com.intelliteq.fea.ammocalculator.persistence.daos.PerWeaponCalculationDao
-import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
-import com.intelliteq.fea.ammocalculator.persistence.models.Calculation
 import kotlinx.coroutines.*
 
 class CalculationOutputViewModel(
     val calculationKey: Long,
     var calculation: CalculationDao,
-    val perWeapon: PerWeaponCalculationDao,
+    perWeapon: PerWeaponCalculationDao,
     val days: Int,
     val intensity: String
 
@@ -27,10 +25,10 @@ class CalculationOutputViewModel(
     val perWeaponCalcUsed = perWeapon.getUsingCalculationID(calculationKey)
     val calculationUsed = calculation.getThisCalculation(calculationKey)
 
-    val ammos = calculation.getSelectedAmmos(calculationKey)
-    var _name = MutableLiveData<String>()
+    val ammo = calculation.getSelectedAmmos(calculationKey)
+    var calculationName = MutableLiveData<String>()
     val name: LiveData<String>
-        get() = _name
+        get() = calculationName
 
 
 
@@ -39,7 +37,7 @@ class CalculationOutputViewModel(
     }
 
 
-    fun saveName( nameEntered: String) {
+    private fun saveName(nameEntered: String) {
         uiScope.launch {
 
             calculationUsed.value?.calculationName  = nameEntered

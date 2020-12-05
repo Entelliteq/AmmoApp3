@@ -14,13 +14,10 @@ import kotlinx.coroutines.*
 
 /**
  * ViewModel class for Weapon Fragment
- *
- * @param application: the application returned
- * @param database: WeaponDao
  */
 class WeaponViewModel (
-    val weaponDatabase: WeaponDao,
-    val componentDatabase: ComponentDao,
+    private val weaponDatabase: WeaponDao,
+    private val componentDatabase: ComponentDao,
     application: Application) : AndroidViewModel(application) {
 
     //create job and scope of coroutine
@@ -78,7 +75,7 @@ class WeaponViewModel (
      */
     private suspend fun getWeaponFromDatabase() : Weapon? {
         return withContext(Dispatchers.IO) {
-            var weapon = weaponDatabase.getNewWeapon()
+            val weapon = weaponDatabase.getNewWeapon()
             weapon
         }
     }
@@ -89,7 +86,7 @@ class WeaponViewModel (
      */
     private suspend fun getComponentFromDatabase() : Component? {
         return withContext(Dispatchers.IO) {
-            var comp = componentDatabase.getNewComponent()
+            val comp = componentDatabase.getNewComponent()
             comp
         }
     }
@@ -117,7 +114,7 @@ class WeaponViewModel (
             updateComponent(thisComponent)
             Log.i("Weapon new", "${weapon.value}")
             _navigateToInputWeaponAmmo.value = weapon.value
-            Log.i("WEAPON updated", "////C: ${thisComponent}")
+            Log.i("WEAPON updated", "////C: $thisComponent")
 
 
         }

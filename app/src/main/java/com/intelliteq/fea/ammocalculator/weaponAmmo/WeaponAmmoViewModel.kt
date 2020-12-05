@@ -18,7 +18,7 @@ import kotlinx.coroutines.*
 class WeaponAmmoViewModel(
     private val weaponKey: Long = 0L,
     val database: AmmoDao,
-    val compDatabase: ComponentDao
+    private val compDatabase: ComponentDao
 ) : ViewModel() {
 
     //create job and scope of coroutine
@@ -29,8 +29,6 @@ class WeaponAmmoViewModel(
     private var weaponAmmo = MutableLiveData<Ammo?>()
 
 
-    //reading user input
-    val weaponAmmoTypeEditText = MutableLiveData<String>()
     val weaponAmmoDescriptionEditText = MutableLiveData<String>()
     val weaponAmmoDODICEditText = MutableLiveData<String>()
     val weaponAmmoTrainingEditText = MutableLiveData<String>()
@@ -85,7 +83,7 @@ class WeaponAmmoViewModel(
      */
     private suspend fun getAmmoFromDatabase(): Ammo? {
         return withContext(Dispatchers.IO) {
-            var weaponammo = database.getNewAmmo()
+            val weaponammo = database.getNewAmmo()
             //Log.i("Weapon ammo2 auto", "${weaponammo!!.ammoAutoId}")
             weaponammo
         }
@@ -125,25 +123,22 @@ class WeaponAmmoViewModel(
     fun onAddAnotherAmmo() {
         if (checkEditTexts()) {
             uiScope.launch {
-                val thisammo = weaponAmmo.value ?: return@launch
+                val thisAmmo = weaponAmmo.value ?: return@launch
 
-                thisammo.componentId = getComponentID(weaponKey)  //changed 10/27
-               //Log.i("This ammo weapon id", "${thisammo.weaponId}")
-                Log.i("This ammo:", "${thisammo}")
-            //    thisammo.ammoTypeId = weaponAmmoTypeEditText.value.toString()
-                thisammo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
-                thisammo.ammoDODIC = weaponAmmoDODICEditText.value.toString()
-                thisammo.trainingRate = weaponAmmoTrainingEditText.value!!.toInt()
-                thisammo.securityRate = weaponAmmoSecurityEditText.value!!.toInt()
-                thisammo.weaponId =weaponKey
-                thisammo.primaryAmmo = true
-                thisammo.sustainRate = weaponAmmoSustainEditText.value!!.toInt()
-                thisammo.lightAssaultRate = weaponAmmoLightEditText.value!!.toInt()
-                thisammo.mediumAssaultRate = weaponAmmoMediumEditText.value!!.toInt()
-                thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
-                update(thisammo)
-                _navigateToAddAnotherAmmo.value = thisammo
-                Log.i("Another AMMO", " ${thisammo}")
+                thisAmmo.componentId = getComponentID(weaponKey)  //changed 10/27
+                thisAmmo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
+                thisAmmo.ammoDODIC = weaponAmmoDODICEditText.value.toString()
+                thisAmmo.trainingRate = weaponAmmoTrainingEditText.value!!.toInt()
+                thisAmmo.securityRate = weaponAmmoSecurityEditText.value!!.toInt()
+                thisAmmo.weaponId =weaponKey
+                thisAmmo.primaryAmmo = true
+                thisAmmo.sustainRate = weaponAmmoSustainEditText.value!!.toInt()
+                thisAmmo.lightAssaultRate = weaponAmmoLightEditText.value!!.toInt()
+                thisAmmo.mediumAssaultRate = weaponAmmoMediumEditText.value!!.toInt()
+                thisAmmo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
+                update(thisAmmo)
+                _navigateToAddAnotherAmmo.value = thisAmmo
+                Log.i("Another AMMO", " $thisAmmo")
             }
         }
     }
@@ -178,7 +173,7 @@ class WeaponAmmoViewModel(
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToConfirmation.value = weaponKey
-                Log.i("Verify AMMO", " ${thisammo}")
+                Log.i("Verify AMMO", " $thisammo")
             }
         }
 
@@ -188,8 +183,8 @@ class WeaponAmmoViewModel(
      * Verify that all edit text inputs are not null nor empty
      * @return true if all valid
      */
-    fun checkEditTexts(): Boolean {
-        if (weaponAmmoTrainingEditText.value.isNullOrEmpty() ||
+    private fun checkEditTexts(): Boolean {
+        return if (weaponAmmoTrainingEditText.value.isNullOrEmpty() ||
             weaponAmmoSecurityEditText.value.isNullOrEmpty() ||
             weaponAmmoSustainEditText.value.isNullOrEmpty() ||
             weaponAmmoLightEditText.value.isNullOrEmpty() ||
@@ -197,10 +192,10 @@ class WeaponAmmoViewModel(
             weaponAmmoHeavyEditText.value.isNullOrEmpty()
         ) {
             _checkStatusOfInputs.value = false
-            return false
+            false
         } else {
             _checkStatusOfInputs.value = true
-            return true
+            true
         }
 
     }
@@ -212,22 +207,21 @@ class WeaponAmmoViewModel(
     fun onAddComponent() {
         if (checkEditTexts()) {
             uiScope.launch {
-                val thisammo = weaponAmmo.value ?: return@launch
-                thisammo.componentId = weaponKey
-             //   thisammo.ammoTypeId = weaponAmmoTypeEditText.value.toString()
-                thisammo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
-                thisammo.ammoDODIC = weaponAmmoDODICEditText.value.toString()
-                thisammo.weaponId =weaponKey
-                thisammo.primaryAmmo = true
-                thisammo.trainingRate = weaponAmmoTrainingEditText.value!!.toInt()
-                thisammo.securityRate = weaponAmmoSecurityEditText.value!!.toInt()
-                thisammo.sustainRate = weaponAmmoSustainEditText.value!!.toInt()
-                thisammo.lightAssaultRate = weaponAmmoLightEditText.value!!.toInt()
-                thisammo.mediumAssaultRate = weaponAmmoMediumEditText.value!!.toInt()
-                thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
-                update(thisammo)
+                val thisAmmo = weaponAmmo.value ?: return@launch
+                thisAmmo.componentId = weaponKey
+                thisAmmo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
+                thisAmmo.ammoDODIC = weaponAmmoDODICEditText.value.toString()
+                thisAmmo.weaponId =weaponKey
+                thisAmmo.primaryAmmo = true
+                thisAmmo.trainingRate = weaponAmmoTrainingEditText.value!!.toInt()
+                thisAmmo.securityRate = weaponAmmoSecurityEditText.value!!.toInt()
+                thisAmmo.sustainRate = weaponAmmoSustainEditText.value!!.toInt()
+                thisAmmo.lightAssaultRate = weaponAmmoLightEditText.value!!.toInt()
+                thisAmmo.mediumAssaultRate = weaponAmmoMediumEditText.value!!.toInt()
+                thisAmmo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
+                update(thisAmmo)
                 _navigateToInputComponent.value = weaponKey
-               Log.i("Add comp AMMO", " ${thisammo}")
+               Log.i("Add comp AMMO", " $thisAmmo")
             }
         }
     }
