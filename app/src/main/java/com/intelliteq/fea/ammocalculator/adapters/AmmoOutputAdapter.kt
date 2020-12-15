@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.intelliteq.fea.ammocalculator.calculationOutput.CalculationCardData
 import com.intelliteq.fea.ammocalculator.databinding.ListItemAmmoBinding
 import com.intelliteq.fea.ammocalculator.formulas.BasicAmmoFormula
 import com.intelliteq.fea.ammocalculator.formulas.BasicPerWeaponFormula
@@ -15,17 +16,22 @@ import kotlinx.android.synthetic.main.list_item_ammo.view.*
 
 class AmmoOutputAdapter : RecyclerView.Adapter<AmmoOutputAdapter.ViewHolder>() {
 
-
-    //ammo
-    var ammoList = listOf<Ammo>()
+    var cards = listOf<CalculationCardData>()
         set(value) {
             field = value
             notifyDataSetChanged()
-            Log.i("out1", "ammo: ${ammoList.size}")
         }
 
+      //ammo
+//    var ammoList = listOf<Ammo>()
+//        set(value) {
+//            field = value
+//            notifyDataSetChanged()
+//            Log.i("box6", "ammo: ${ammoList}")
+//        }
+
     //calculation
-    var calc = Calculation()
+  //  var calc = Calculation()
 //    var calc = listOf<Calculation>()
 //        set(value) {
 //            field = value
@@ -34,28 +40,30 @@ class AmmoOutputAdapter : RecyclerView.Adapter<AmmoOutputAdapter.ViewHolder>() {
 //        }
 
     //single calc
-    var perWeaponCalcList = listOf<PerWeaponCalculation>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-            Log.i("out1", "each weapon calc ${perWeaponCalcList.size}")
-        }
+//    var perWeaponCalcList = listOf<PerWeaponCalculation>()
+//        set(value) {
+//            field = value
+//            notifyDataSetChanged()
+//            Log.i("box8", "per ${perWeaponCalcList.size}")
+//            Log.i("box8", "per ${perWeaponCalcList}")
+//        }
 
-    override fun getItemCount() = ammoList.size
+    override fun getItemCount() = cards.size // ammoList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-     //   Log.i("Size", "single calc: ${singleCalcList.size}")
-    //    Log.i("Size", "ammo: ${ammoList.size}")
-    //   Log.i("Size", "calculatio: ${calc.size}")
+        //   Log.i("Size", "single calc: ${singleCalcList.size}")
+        //    Log.i("Size", "ammo: ${ammoList.size}")
+        //   Log.i("Size", "calculatio: ${calc.size}")
 
 
-        val item = ammoList[position]
-        val calcItem = calc //always be 1
-        val single = perWeaponCalcList[position/2]
+//        val item = ammoList[position]
+//        val calcItem = calc //always be 1
+//        val single = perWeaponCalcList[position / 2]
+        val item = cards
 
-        Log.i("CALC4", "$calc")
-    //    Log.i("Adapter lists", " ammos: ${ammoList.size}, calcs: ${calc.size}, singles: ${singleCalcList.size}")
-        holder.bind(item, calcItem, single)
+       // Log.i("CALC4", "$calc")
+        //    Log.i("Adapter lists", " ammos: ${ammoList.size}, calcs: ${calc.size}, singles: ${singleCalcList.size}")
+        holder.bind(item[position])//, calcItem, single)
 
     }
 
@@ -72,15 +80,16 @@ class AmmoOutputAdapter : RecyclerView.Adapter<AmmoOutputAdapter.ViewHolder>() {
         val totalAmmo: TextView = itemView.total_out_tv
 
         fun bind(
-            item: Ammo,
-            calcItem: Calculation,
-            quantity: PerWeaponCalculation
+            item: CalculationCardData//,
+          //  calcItem: Calculation,
+          //  quantity: PerWeaponCalculation
         ) {
             val res = itemView.context.resources
             desc.text = item.ammoDescription
             dodic.text = item.ammoDODIC
-            perWeapon.text = perWeapon(item, calcItem, quantity).toString()
-            totalAmmo.text = totalAmmoCalc(item, calcItem, quantity).toString()
+            perWeapon.text =
+                item.perWeaponCalculation.toInt().toString() //perWeapon(item, calcItem, quantity).toString()
+            totalAmmo.text = item.totalPerAmmoCalculation.toString()//totalAmmoCalc(item, calcItem, quantity).toString()
 
 
 //            binding.weaponOutputListItem = item
@@ -88,37 +97,44 @@ class AmmoOutputAdapter : RecyclerView.Adapter<AmmoOutputAdapter.ViewHolder>() {
 
         }
 
-        fun totalAmmoCalc(item: Ammo, calcItem: Calculation, quantity: PerWeaponCalculation): Int {
-            var total = 0
-            var assault = calcItem.assaultIntensity
-            val calculation = BasicAmmoFormula(intensityStringToValue(assault, item), calcItem.numberOfDays, quantity.numberOfWeapons)
-            total = calculation.calculate()
-            val temp = intensityStringToValue(assault, item)
-          //  Log.i("ADAPTER" , "assault: $temp")
-          //  Log.i("ADAPTER" , "fun ${intensityStringToValue(assault, item)}, ${calcItem.numberOfDays}, ${quantity.numberOfWeapons}")
-            return total
-        }
-
-        fun perWeapon(item: Ammo, calcItem: Calculation, quantity: PerWeaponCalculation) : Int {
-            var per = 0
-            val perCalc = BasicPerWeaponFormula(totalAmmoCalc(item, calcItem, quantity), quantity.numberOfWeapons)
-            per = perCalc.calculate()
-
-
-            return per
-        }
-
-        fun intensityStringToValue(combat: String, item: Ammo): Int {
-            return when (combat) {
-                "Training" -> item.trainingRate
-                "Security" -> item.securityRate
-                "Sustain" -> item.sustainRate
-                "Light Assault" -> item.lightAssaultRate
-                "Medium Assault" -> item.mediumAssaultRate
-                else -> item.heavyAssaultRate
-            }
-
-        }
+//        fun totalAmmoCalc(item: Ammo, calcItem: Calculation, quantity: PerWeaponCalculation): Int {
+//            var total = 0
+//            var assault = calcItem.assaultIntensity
+//            val calculation = BasicAmmoFormula(
+//                intensityStringToValue(assault, item),
+//                calcItem.numberOfDays,
+//                quantity.numberOfWeapons
+//            )
+//            total = calculation.calculate()
+//            val temp = intensityStringToValue(assault, item)
+//            Log.i("box8", "ammo: ${item.ammoDODIC}")
+//            Log.i("box8", "count ${quantity.numberOfWeapons}")
+//            return total
+//        }
+//
+//        fun perWeapon(item: Ammo, calcItem: Calculation, quantity: PerWeaponCalculation): Int {
+//            var per = 0
+//            val perCalc = BasicPerWeaponFormula(
+//                totalAmmoCalc(item, calcItem, quantity),
+//                quantity.numberOfWeapons
+//            )
+//            per = perCalc.calculate()
+//
+//
+//            return per
+//        }
+//
+//        fun intensityStringToValue(combat: String, item: Ammo): Int {
+//            return when (combat) {
+//                "Training" -> item.trainingRate
+//                "Security" -> item.securityRate
+//                "Sustain" -> item.sustainRate
+//                "Light Assault" -> item.lightAssaultRate
+//                "Medium Assault" -> item.mediumAssaultRate
+//                else -> item.heavyAssaultRate
+//            }
+//
+//        }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {

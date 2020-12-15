@@ -95,26 +95,34 @@ class CalculationOutputFragment : Fragment() {
         })
 
 
-        calculateOutputViewModel.ammo.observe(viewLifecycleOwner, Observer { ammo ->
-            ammo?.let {
-                ammoAdapter.ammoList = ammo
-                Log.i("out1 Size", "from int $ammo")
-                Log.i("out1 Lists1", "{${ammo}}")
+        //returns all ammo that are selected for both weapon and component
+//        calculateOutputViewModel.ammo.observe(viewLifecycleOwner, Observer { ammo ->
+//            ammo?.let {
+//                ammoAdapter.ammoList = ammo
+//               Log.i("box7", "from int ${ammo.size}")
+//
+//                Log.i("box7", "${ammo}")
+//
+//            }
+//        })
 
-            }
+
+        calculateOutputViewModel.cards.observe(viewLifecycleOwner, Observer {
+            ammoAdapter.cards = it
         })
 
-        calculateOutputViewModel.calculationUsed.observe(viewLifecycleOwner, Observer { calc ->
-            calc?.let {
-                ammoAdapter.calc = calc
-            }
-        })
+//        calculateOutputViewModel.calculationUsed.observe(viewLifecycleOwner, Observer { calc ->
+//            calc?.let {
+//                ammoAdapter.calc = calc
+//                Log.i("box7" , "Calc ${calc}")
+//            }
+//        })
 
         calculateOutputViewModel.perWeaponCalcUsed.observe(viewLifecycleOwner, Observer { single ->
             single?.let {
-                weaponAdapter.quantity = single
-                ammoAdapter.perWeaponCalcList = single
-                // Log.i("Lists" , "Single {${single}}")
+                weaponAdapter.quantity = single //returns correct for weapon
+               // ammoAdapter.perWeaponCalcList = single
+                 Log.i("box7" , "Per ${single}")
             }
         })
 

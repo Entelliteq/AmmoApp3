@@ -84,6 +84,12 @@ class ModifyCalculationFragment : Fragment() {
             }
         })
 
+        binding.calculationViewButton.setOnClickListener {
+            it.findNavController().navigate(ModifyCalculationFragmentDirections
+                .actionModifyCalculationFragmentToCalculationOutputScreen(
+                    arguments.calculationKey, arguments.days, arguments.intensity))
+        }
+
         binding.saveModify.setOnClickListener { view ->
            // Log.i("days11", "from bind")
             modifyCalculationViewModel.onSave()

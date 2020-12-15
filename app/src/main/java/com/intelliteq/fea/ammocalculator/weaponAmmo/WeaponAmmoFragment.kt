@@ -15,6 +15,7 @@ import com.intelliteq.fea.ammocalculator.databinding.FragmentWeaponAmmoBinding
 import com.intelliteq.fea.ammocalculator.persistence.database.AmmoRoomDatabase
 
 
+
 /**
  * Fragment class for WeaponAmmo
  */
@@ -58,6 +59,14 @@ class WeaponAmmoFragment : Fragment() {
                 }
             }
         )
+
+
+        binding.defaultWeaponAmmoCheck.setOnClickListener {
+            if(binding.defaultWeaponAmmoCheck.isChecked)
+            weaponAmmoViewModel.setDefaultAmmo(true)
+            else
+                weaponAmmoViewModel.setDefaultAmmo(false)
+        }
 
         //navigate to component screen
         weaponAmmoViewModel.navigateToInputComponent.observe(

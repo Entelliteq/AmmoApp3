@@ -40,6 +40,9 @@ interface PerWeaponCalculationDao {
     fun getUsingCalculationID(key: Long) : LiveData<List<PerWeaponCalculation>>
 
     @Query("SELECT * FROM single_calculation_table WHERE id_group_calculation = :key ")
+    fun getUsingCalculationIDList(key: Long) : List<PerWeaponCalculation>
+
+    @Query("SELECT * FROM single_calculation_table WHERE id_group_calculation = :key ")
     fun getUsingCalculationIDLive(key: Long) : LiveData<PerWeaponCalculation>
 
     //getUsingWeaponAndCalcID(calculationKey, item.componentTypeId)

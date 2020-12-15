@@ -180,6 +180,9 @@
         <action
             android:id="@+id/action_ModifyCalculationFragment_to_landingScreen"
             app:destination="@id/landingScreen" />
+        <action
+            android:id="@+id/action_ModifyCalculationFragment_to_CalculationOutputScreen"
+            app:destination="@id/CalculationOutputScreen" />
     </fragment>
     <fragment
         android:id="@+id/EditWeapon"

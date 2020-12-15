@@ -1,5 +1,6 @@
 package com.intelliteq.fea.ammocalculator.editAmmoInput
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.intelliteq.fea.ammocalculator.persistence.daos.AmmoDao
@@ -25,11 +26,59 @@ class EditAmmoViewModel(
     var ammoLightHint = MutableLiveData<String>()
     var ammoMediumHint = MutableLiveData<String>()
     var ammoHeavyHint = MutableLiveData<String>()
+    var ammoDefaultHint = MutableLiveData<Boolean>()
+
+    val ammoDefault = MutableLiveData<Boolean>()
+
+    var ammosList = listOf<Ammo>()
 
     init {
         populateHints()
+
     }
 
+    private fun initializeAmmos(){
+        uiScope.launch {
+            ammosList = getListOfAmmosDatabase()
+        }
+    }
+
+    private suspend fun getListOfAmmosDatabase() : List<Ammo> {
+        return withContext(Dispatchers.IO) {
+            var ammo = listOf<Ammo>()
+            if(ammoOld.value!!.primaryAmmo) {
+                ammo = ammoDao.getAllWeaponAmmoList(ammoOld.value!!.weaponId)
+            }
+            else {
+                ammo = ammoDao.getComponentAmmosForThisComponent(ammoOld.value!!.componentId)
+            }
+            ammo
+        }
+    }
+
+    fun setDefault(default: Boolean) {
+        uiScope.launch {
+            Log.i("Box", "default in: $default")
+            if(default) {
+                for (ammo in ammosList) {
+                    if(ammo.defaultAmmo){
+                        ammo.defaultAmmo = false
+                        update(ammo)
+                    }
+                    if(ammo.ammoAutoId == ammoKey) {
+                        ammo.defaultAmmo = true
+                        update(ammo)
+                    }
+                }
+            }
+
+            Log.i("Box", "old: ${ammoOld.value}")
+            //check for accuracy
+            for (ammo in ammosList) {
+                Log.i("BOX3", "${ammo.ammoDODIC} ${ammo.defaultAmmo}")
+            }
+        }
+    }
 
     private fun populateHints() {
         uiScope.launch {
@@ -43,10 +92,19 @@ class EditAmmoViewModel(
             ammoSecurityHint.value = getSecurityFromDatabase()
             ammoSustainHint.value = getSustainFromDatabase()
             ammoTrainingHint.value = getTrainingFromDatabase()
+            ammoDefault.value = getDefaultFromDatabase()
+
+            initializeAmmos()
 
         }
     }
 
+    private suspend fun getDefaultFromDatabase(): Boolean {
+        return withContext(Dispatchers.IO) {
+            val value = ammoDao.get(ammoKey).defaultAmmo
+            value
+        }
+    }
     private suspend fun getLightFromDatabase(): String {
         return withContext(Dispatchers.IO) {
             val value = ammoDao.get(ammoKey).lightAssaultRate.toString()

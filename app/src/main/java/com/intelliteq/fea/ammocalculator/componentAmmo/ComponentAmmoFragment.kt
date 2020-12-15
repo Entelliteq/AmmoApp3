@@ -95,6 +95,13 @@ class ComponentAmmoFragment : Fragment() {
         )
 
 
+        binding.defaultCompAmmoCheck.setOnClickListener {
+            if(binding.defaultCompAmmoCheck.isChecked)
+                componentAmmoViewModel.setDefaultAmmo(true)
+            else
+                componentAmmoViewModel.setDefaultAmmo(false)
+        }
+
         // Inflate the layout for this fragment
         return binding.root
     }

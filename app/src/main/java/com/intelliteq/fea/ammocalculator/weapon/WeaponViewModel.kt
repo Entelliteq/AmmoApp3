@@ -112,9 +112,9 @@ class WeaponViewModel (
             weapon.value!!.componentId = thisComponent.componentAutoId
             updateWeapon(weapon.value!!)
             updateComponent(thisComponent)
-            Log.i("Weapon new", "${weapon.value}")
+            Log.i("REDO Weapon", "${weapon.value}")
             _navigateToInputWeaponAmmo.value = weapon.value
-            Log.i("WEAPON updated", "////C: $thisComponent")
+            Log.i("REDO comp", "////C: $thisComponent")
 
 
         }

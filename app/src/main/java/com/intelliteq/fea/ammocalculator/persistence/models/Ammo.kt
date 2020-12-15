@@ -24,6 +24,9 @@ data class Ammo (
     @ColumnInfo(name="ammo_dodic")
     var ammoDODIC: String? = "",
 
+    @ColumnInfo(name = "default_ammo")
+    var defaultAmmo: Boolean = false,
+
     @ColumnInfo(name = "bool_weapon_ammo")
     var primaryAmmo: Boolean = false,
 

@@ -95,6 +95,12 @@ class EditAmmoFragment : Fragment() {
                 )
         }
 
+        binding.defaultAmmoCheck.setOnClickListener {
+            if(binding.defaultAmmoCheck.isChecked)
+                editAmmoViewModel.setDefault(true)
+            else
+                editAmmoViewModel.setDefault(false)
+        }
 
         // Inflate the layout for this fragment
         return binding.root

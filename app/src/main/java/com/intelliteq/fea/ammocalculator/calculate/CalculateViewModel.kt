@@ -150,8 +150,11 @@ class CalculateViewModel(
     //Ammo List from database
     private suspend fun getChosenAmmoFromDatabaseUsingWeapon(): List<Ammo> {
         return withContext(Dispatchers.IO) {
-            val ammoReturned =
-                ammoDatabase.getAllAmmosForThisWeapon(chosenWeapon.value!!.weaponId)
+            var ammoReturned = mutableListOf<Ammo>()
+            ammoReturned.addAll(ammoDatabase.getDefaultAmmoForThisWeapon(chosenWeapon.value?.weaponId))
+            ammoReturned.addAll(ammoDatabase.getAllAmmosForThisWeaponExceptDefault(
+                chosenWeapon.value!!.weaponId))
+            Log.i("BOX5", "$ammoReturned")
             ammoReturned
         }
     }
@@ -173,13 +176,13 @@ class CalculateViewModel(
 
     private fun getChosenAmmo(ammoId: String) {
         uiScope.launch {
-            _chosenAmmo.value = getChosenAmmoFromDatabase(ammoId)
+            _chosenAmmo.value = getChosenAmmoFromDatabase(ammoId, chosenWeapon.value!!.weaponId)
         }
     }
 
-    private suspend fun getChosenAmmoFromDatabase(ammoId: String): Ammo? {
+    private suspend fun getChosenAmmoFromDatabase(ammoId: String, weaponId: Long): Ammo? {
         return withContext(Dispatchers.IO) {
-            val ammoReturned = ammoDatabase.getAmmoType(ammoId)
+            val ammoReturned = ammoDatabase.getAmmoType(ammoId, weaponId)
             ammoReturned
         }
     }
@@ -228,15 +231,24 @@ class CalculateViewModel(
     }
 
     //ComponentAmmo from database
+    //THIS ONE
     private suspend fun getComponentAmmoListFromDatabase(): List<Ammo> {
         return withContext(Dispatchers.IO) {
-            val componentAmmosReturned = ammoDatabase.getComponentAmmosForThisComponent(
-                chosenComponent.value!!.componentAutoId
-            )
-            // Log.i("Called1" ,"from db comp ammos: $componentAmmosReturned")
+            var componentAmmosReturned = mutableListOf<Ammo>()
+            if(chosenComponent.value != null){
+                componentAmmosReturned.addAll(ammoDatabase.getDefaultAmmoForThisComponent(
+                    chosenComponent.value!!.componentAutoId))
+                componentAmmosReturned.addAll(ammoDatabase.getComponentAmmosForThisComponentExceptDefault(
+                    chosenComponent.value!!.componentAutoId)
+                )
+
+            }
             componentAmmosReturned
+            // Log.i("Called1" ,"from db comp ammos: $componentAmmosReturned")
+
         }
     }
+
 
     /**
      * Use weapon type to get weapon
@@ -423,7 +435,7 @@ class CalculateViewModel(
             }
             updateSingle(thisWeapon)
             noComponentAmmo = false
-         //   Log.i("crash6", "this weapon: $thisWeapon")
+           Log.i("box11", "this weapon: $thisWeapon")
             _navigateToAddAnotherWeaponForCalculation.value = thisWeapon
         }
     }

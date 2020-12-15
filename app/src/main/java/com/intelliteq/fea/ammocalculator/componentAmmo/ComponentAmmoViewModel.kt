@@ -35,6 +35,9 @@ class ComponentAmmoViewModel (
     val componentAmmoLightEditText = MutableLiveData<String>()
     val componentAmmoMediumEditText = MutableLiveData<String>()
     val componentAmmoHeavyEditText = MutableLiveData<String>()
+    val componentDefaultAmmo = MutableLiveData<Boolean>()
+
+    var ammosComponent = listOf<Ammo>()
 
 
     //check if all edit texts are filled
@@ -62,6 +65,7 @@ class ComponentAmmoViewModel (
      */
     init {
         initializeComponentAmmo()
+        componentDefaultAmmo.value = false
        // Log.i("COMP1", "initialized ammo")
 
     }
@@ -74,10 +78,17 @@ class ComponentAmmoViewModel (
         uiScope.launch {
             val newComponentAmmo = Ammo()
             insert(newComponentAmmo)
+            ammosComponent = getListOfAmmoFromDatabase()
             componentAmmo.value = getComponentAmmoFromDatabase()
         }
     }
 
+    private suspend fun getListOfAmmoFromDatabase(): List<Ammo> {
+        return withContext(Dispatchers.IO) {
+            val compammo = database.getComponentAmmosForThisComponent(componentKey)
+            compammo
+        }
+    }
     /**
      * Gets componentAmmo from the database that was inserted
      * @return ComponentAmmo object from database
@@ -123,6 +134,7 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.ammoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
                 thisCompAmmo.weaponId = weaponKey
+                thisCompAmmo.defaultAmmo = componentDefaultAmmo.value!!
                 thisCompAmmo.trainingRate = componentAmmoTrainingEditText.value!!.toInt()
                 thisCompAmmo.securityRate = componentAmmoSecurityEditText.value!!.toInt()
                 thisCompAmmo.sustainRate = componentAmmoSustainEditText.value!!.toInt()
@@ -132,7 +144,7 @@ class ComponentAmmoViewModel (
 
                 update(thisCompAmmo)
                 _navigateToInputAnotherComponentAmmo.value = keys
-                Log.i("CompAmmo another ammo", " $thisCompAmmo")
+                Log.i("REDO", " $thisCompAmmo")
 
             }
         }
@@ -151,6 +163,7 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.ammoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
                 thisCompAmmo.weaponId = weaponKey
+                thisCompAmmo.defaultAmmo = componentDefaultAmmo.value!!
                 thisCompAmmo.trainingRate = componentAmmoTrainingEditText.value!!.toInt()
                 thisCompAmmo.securityRate = componentAmmoSecurityEditText.value!!.toInt()
                 thisCompAmmo.sustainRate = componentAmmoSustainEditText.value!!.toInt()
@@ -159,7 +172,7 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.heavyAssaultRate = componentAmmoHeavyEditText.value!!.toInt()
                 update(thisCompAmmo)
                 _navigateToAnotherComponent.value = weaponKey
-                Log.i("CompAmmo another comp ", " $thisCompAmmo")
+                Log.i("REDO comp ", " $thisCompAmmo")
             }
         }
     }
@@ -206,6 +219,7 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.ammoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
                 thisCompAmmo.weaponId = weaponKey
+                thisCompAmmo.defaultAmmo = componentDefaultAmmo.value!!
                 thisCompAmmo.trainingRate = componentAmmoTrainingEditText.value!!.toInt()
                 thisCompAmmo.securityRate = componentAmmoSecurityEditText.value!!.toInt()
                 thisCompAmmo.sustainRate = componentAmmoSustainEditText.value!!.toInt()
@@ -214,12 +228,29 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.heavyAssaultRate = componentAmmoHeavyEditText.value!!.toInt()
                 update(thisCompAmmo)
                 _navigateToConfirmation.value = weaponKey
-                Log.i("CompAmmo verify", " $thisCompAmmo")
+                Log.i("REDO verify", " $thisCompAmmo")
 
             }
         }
     }
 
+    fun setDefaultAmmo(default: Boolean) {
+        uiScope.launch {
+            componentDefaultAmmo.value  = default
+            if(default) {
+                for (ammo in ammosComponent) {
+                    if(ammo.defaultAmmo){
+                        ammo.defaultAmmo = false
+                        update(ammo)
+                    }
+                }
+            }
+            //check for accuracy
+            for (ammo in ammosComponent) {
+                Log.i("BOX3", "${ammo.ammoDODIC} ${ammo.defaultAmmo}")
+            }
+        }
+    }
     /**
      * Cancelling all jobs
      */
