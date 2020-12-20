@@ -1,6 +1,7 @@
 package com.intelliteq.fea.ammocalculator.calculationOutput
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -90,39 +91,32 @@ class CalculationOutputFragment : Fragment() {
         calculateOutputViewModel.weapon.observe(viewLifecycleOwner, Observer { weapon ->
             weapon?.let {
                 weaponAdapter.data = weapon
-                // Log.i("OUTPUT" , "${weapon}")
+                Log.i("err", "weapons: $weapon")
             }
         })
 
 
-        //returns all ammo that are selected for both weapon and component
-//        calculateOutputViewModel.ammo.observe(viewLifecycleOwner, Observer { ammo ->
-//            ammo?.let {
-//                ammoAdapter.ammoList = ammo
-//               Log.i("box7", "from int ${ammo.size}")
-//
-//                Log.i("box7", "${ammo}")
-//
-//            }
-//        })
 
+        binding.share.setOnClickListener {
+            // calculateOutputViewModel.share(it)
+            val text = calculateOutputViewModel.shareTextValue
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_TEXT, text.value)
+            startActivity(intent)
+            Log.i("text1", "${text.value}")
+
+        }
 
         calculateOutputViewModel.cards.observe(viewLifecycleOwner, Observer {
             ammoAdapter.cards = it
         })
 
-//        calculateOutputViewModel.calculationUsed.observe(viewLifecycleOwner, Observer { calc ->
-//            calc?.let {
-//                ammoAdapter.calc = calc
-//                Log.i("box7" , "Calc ${calc}")
-//            }
-//        })
 
         calculateOutputViewModel.perWeaponCalcUsed.observe(viewLifecycleOwner, Observer { single ->
             single?.let {
                 weaponAdapter.quantity = single //returns correct for weapon
-               // ammoAdapter.perWeaponCalcList = single
-                 Log.i("box7" , "Per ${single}")
+                Log.i("err9", "per: $single")
             }
         })
 
@@ -136,29 +130,25 @@ class CalculationOutputFragment : Fragment() {
 
             val dialogLayout = inflater2.inflate(R.layout.save_edit_text_layout, null)
             val editText = dialogLayout.findViewById<EditText>(R.id.saveAsEditText)
-            // val buttonS = dialogLayout.findViewById<Button>(R.id.saveButton)
-            // val buttonC = dialogLayout.findViewById<Button>(R.id.cancelButton)
+            val text = calculateOutputViewModel.shareTextValue.value
+            Log.i("text2", "from save: ${text}")
 
             with(alertBuilder) {
                 setTitle("Save This Calculation:").setPositiveButton("Save") { dialog, _ ->
-//                  buttonS.setOnClickListener{
-//                        saveAsEditText.text = editText.text
                     dialog.dismiss()
-                    Log.i("SAve input", "${editText.text}")
                     calculateOutputViewModel.calculationName.value = editText.text.toString()
-                    calculateOutputViewModel.saveNameFromDialog(editText.text.toString())
+                    calculateOutputViewModel.saveNameFromDialog(editText.text.toString(), text.toString())
+                    //calculateOutputViewModel.addTextToDatabase(text.toString(), editText.text.toString())
                 }
 
 
                 setNegativeButton("Cancel") { dialog, _ ->
-                    Toast.makeText(this.context, "You Canceled The Save", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this.context, "You Canceled The Save", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }
                 setView(dialogLayout)
                 show()
             }
-
-
         }
 
 

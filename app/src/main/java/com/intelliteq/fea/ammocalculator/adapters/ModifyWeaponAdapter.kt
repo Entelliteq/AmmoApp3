@@ -5,6 +5,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -26,7 +27,6 @@ class ModifyWeaponAdapter(
 //val textWatcher: ModifyWeaponTextWatcher
 ) :
     ListAdapter<Component, ModifyWeaponAdapter.ViewHolder>(ModifyWeaponDiffCallback()) {
-
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -72,15 +72,16 @@ class ModifyWeaponAdapter(
                         val viewModelJob = Job()
                         val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-                        var singleCalc = PerWeaponCalculation()
+                        //     var singleCalcFun = PerWeaponCalculation()
 
 
                         suspend fun getPerCalcFromDatabaseSuspend(): PerWeaponCalculation {
                             return withContext(Dispatchers.IO) {
                                 val thiscalc = calculation.getUsingWeaponAndCalcID(
                                     calculationKey,
-                                    item.componentAutoId
+                                    item.weaponId //change from componentAutoID
                                 )
+                                Log.i("text4", "this calc: $thiscalc")
                                 thiscalc
                             }
                         }
@@ -102,7 +103,7 @@ class ModifyWeaponAdapter(
                                 singleCalc = getPerCalcFromDatabaseSuspend()
                                 Log.i("adapt3", "RTRN $singleCalc") //returning correct perCalc
                                 Log.i("adapt3", "#1 ${p0.toString()}")
-                               // binding.origCount.text = singleCalc.numberOfWeapons.toString()
+                                // binding.origCount.text = singleCalc.numberOfWeapons.toString()
                                 Log.i("adapt5", "PerCalc: ${singleCalc}")
                                 updatePerCalcWeaponDatabaseSuspend(singleCalc, p0.toString())
                             }
@@ -115,7 +116,7 @@ class ModifyWeaponAdapter(
 
                     }
 
-
+                    //  binding.origCount.text = singleCalc.numberOfWeapons.toString()
 
                     Log.i("adapt3", "compID: ${item.componentAutoId}")
                     Log.i("adapt3", "key: $calculationKey")
@@ -126,6 +127,8 @@ class ModifyWeaponAdapter(
 
             })
 
+            // binding.origCount.text = singleCalc.numberOfWeapons.toString()
+
 
             val viewModelJob = Job()
             val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -135,20 +138,18 @@ class ModifyWeaponAdapter(
                 return withContext(Dispatchers.IO) {
                     val thiscalc = calculation.getUsingWeaponAndCalcID(
                         calculationKey,
-                        item.componentAutoId
+                        item.weaponId
                     )
                     thiscalc
                 }
             }
 
 
-
-
-            fun getCalculationItem() : PerWeaponCalculation {
+            fun getCalculationItem(): PerWeaponCalculation {
                 uiScope.launch {
                     singleCalc = getPerCalcFromDatabaseSuspend()
                     binding.perWeaponCalculation = singleCalc
-                     //returning correct perCalc
+                    //returning correct perCalc
                 }
                 return singleCalc
             }

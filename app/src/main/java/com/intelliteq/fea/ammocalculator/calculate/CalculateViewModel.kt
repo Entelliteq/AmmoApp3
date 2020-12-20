@@ -202,7 +202,7 @@ class CalculateViewModel(
 
     private suspend fun getCompAmmoFromDatabase(compID: String): Ammo? {
         return withContext(Dispatchers.IO) {
-            val compAmmoReturned = ammoDatabase.getUsingType(compID)
+            val compAmmoReturned = ammoDatabase.getUsingType(compID, chosenWeapon.value!!.weaponId)
             compAmmoReturned
         }
     }
@@ -417,26 +417,27 @@ class CalculateViewModel(
 
     fun onAddWeapon() {
         uiScope.launch {
-            val thisWeapon = singleWeapon.value ?: return@launch
-            thisWeapon.group_calculationID = calculationKey
-            thisWeapon.numberOfWeapons = getNumberWeapons()
-            thisWeapon.weaponIDCalculation = _chosenWeapon.value!!.componentAutoId
-            thisWeapon.weaponAmmoIdCalculation = chosenAmmo.value!!.ammoAutoId
+            val thisPerCalculation = singleWeapon.value ?: return@launch
+            thisPerCalculation.group_calculationID = calculationKey
+            thisPerCalculation.numberOfWeapons = getNumberWeapons()
+            thisPerCalculation.weaponIDCalculation = _chosenWeapon.value!!.weaponId //from componentID 12/17
+            thisPerCalculation.weaponAmmoIdCalculation = chosenAmmo.value!!.ammoAutoId
             if (chosenComponent.value?.componentTypeId != "" && chosenComponentAmmo.value != null) {
-                thisWeapon.componentAmmoIdCalculation =
+                thisPerCalculation.componentAmmoIdCalculation =
                     chosenComponentAmmo.value!!.ammoAutoId
+                Log.i("err8", "chosenAmmo: ${chosenComponentAmmo.value}")
             } else {
                // Log.i("crash6", "A =0")
-                thisWeapon.componentAmmoIdCalculation = 0
+                thisPerCalculation.componentAmmoIdCalculation = 0
             }
             if (noComponentAmmo) {
                // Log.i("crash6", "B =0")
-                thisWeapon.componentAmmoIdCalculation = 0
+                thisPerCalculation.componentAmmoIdCalculation = 0
             }
-            updateSingle(thisWeapon)
+            updateSingle(thisPerCalculation)
             noComponentAmmo = false
-           Log.i("box11", "this weapon: $thisWeapon")
-            _navigateToAddAnotherWeaponForCalculation.value = thisWeapon
+           Log.i("box11", "this weapon: $thisPerCalculation")
+            _navigateToAddAnotherWeaponForCalculation.value = thisPerCalculation
         }
     }
 

@@ -27,8 +27,13 @@ class ModifyCalculationViewModel(
 
     private var calculationFromDB = Calculation()
 
+    val daysChangedValue = MutableLiveData<Int>()
+    val intensityChangedValue = MutableLiveData<String>()
 
-    val weapons = calculation.getSelectedWeapons(calculationKey)
+
+   // val weapons = calculation.getSelectedWeapons(calculationKey)
+    val weapons = calculation.getSelectedWeaponsForCalculationOutput(calculationKey)
+
     private var daysChanged = false
     private var intensityChanged = false
 
@@ -55,9 +60,11 @@ class ModifyCalculationViewModel(
     fun onSave() {
         if (daysChanged) {
             updateDaysChanged()
+            daysChangedValue.value = numberOfDaysPicker.value!!
         }
         if (intensityChanged) {
             updateIntensityChanged()
+            intensityChangedValue.value = assaultIntensityString.value!!
         }
     }
 
@@ -65,6 +72,8 @@ class ModifyCalculationViewModel(
     private fun getCalculationItem() {
         uiScope.launch {
             calculationFromDB = getCalcFromDatabaseSuspend()
+            daysChangedValue.value = days
+            intensityChangedValue.value = intensity
             Log.i("final", "$calculationFromDB")
         }
     }
@@ -80,6 +89,7 @@ class ModifyCalculationViewModel(
         uiScope.launch {
             Log.i("days22", " updateDaysChanged()")
             calculationFromDB.numberOfDays = numberOfDaysPicker.value!!
+
             updateDatabase()
         }
     }

@@ -1,5 +1,6 @@
 package com.intelliteq.fea.ammocalculator.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -27,9 +28,12 @@ class WeaponOutputAdapter : RecyclerView.Adapter<WeaponOutputAdapter.ViewHolder>
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.i("err2", "weapon size ${data.size}")
+        Log.i("err2", "perCalc size ${quantity.size}")
         val item = data[position]
-        val quantity = quantity[position]
-        holder.bind(item, quantity)
+        val per = quantity[position]
+
+        holder.bind(item, per)
 
     }
 

@@ -163,11 +163,6 @@
         <argument
             android:name="calculationKey"
             app:argType="long" />
-        <action
-            android:id="@+id/action_ModifyCalculationFragment_to_savedCalculationsFragment"
-            app:destination="@id/savedCalculationsFragment"
-            app:popUpTo="@id/savedCalculationsFragment"
-            app:popUpToInclusive="true" />
         <argument
             android:name="days"
             app:argType="integer" />

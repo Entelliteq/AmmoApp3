@@ -30,7 +30,8 @@ class ModifyCalculationFragment : Fragment() {
     ): View? {
 
         val binding: FragmentModifyCalculationBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_modify_calculation, container,false)
+            inflater, R.layout.fragment_modify_calculation, container, false
+        )
 
         val application = requireNotNull(this.activity).application
         val dataSourceCalculation = AmmoRoomDatabase.getAppDatabase(application)!!.calculationDao
@@ -56,10 +57,8 @@ class ModifyCalculationFragment : Fragment() {
         binding.modifyCalcViewModel
 
 
-
-        val adapter = ModifyWeaponAdapter(ModifyWeaponListener {
-            weapon ->
-          // Toast.makeText(context, "${weapon}", Toast.LENGTH_LONG).show()
+        val adapter = ModifyWeaponAdapter(ModifyWeaponListener { weapon ->
+            // Toast.makeText(context, "${weapon}", Toast.LENGTH_LONG).show()
             Log.i("adapt", "$weapon")
         }, arguments.calculationKey, dataSourceSinlge)
 
@@ -79,21 +78,33 @@ class ModifyCalculationFragment : Fragment() {
         modifyCalculationViewModel.weapons.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
+                Log.i("err10", "list weapons: $it")
 
 
             }
         })
 
         binding.calculationViewButton.setOnClickListener {
-            it.findNavController().navigate(ModifyCalculationFragmentDirections
-                .actionModifyCalculationFragmentToCalculationOutputScreen(
-                    arguments.calculationKey, arguments.days, arguments.intensity))
+            it.findNavController().navigate(
+                ModifyCalculationFragmentDirections
+                    .actionModifyCalculationFragmentToCalculationOutputScreen(
+                        arguments.calculationKey, arguments.days, arguments.intensity
+                    )
+            )
         }
 
         binding.saveModify.setOnClickListener { view ->
-           // Log.i("days11", "from bind")
+            // Log.i("days11", "from bind")
             modifyCalculationViewModel.onSave()
-            view.findNavController().navigate(R.id.action_ModifyCalculationFragment_to_savedCalculationsFragment)
+            Log.i("err11", "${modifyCalculationViewModel.daysChangedValue.value}")
+            view.findNavController().navigate(
+                ModifyCalculationFragmentDirections
+                    .actionModifyCalculationFragmentToCalculationOutputScreen(
+                        arguments.calculationKey,
+                        modifyCalculationViewModel.daysChangedValue.value!!,
+                        modifyCalculationViewModel.intensityChangedValue.value!!
+                    )
+            )
 
         }
 
@@ -104,20 +115,21 @@ class ModifyCalculationFragment : Fragment() {
 
 
         //Combat Intensity spinner
-        binding.spinnerCombatModify.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
-                val combat = parent.getItemAtPosition(position)
-                modifyCalculationViewModel.assaultIntensityStringToIntValues(combat as String)
-                Log.i("Weapon Combat", "$combat")
-            }
+        binding.spinnerCombatModify.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                    val combat = parent.getItemAtPosition(position)
+                    modifyCalculationViewModel.assaultIntensityStringToIntValues(combat as String)
+                    Log.i("Weapon Combat", "$combat")
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
+                override fun onNothingSelected(parent: AdapterView<*>) {}
+            }
 
         binding.daysOriginal.text = arguments.days.toString()
         binding.intensityOriginal.text = arguments.intensity

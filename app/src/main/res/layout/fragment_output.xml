@@ -187,7 +187,7 @@
                     android:textColor="#F8F1F1" />
 
                 <Button
-                    android:id="@+id/send"
+                    android:id="@+id/share"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -196,7 +196,7 @@
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/buttonsColor"
-                    android:text="@string/send"
+                    android:text="Share"
                     android:textColor="#F8F1F1" />
             </LinearLayout>
 

@@ -17,7 +17,10 @@ data class Calculation (
     var assaultIntensity: String = "",
 
     @ColumnInfo(name = "num_days")
-    var numberOfDays: Int = 0
+    var numberOfDays: Int = 0,
+
+    @ColumnInfo(name = "text_string")
+    var textString: String = ""
 
 
 )

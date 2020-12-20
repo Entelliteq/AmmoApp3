@@ -41,8 +41,8 @@ interface AmmoDao {
     @Query("SELECT * FROM ammo_table WHERE  ammo_dodic = :typeKey AND weapon_id_for_ammo = :weaponKey")
     fun getAmmoType(typeKey: String, weaponKey: Long) : Ammo?
 
-    @Query("SELECT * FROM ammo_table WHERE ammo_dodic = :key")
-    fun getUsingType(key: String) : Ammo
+    @Query("SELECT * FROM ammo_table WHERE ammo_dodic = :key AND weapon_id_for_ammo = :weaponKey")
+    fun getUsingType(key: String, weaponKey: Long) : Ammo
 
     @Query("SELECT * FROM ammo_table WHERE component_id_for_ammo = :key AND bool_weapon_ammo = 0")
     fun getComponentAmmosForThisComponent(key: Long?) : List<Ammo>
