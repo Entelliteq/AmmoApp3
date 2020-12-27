@@ -145,7 +145,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:backgroundTint="@color/buttonsColor"
+                        android:backgroundTint="#000000"
                         android:onClick="@{() -> calculateViewModel.onSubmitDayAndIntensity()}"
                         android:text="@string/set_day_and_combat"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -500,7 +500,7 @@
                 android:layout_marginEnd="10dp"
 
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="@color/buttonsColor"
+                android:backgroundTint="#000000"
                 android:onClick="@{() -> calculateViewModel.onAddWeapon()}"
                 android:text="@string/add_weapon"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -531,7 +531,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="@color/buttonsColor"
                     android:onClick="@{() -> calculateViewModel.onCalculate()}"
-                    android:text="@string/calculate"
+                    android:text="@string/done"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="#F8F1F1" />
             </LinearLayout>

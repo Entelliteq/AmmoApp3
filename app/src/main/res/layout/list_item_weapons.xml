@@ -70,12 +70,13 @@
                 android:id="@+id/quantity_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/quantity"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
-                app:layout_constraintBaseline_toBaselineOf="@+id/fea_out_tv"
-                app:layout_constraintStart_toEndOf="@+id/fea_out_tv" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/type_tv" />
 
             <TextView
                 android:id="@+id/quantity_out_tv"
@@ -90,9 +91,7 @@
             <TextView
                 android:id="@+id/desc_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-
+                android:layout_height="24dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
@@ -101,20 +100,17 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/type_tv" />
+                app:layout_constraintTop_toBottomOf="@id/quantity_tv" />
 
             <TextView
                 android:id="@+id/desc_out_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
                 android:text="M4 Carbine"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/desc_tv"
-                app:layout_constraintTop_toBottomOf="@+id/type_output_tv" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/desc_tv"
+                app:layout_constraintStart_toEndOf="@+id/desc_tv" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

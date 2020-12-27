@@ -1,5 +1,6 @@
 package com.intelliteq.fea.ammocalculator.calculate
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -69,6 +70,8 @@ class CalculateFragment : Fragment() {
         }
 
 
+        //lock fragment in portrait
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         calculateViewModel.weapons.observe(viewLifecycleOwner, Observer {
             it?.let {

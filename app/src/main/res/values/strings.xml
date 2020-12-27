@@ -11,7 +11,6 @@
     <string name="saved_calculation">Saved Calculation</string>
     <string name="calculation_complete">Calculation Complete</string>
     <string name="weapons">Weapons</string>
-    <string name="ammunition">Ammunition</string>
 
     <string name="combat">Operation:</string>
     <string name="num_days">Num Days:</string>
@@ -35,15 +34,14 @@
 
 
     <!-- Combat Intensity -->
-    <string name="training_intensity">Training Intensity</string>
-    <string name="security_intensity">Security Intensity</string>
-    <string name="sustain_intensity">Sustain Intensity</string>
-    <string name="light_assault_intensity">Light Assault Intensity</string>
-    <string name="medium_assault_intensity">Medium Assault Intensity</string>
-    <string name="heavy_assault_intensity">Heavy Assault Intensity</string>
+    <string name="training_intensity">Training Intensity (Rnds/wpn/day)</string>
+    <string name="security_intensity">Security Intensity (Rnds/wpn/day)</string>
+    <string name="sustain_intensity">Sustain Intensity (Rnds/wpn/day)</string>
+    <string name="light_assault_intensity">Light Assault Intensity (Rnds/wpn/day)</string>
+    <string name="medium_assault_intensity">Medium Assault Intensity (Rnds/wpn/day)</string>
+    <string name="heavy_assault_intensity">Heavy Assault Intensity (Rnds/wpn/day)</string>
 
     <string-array name="combat_types">
-        <item name="none">none</item>
         <item name="train">Training</item>
         <item name="security">Security</item>
         <item name="sustain">Sustain</item>
@@ -104,6 +102,10 @@
     <string name="original_values">Original values for </string>
     <string name="update">Update</string>
     <string name="item">Item</string>
+    <string name="ammunition">Ammunition</string>
+    <string name="calculator">Calculator</string>
+    <string name="landing_new_weapon">Enter New Weapon Type</string>
+    <string name="done">Done</string>
 
     <!-- Unclassified -->
 
