@@ -113,7 +113,9 @@
         tools:layout="@layout/fragment_calculate" >
         <action
             android:id="@+id/action_CalculateSelection_self"
-            app:destination="@id/CalculateSelection" />
+            app:destination="@id/CalculateSelection"
+            app:popUpTo="@id/landingScreen"
+            app:popUpToInclusive="false" />
         <argument
             android:name="calcKey"
             app:argType="long" />
