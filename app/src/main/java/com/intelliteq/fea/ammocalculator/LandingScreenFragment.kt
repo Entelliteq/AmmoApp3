@@ -23,7 +23,6 @@ class LandingScreenFragment : Fragment() {
             inflater, R.layout.fragment_landing_screen, container, false
         )
 
-
         binding.newInputButton.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.landing_to_weapon_input)
         }

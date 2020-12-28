@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:text="Saved Calculation"
+            android:text="@string/saved_calculation"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textColor="#000000"
             android:textStyle="bold" />
@@ -44,7 +44,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/buttonsColor"
-            android:text="View Calculation"
+            android:text="@string/view_calculation"
             android:textColor="#F8F1F1" />
 
 
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:text="Modify Saved Calculation"
+            android:text="@string/modify_saved_calculation"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textColor="#000000"
             android:textStyle="bold" />
@@ -129,7 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:text="{55}"
+                        android:text="@string/_55"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <TextView
@@ -146,7 +146,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:text="{intensity here}"
+                        android:text="@string/intensity_here"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 </LinearLayout>
@@ -161,7 +161,7 @@
                     android:background="#DEE1F6"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="To change original values:"
+                    android:text="@string/to_change_original_values"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#121211" />
 
@@ -246,7 +246,7 @@
                     android:background="#DEE1F6"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="To change weapon count:"
+                    android:text="@string/to_change_weapon_count"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#121211" />
 
@@ -262,50 +262,6 @@
 
 
         </ScrollView>
-
-
-        <!--        <ScrollView-->
-        <!--            android:id="@+id/scrollview3"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="0dp"-->
-        <!--            android:layout_marginStart="4dp"-->
-        <!--            android:layout_marginTop="16dp"-->
-        <!--            android:layout_marginEnd="4dp"-->
-        <!--            android:layout_marginBottom="5dp"-->
-        <!--            android:layout_weight="1">-->
-
-
-        <!--            <LinearLayout-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:orientation="vertical">-->
-
-
-        <!--                <TextView-->
-        <!--                    android:id="@+id/weaponsTVModify"-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:layout_marginStart="8dp"-->
-        <!--                    android:layout_marginBottom="10dp"-->
-        <!--                    android:background="#DEE1F6"-->
-        <!--                    android:paddingStart="4dp"-->
-        <!--                    android:paddingEnd="4dp"-->
-        <!--                    android:text="To change weapon count:"-->
-        <!--                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
-        <!--                    android:textColor="#121211" />-->
-
-
-        <!--                <androidx.recyclerview.widget.RecyclerView-->
-        <!--                    android:id="@+id/RecyclerViewWeaponsModify"-->
-        <!--                    android:layout_width="match_parent"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:layout_weight="1"-->
-        <!--                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
-
-
-        <!--            </LinearLayout>-->
-
-        <!--        </ScrollView>-->
 
 
         <LinearLayout
@@ -324,7 +280,7 @@
 
                 android:layout_weight="1"
                 android:backgroundTint="@color/buttonsColor"
-                android:text="Home"
+                android:text="@string/home"
                 android:textColor="#F8F1F1" />
 
             <Button
@@ -338,7 +294,7 @@
                 android:layout_weight="1"
 
                 android:backgroundTint="@color/buttonsColor"
-                android:text="Save Changes"
+                android:text="@string/save_changes"
                 android:textColor="#F8F1F1" />
         </LinearLayout>
 

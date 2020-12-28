@@ -1,16 +1,15 @@
 package com.intelliteq.fea.ammocalculator.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.intelliteq.fea.ammocalculator.databinding.ListItemValidateComponentBinding
 import com.intelliteq.fea.ammocalculator.persistence.models.Component
-import androidx.recyclerview.widget.ListAdapter
 
 class ValidateComponentAdapter(
-    val clickListener: ModifyWeaponListener
+    private val clickListener: ModifyWeaponListener
 ) :
     ListAdapter<Component, ValidateComponentAdapter.ViewHolder>(ValidateComponentDiffCallback()
 ) {
@@ -18,29 +17,22 @@ class ValidateComponentAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item, clickListener)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(
-            parent
-        )
+        return ViewHolder.from(parent)
     }
 
     class ViewHolder(val binding: ListItemValidateComponentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-
+        
         fun bind(
             item: Component,
             clickListener: ModifyWeaponListener
         ) {
-
-
             binding.componentValidateListItem = item
             binding.modifyWeaponClickListener = clickListener
             binding.executePendingBindings()
-
         }
 
         companion object {

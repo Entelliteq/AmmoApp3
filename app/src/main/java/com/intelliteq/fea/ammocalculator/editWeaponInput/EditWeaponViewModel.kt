@@ -33,9 +33,10 @@ class EditWeaponViewModel(
             weaponDescriptionHint.value = getDescriptionFromDatabase()
             weaponTypeHint.value = getTypeFromDatabase()
             componentOld.value = getComponentFromDatabase()
-
         }
     }
+
+    //suspend functions
     private suspend fun getComponentFromDatabase() : Component {
         return withContext(Dispatchers.IO) {
             val comp = componentDao.getWeaponNotNull(weaponKey)
@@ -57,31 +58,35 @@ class EditWeaponViewModel(
         }
     }
 
+    //update functions
     fun updateDescription(desc: String) {
         uiScope.launch {
             val thisWeapon = componentOld.value?: return@launch
             thisWeapon.componentDescription = desc
             update(thisWeapon)
-          //  Log.i("edit4", "$thisWeapon")
         }
     }
-
 
     fun updateType(type: String) {
         uiScope.launch {
             val thisWeapon = componentOld.value?: return@launch
             thisWeapon.componentTypeId = type
             update(thisWeapon)
-          //  Log.i("edit4", "$thisWeapon")
         }
     }
 
     private suspend fun update(thisWeapon: Component) {
         withContext(Dispatchers.IO) {
             componentDao.update(thisWeapon)
-           // Log.i("edit4", "$thisWeapon")
         }
     }
 
+    /**
+     * Cancelling all jobs
+     */
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 
 }

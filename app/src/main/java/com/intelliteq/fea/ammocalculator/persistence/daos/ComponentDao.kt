@@ -1,6 +1,7 @@
 package com.intelliteq.fea.ammocalculator.persistence.daos
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.intelliteq.fea.ammocalculator.persistence.models.Component
 
@@ -25,6 +26,9 @@ interface ComponentDao {
     @Query("SELECT * FROM component_table WHERE component_type_id = :key")
     fun getUsingType(key: String) : Component
 
+    @Query("SELECT * FROM component_table WHERE component_type_id = :key")
+    fun getUsingTypeSpinner(key: String) : List<Component>
+
     @Query("SELECT * FROM component_table WHERE component_description = :key")
     fun getUsingDesc(key: String) : Component
 
@@ -48,6 +52,9 @@ interface ComponentDao {
 
     @Query("SELECT * FROM component_table WHERE bool_weapon = 1 ")
     fun getAllWeapons() : LiveData<List<Component>>
+
+    @Query("SELECT * FROM component_table WHERE bool_weapon = 1 ")
+    fun getAllWeaponsList() : List<Component>
 
     @Query("SELECT componentAutoId FROM component_table WHERE weapon_id_for_component = :key")
     fun getCompID(key: Long) : Long

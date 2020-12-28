@@ -1,7 +1,6 @@
 package com.intelliteq.fea.ammocalculator.editWeaponInput
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,30 +38,27 @@ class EditWeaponFragment : Fragment() {
             .get(EditWeaponViewModel::class.java)
 
 
+        //binding
         binding.lifecycleOwner = this
         binding.editWeaponViewModel = editWeaponViewModel
 
+        //edit update weapon button
         binding.editWeaponUpdateButton.setOnClickListener {
             val type: String = weaponTypeEditComp.text.toString()
             val desc: String = weaponDescriptionEditComp.text.toString()
 
-            Log.i("CRASH", "${arguments.weaponKey}")
             if (type.trim().isNotEmpty()) {
-                Log.i("edit4", "type: _${weaponTypeEditComp.text}_")
                 editWeaponViewModel.updateType(type)
             }
 
             if (desc.trim().isNotEmpty()) {
-                Log.i("edit4", "desc: _${weaponDescriptionEditComp.text}_")
                 editWeaponViewModel.updateDescription(desc)
             }
 
             it.findNavController()
                 .navigate(EditWeaponFragmentDirections
                     .actionEditWeaponToConfirmation2(arguments.weaponKey))
-
         }
-
 
         return binding.root
     }

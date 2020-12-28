@@ -86,7 +86,6 @@ class WeaponAmmoFragment : Fragment() {
                 weaponAmmo?.let {
                     this.findNavController()
                         .navigate(WeaponAmmoFragmentDirections.WeaponAmmoInputToSelf(weaponAmmo.weaponId))//passing component to add another ammo to
-                    //Log.i("WpnAmmo", "${weaponAmmo}  //adding another ammo ->")
                     weaponAmmoViewModel.doneNavigatingToAmmo()
                 }
             })

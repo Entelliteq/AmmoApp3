@@ -2,13 +2,12 @@ package com.intelliteq.fea.ammocalculator.calculate
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -56,6 +55,7 @@ class CalculateFragment : Fragment() {
         binding.calculateViewModel = calculateViewModel
         binding.lifecycleOwner = this
 
+        //pickers
         binding.pickerWeapons.setOnValueChangedListener { _, _, newVal ->
             calculateViewModel.getNumberOfWeapons(newVal)
         }
@@ -64,15 +64,16 @@ class CalculateFragment : Fragment() {
             calculateViewModel.getHowManyDays(newVal)
         }
 
+        //reset button
         binding.reset.setOnClickListener {
                 view: View -> view.findNavController()
             .navigate(CalculateFragmentDirections.ActionCalculateSelectionSelf(-1))
         }
 
-
         //lock fragment in portrait
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
+        //bind weapons to all spinners
         calculateViewModel.weapons.observe(viewLifecycleOwner, Observer {
             it?.let {
                 binding.spinnerFea
@@ -85,24 +86,18 @@ class CalculateFragment : Fragment() {
             }
         })
 
-
-        //to calculate screen
-        calculateViewModel.navigateToOutput.observe(
-            viewLifecycleOwner,
-            Observer { calc ->
+        //navigate to calculate screen
+        calculateViewModel.navigateToOutput.observe(viewLifecycleOwner, Observer { calc ->
                 calc?.let {
                     this.findNavController()
                         .navigate(CalculateFragmentDirections
                             .ActionCalculateSelectionToCalculationOutputScreen(
                                 calc.calculationId, calc.numberOfDays, calc.assaultIntensity))
                     calculateViewModel.doneNavigationToOutput()
-                  //  Log.i("Calc frag","/////$calc")
                 }
+            })
 
-            }
-        )
-
-        //back to input more weapon
+        //navigate back to input more weapon
         calculateViewModel.navigateToAddAnotherWeaponForCalculation.observe(viewLifecycleOwner,
         Observer { calc ->
             calc?.let {
@@ -120,11 +115,16 @@ class CalculateFragment : Fragment() {
                 parent: AdapterView<*>,
                 view: View,
                 position: Int,
-                id: Long
-            ) {
+                id: Long) {
                 val int = parent.getItemAtPosition(position)
                 calculateViewModel.useWeaponFea(int as Int)
-
+                //view gone for Desc and Type
+                if(position > 0) {
+                    binding.spinnerDesc.visibility = View.GONE
+                    binding.weaponDescCalc.visibility = View.GONE
+                    binding.spinnerType.visibility = View.GONE
+                    binding.weaponTypeCalc.visibility = View.GONE
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -136,11 +136,16 @@ class CalculateFragment : Fragment() {
                 parent: AdapterView<*>,
                 view: View,
                 position: Int,
-                id: Long
-            ) {
+                id: Long) {
                 val int = parent.getItemAtPosition(position)
                 calculateViewModel.useWeaponDesc(int as String)
-                //Log.i("Weapon Desc", "$int")
+                //view gone for FEA and Type
+                if(position > 0) {
+                    binding.spinnerFea.visibility = View.GONE
+                    binding.feaTextView.visibility = View.GONE
+                    binding.spinnerType.visibility = View.GONE
+                    binding.weaponTypeCalc.visibility = View.GONE
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -152,17 +157,20 @@ class CalculateFragment : Fragment() {
                 parent: AdapterView<*>,
                 view: View,
                 position: Int,
-                id: Long
-            ) {
+                id: Long) {
                 val int = parent.getItemAtPosition(position)
                 calculateViewModel.useWeaponType(int as String)
-                // Log.i("Weapon Type", "$int")
+                //view gone for FEA and Desc
+                if(position > 0) {
+                    binding.spinnerFea.visibility = View.GONE
+                    binding.feaTextView.visibility = View.GONE
+                    binding.spinnerDesc.visibility = View.GONE
+                    binding.weaponDescCalc.visibility = View.GONE
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
-
-
 
         //Component Spinner
         binding.spinnerCompType.onItemSelectedListener =
@@ -171,17 +179,14 @@ class CalculateFragment : Fragment() {
                     parent: AdapterView<*>,
                     view: View,
                     position: Int,
-                    id: Long
-                ) {
+                    id: Long ) {
                     val int = parent.getItemAtPosition(position)
-                    Log.i("Type5", "//** CompID $int")
                     calculateViewModel.useComponent(int as String)
-                 //   calculateViewModel.doneSpinnerComp()
-                     Log.i("Weapon Type", "CompID $int")
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
+
 
         //Combat Intensity spinner
         binding.spinnerCombat.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -189,11 +194,9 @@ class CalculateFragment : Fragment() {
                 parent: AdapterView<*>,
                 view: View,
                 position: Int,
-                id: Long
-            ) {
+                id: Long ) {
                 val combat = parent.getItemAtPosition(position)
                 calculateViewModel.assaultIntensityStringToIntValues(combat as String)
-                // Log.i("Weapon Combat", "$combat")
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -206,18 +209,12 @@ class CalculateFragment : Fragment() {
                 parent: AdapterView<*>,
                 view: View,
                 position: Int,
-                id: Long
-            ) {
+                id: Long) {
                 val comp = parent.getItemAtPosition(position)
                 calculateViewModel.useComponentAmmo(comp as String)
-              //  Log.i("error", "comp ammo: $comp")
-             //   Log.i("error", "position: $position")
-                //calculateViewModel.doneSpinnerCompAmmo()
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-               // Log.i("error", "nothing selected")
-            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
 
         }
 
@@ -227,11 +224,9 @@ class CalculateFragment : Fragment() {
                 parent: AdapterView<*>,
                 view: View,
                 position: Int,
-                id: Long
-            ) {
+                id: Long) {
                 val comp = parent.getItemAtPosition(position)
                 calculateViewModel.useAmmo(comp as String)
-              //  Log.i("Ammo1", "weapon ammo: $comp")
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}

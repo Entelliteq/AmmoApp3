@@ -47,7 +47,7 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:paddingBottom="4dp"
-            android:text="Click Card to Edit Values"
+            android:text="@string/click_card_to_edit_values"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#121211" />
 
@@ -76,7 +76,7 @@
                     android:background="#DEE1F6"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="Weapon Entered:"
+                    android:text="@string/weapon_entered"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#121211" />
 
@@ -103,7 +103,7 @@
                             android:layout_height="30dp"
                             android:layout_marginStart="16dp"
                             android:gravity="center_vertical"
-                            android:text="Type:"
+                            android:text="@string/type"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toStartOf="@+id/textViewTypeDesc"
@@ -116,7 +116,7 @@
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             android:gravity="center_vertical"
-                            android:text="Description:"
+                            android:text="@string/description_colon"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textStyle="bold"
                             app:layout_constraintBaseline_toBaselineOf="@+id/textViewTypeWeapon"
@@ -129,7 +129,7 @@
                             android:layout_height="30dp"
                             android:layout_marginStart="16dp"
                             android:gravity="center_vertical"
-                            android:text="tbd"
+                            android:text="@string/tbd"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/textViewTypeWeapon"
@@ -160,7 +160,7 @@
                     android:background="#DEE1F6"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="Weapon Ammunition Entered:"
+                    android:text="@string/weapon_ammunition_entered"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#121211" />
 
@@ -182,7 +182,7 @@
                     android:background="#DEE1F6"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="Component Entered:"
+                    android:text="@string/component_entered"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#121211" />
 
@@ -202,7 +202,7 @@
                     android:background="#DEE1F6"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="Component Ammunition Entered:"
+                    android:text="@string/component_ammunition_entered"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#121211" />
 
@@ -228,18 +228,6 @@
             android:layout_marginBottom="16dp"
             android:orientation="horizontal">
 
-
-            <Button
-                android:id="@+id/reenter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/buttonsColor"
-                android:text="@string/reenter"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#F8F1F1" />
 
             <Button
                 android:id="@+id/save"

@@ -8,7 +8,7 @@
     <string name="ammunitionHeader">Ammunition</string>
     <string name="calculate">Calculation</string>
     <string name="new_calculation">New Calculation</string>
-    <string name="saved_calculation">Saved Calculation</string>
+    <string name="calculation_saved">Saved Calculation</string>
     <string name="calculation_complete">Calculation Complete</string>
     <string name="weapons">Weapons</string>
 
@@ -68,7 +68,6 @@
     <string name="add_weapon">Add Weapon</string>
     <string name="send">Send</string>
     <string name="cancel">Cancel</string>
-    <string name="home">Home</string>
     <string name="reenter">Re-enter</string>
 
     <!-- Spinner options -->
@@ -94,6 +93,8 @@
     <string name="input_componentHeader">Input Component</string>
     <string name="ammo_desc">Ammo desc.</string>
     <string name="tbd">tbd</string>
+
+    <!-- Unclassified -->
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="saved_calculations">Saved Calculations</string>
@@ -106,8 +107,47 @@
     <string name="calculator">Calculator</string>
     <string name="landing_new_weapon">Enter New Weapon Type</string>
     <string name="done">Done</string>
-
-    <!-- Unclassified -->
+    <string name="enter_label_to_save_as">Enter Label to Save As</string>
+    <string name="select_days_and_combat_type">Select Days and Combat Type:</string>
+    <string name="select_weapon_and_quantity">Select Weapon and Quantity:</string>
+    <string name="select_component">Select Component:</string>
+    <string name="select_ammunition">Select Ammunition:</string>
+    <string name="make_default_ammo">Make Default Ammo</string>
+    <string name="saved_calculation">Saved Calculation</string>
+    <string name="view_calculation">View Calculation</string>
+    <string name="modify_saved_calculation">Modify Saved Calculation</string>
+    <string name="_55">{55}</string>
+    <string name="intensity_here">{intensity here}</string>
+    <string name="to_change_original_values">To change original values:</string>
+    <string name="to_change_weapon_count">To change weapon count:</string>
+    <string name="home">Home</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="click_card_to_edit_values">Click Card to Edit Values</string>
+    <string name="weapon_entered">Weapon Entered:</string>
+    <string name="type">Type:</string>
+    <string name="weapon_ammunition_entered">Weapon Ammunition Entered:</string>
+    <string name="component_entered">Component Entered:</string>
+    <string name="component_ammunition_entered">Component Ammunition Entered:</string>
+    <string name="_5_56mm_ball_m855a">5.56mm Ball, M855A</string>
+    <string name="ab56">AB56</string>
+    <string name="_360">360</string>
+    <string name="_12240">12240</string>
+    <string name="change_count">Change Count:</string>
+    <string name="_0">0</string>
+    <string name="default_ammo">Default Ammo</string>
+    <string name="dodic_colon">DODIC:</string>
+    <string name="description_colon">Description:</string>
+    <string name="combat_intensity_colon">Combat Intensity:</string>
+    <string name="training_colon">Training:</string>
+    <string name="security_colon">Security:</string>
+    <string name="sustain_colon">Sustain:</string>
+    <string name="light_colon">Light:</string>
+    <string name="medium_colon">Medium:</string>
+    <string name="heavy_colon">Heavy:</string>
+    <string name="e0195">E0195</string>
+    <string name="_1111">1111</string>
+    <string name="_111">111</string>
+    <string name="m4_carbine">M4 Carbine</string>
 
 
 </resources>

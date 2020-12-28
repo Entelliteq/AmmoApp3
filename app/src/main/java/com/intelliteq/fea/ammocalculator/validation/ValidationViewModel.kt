@@ -23,26 +23,20 @@ class ValidationViewModel(
     val ammosComp = ammoDatabase.getAllComponentAmmos(weaponKey)
     val components = componentDatabase.getAllComponents(weaponKey)
 
-   // var weaponType = weapon.value!!.componentTypeId
 
     init {
         initializeWeapon()
-       // Log.i("Verify1", "${weapon.value}")
     }
 
     private fun initializeWeapon() {
         uiScope.launch {
             weapon.value = getWeaponFromDatabase()
-           // Log.i("Verify2", "${weapon.value}")
-
         }
-
     }
 
     private suspend fun getWeaponFromDatabase() : Component? {
         return withContext(Dispatchers.IO) {
             val weapon = componentDatabase.getWeapon(weaponKey)
-         //   Log.i("VERIFY 3" , "$weapon")
             weapon
         }
     }

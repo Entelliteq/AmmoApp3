@@ -1,27 +1,21 @@
 package com.intelliteq.fea.ammocalculator.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.intelliteq.fea.ammocalculator.databinding.ListItemValidateAmmoBinding
 import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
-import androidx.recyclerview.widget.ListAdapter
-import com.intelliteq.fea.ammocalculator.persistence.models.Component
 
 class ValidateAmmoAdapter(
-    val clickListener: ModifyAmmoListener
+    private val clickListener: ModifyAmmoListener
 ) :
     ListAdapter<Ammo, ValidateAmmoAdapter.ViewHolder>(ValidateAmmoDiffCallback()) {
 
-
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        // Log.i("Adapter lists", " ammos: ${data.size},")
         holder.bind(item, clickListener)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,24 +27,21 @@ class ValidateAmmoAdapter(
     class ViewHolder(val binding: ListItemValidateAmmoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-
         fun bind(
             item: Ammo,
             clickListener: ModifyAmmoListener
         ) {
-
-
             binding.ammoValidateListItem = item
             binding.executePendingBindings()
             binding.modifyAmmoClickListener = clickListener
-
         }
 
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListItemValidateAmmoBinding.inflate(layoutInflater, parent, false)
+                val binding = ListItemValidateAmmoBinding.inflate(
+                    layoutInflater, parent, false)
                 return ViewHolder(
                     binding
                 )
@@ -60,16 +51,13 @@ class ValidateAmmoAdapter(
 
     class ValidateAmmoDiffCallback : DiffUtil.ItemCallback<Ammo>() {
         override fun areItemsTheSame(oldItem: Ammo, newItem: Ammo): Boolean {
-         //   Log.i("error", "same? $oldItem and new: $newItem")
             return oldItem.ammoAutoId == newItem.ammoAutoId
         }
 
         override fun areContentsTheSame(oldItem: Ammo, newItem: Ammo): Boolean {
             return oldItem == newItem
         }
-
     }
-
 }
 
 class ModifyAmmoListener(val clickListener: (saved: Ammo) -> Unit) {

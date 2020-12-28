@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:background="#DEE1F6"
-                    android:text="Select Days and Combat Type:"
+                    android:text="@string/select_days_and_combat_type"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#121211"
                     android:visibleOrGone="@{calculateViewModel.visibilityDaysAndIntensity}" />
@@ -213,7 +213,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="30dp"
                     android:background="#DEE1F6"
-                    android:text="Select Weapon and Quantity:"
+                    android:text="@string/select_weapon_and_quantity"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#000000" />
 
@@ -359,7 +359,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="30dp"
                     android:background="#DEE1F6"
-                    android:text="Select Component:"
+                    android:text="@string/select_component"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#000000" />
 
@@ -403,7 +403,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="30dp"
                     android:background="#DEE1F6"
-                    android:text="Select Ammunition:"
+                    android:text="@string/select_ammunition"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#000000" />
 

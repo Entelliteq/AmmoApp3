@@ -1,6 +1,5 @@
 package com.intelliteq.fea.ammocalculator.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -28,19 +27,13 @@ class WeaponOutputAdapter : RecyclerView.Adapter<WeaponOutputAdapter.ViewHolder>
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.i("err2", "weapon size ${data.size}")
-        Log.i("err2", "perCalc size ${quantity.size}")
         val item = data[position]
         val per = quantity[position]
-
         holder.bind(item, per)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(
-            parent
-        )
+        return ViewHolder.from(parent)
     }
 
     class ViewHolder(val binding: ListItemWeaponsBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -53,22 +46,18 @@ class WeaponOutputAdapter : RecyclerView.Adapter<WeaponOutputAdapter.ViewHolder>
             item: Component,
             per: PerWeaponCalculation
         ) {
-            val res = itemView.context.resources
+            itemView.context.resources
             type.text = item.componentTypeId
             fea.text = item.FEA_id.toString()
             desc.text = item.componentDescription
             quantity.text = per.numberOfWeapons.toString()
-
-
-//            binding.weaponOutputListItem = item
-//            binding.executePendingBindings()
-
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListItemWeaponsBinding.inflate(layoutInflater, parent, false)
+                val binding = ListItemWeaponsBinding.inflate(
+                    layoutInflater, parent, false)
                 return ViewHolder(
                     binding
                 )

@@ -47,13 +47,6 @@ interface CalculationDao {
     @Query("SELECT * FROM calculation_table WHERE calculationId = :key LIMIT 1")
     fun getOneCalc(key: Long) : LiveData<Calculation>
 
-    //redo query
-//    @Query("SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.weapon_id_for_calculation = a.ammoAutoId AND a.bool_weapon_ammo = 1 union SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.component_ammo_id_for_calculation = a.component_id_for_ammo AND a.bool_weapon_ammo = 0")
-//    fun getSelectedAmmos(key: Long) : LiveData<List<Ammo>>
-
-    //correct
-//    @Query("SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.ammo_id_for_calculation = a.ammoAutoId AND a.bool_weapon_ammo = 1 union SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.component_ammo_id_for_calculation = a.ammoAutoId AND a.bool_weapon_ammo = 0")
-//    fun getSelectedAmmos(key: Long) : LiveData<List<Ammo>>
 
     @Query("SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.ammo_id_for_calculation = a.ammoAutoId union all SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.component_ammo_id_for_calculation = a.ammoAutoId ")
     fun getSelectedAmmos(key: Long) : LiveData<List<Ammo>>
@@ -61,13 +54,8 @@ interface CalculationDao {
     @Query("SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.ammo_id_for_calculation = a.ammoAutoId union all SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.component_ammo_id_for_calculation = a.ammoAutoId order by a.ammo_dodic ")
     fun getSelectedAmmosList(key: Long) : List<Ammo>
 
-   // @Query("SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.ammo_id_for_calculation = a.ammoAutoId union SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.component_ammo_id_for_calculation = a.ammoAutoId order by a.ammo_dodic   ")
-
-   // @Query("SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.ammo_id_for_calculation = a.ammoAutoId AND a.bool_weapon_ammo = 1 union SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.component_ammo_id_for_calculation = a.ammoAutoId AND a.bool_weapon_ammo = 0")
-
     @Query("SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.ammo_id_for_calculation = a.ammoAutoId AND s.weapon_id_for_calculation= a.weapon_id_for_ammo  union all SELECT a.* FROM calculation_table c, single_calculation_table s, ammo_table a WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND s.weapon_id_for_calculation= a.weapon_id_for_ammo AND s.component_ammo_id_for_calculation = a.ammoAutoId  order by a.ammo_dodic")
     fun getSelectedAggregatedAmmosList(key: Long) : List<Ammo>
-
 
     @Query("select * from calculation_table where name_of_calculation > 0  ")
     fun getAllSavedCalculations() : LiveData<List<Calculation>>

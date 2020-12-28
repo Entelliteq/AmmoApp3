@@ -1,6 +1,5 @@
 package com.intelliteq.fea.ammocalculator.modifyCalculation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,14 +25,9 @@ class ModifyCalculationViewModel(
         get() = _numberOfDaysPicker
 
     private var calculationFromDB = Calculation()
-
     val daysChangedValue = MutableLiveData<Int>()
     val intensityChangedValue = MutableLiveData<String>()
-
-
-   // val weapons = calculation.getSelectedWeapons(calculationKey)
     val weapons = calculation.getSelectedWeaponsForCalculationOutput(calculationKey)
-
     private var daysChanged = false
     private var intensityChanged = false
 
@@ -44,19 +38,16 @@ class ModifyCalculationViewModel(
     fun assaultIntensityStringToIntValues(combat: String) {
         if(combat != "none") {
             assaultIntensityString.value = combat
-            Log.i("Days11", "TO INT ${assaultIntensityString.value}")
             intensityChanged = true
         }
-
     }
-
 
     fun getHowManyDays(number: Int) {
         _numberOfDaysPicker.value = number
         daysChanged = true
     }
 
-
+    //save button
     fun onSave() {
         if (daysChanged) {
             updateDaysChanged()
@@ -68,13 +59,11 @@ class ModifyCalculationViewModel(
         }
     }
 
-
     private fun getCalculationItem() {
         uiScope.launch {
             calculationFromDB = getCalcFromDatabaseSuspend()
             daysChangedValue.value = days
             intensityChangedValue.value = intensity
-            Log.i("final", "$calculationFromDB")
         }
     }
 
@@ -87,13 +76,10 @@ class ModifyCalculationViewModel(
 
     private fun updateDaysChanged() {
         uiScope.launch {
-            Log.i("days22", " updateDaysChanged()")
             calculationFromDB.numberOfDays = numberOfDaysPicker.value!!
-
             updateDatabase()
         }
     }
-
 
     private suspend fun updateDatabase() {
         withContext(Dispatchers.IO) {
@@ -101,17 +87,12 @@ class ModifyCalculationViewModel(
         }
     }
 
-
-
     private fun updateIntensityChanged() {
         uiScope.launch {
-            Log.i("days22", " updateDaysChanged()")
             calculationFromDB.assaultIntensity = assaultIntensityString.value!!
             updateDatabase()
-
         }
     }
-
 
     /**
      * Cancelling all jobs
@@ -120,6 +101,5 @@ class ModifyCalculationViewModel(
         super.onCleared()
         viewModelJob.cancel()
     }
-
 
 }

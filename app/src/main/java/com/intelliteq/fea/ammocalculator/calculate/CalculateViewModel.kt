@@ -1,12 +1,17 @@
 package com.intelliteq.fea.ammocalculator.calculate
 
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.intelliteq.fea.ammocalculator.persistence.daos.*
-import com.intelliteq.fea.ammocalculator.persistence.models.*
+import com.intelliteq.fea.ammocalculator.persistence.daos.AmmoDao
+import com.intelliteq.fea.ammocalculator.persistence.daos.CalculationDao
+import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentDao
+import com.intelliteq.fea.ammocalculator.persistence.daos.PerWeaponCalculationDao
+import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
+import com.intelliteq.fea.ammocalculator.persistence.models.Calculation
+import com.intelliteq.fea.ammocalculator.persistence.models.Component
+import com.intelliteq.fea.ammocalculator.persistence.models.PerWeaponCalculation
 import kotlinx.coroutines.*
 
 class CalculateViewModel(
@@ -22,15 +27,12 @@ class CalculateViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private var noComponentAmmo = false
     val weapons = compoDatabase.getAllWeapons()
-    // val componentWeapon = compoDatabase.getAllWeapons()     //TODO: not sure here, maybe delete or update
-
 
     /**
      * LiveData
      */
 
     //intensity
-    //private var assaultIntensity = ""
     var assaultIntensityString = MutableLiveData<String>()
 
     //pickers
@@ -150,11 +152,12 @@ class CalculateViewModel(
     //Ammo List from database
     private suspend fun getChosenAmmoFromDatabaseUsingWeapon(): List<Ammo> {
         return withContext(Dispatchers.IO) {
-            var ammoReturned = mutableListOf<Ammo>()
+            val ammoReturned = mutableListOf<Ammo>()
             ammoReturned.addAll(ammoDatabase.getDefaultAmmoForThisWeapon(chosenWeapon.value?.weaponId))
-            ammoReturned.addAll(ammoDatabase.getAllAmmosForThisWeaponExceptDefault(
-                chosenWeapon.value!!.weaponId))
-            Log.i("BOX5", "$ammoReturned")
+            ammoReturned.addAll(
+                ammoDatabase.getAllAmmosForThisWeaponExceptDefault(
+                    chosenWeapon.value!!.weaponId)
+            )
             ammoReturned
         }
     }
@@ -195,8 +198,6 @@ class CalculateViewModel(
     private fun getChosenComponentAmmo(compID: String) {
         uiScope.launch {
             _chosenComponentAmmo.value = getCompAmmoFromDatabase(compID)
-            Log.i("crash5", "${_chosenComponentAmmo.value}")
-
         }
     }
 
@@ -207,12 +208,10 @@ class CalculateViewModel(
         }
     }
 
-
     fun useComponent(compID: String) {
         getChosenComponent(compID)
 
     }
-
 
     private fun getChosenComponent(compID: String) {
         uiScope.launch {
@@ -225,27 +224,28 @@ class CalculateViewModel(
     private suspend fun getComponentFromDatabase(id: String): Component {
         return withContext(Dispatchers.IO) {
             val componentReturned = compoDatabase.getUsingType(id)
-            //Log.i("Called" ,"from db: $componentReturned")
             componentReturned
         }
     }
 
     //ComponentAmmo from database
-    //THIS ONE
     private suspend fun getComponentAmmoListFromDatabase(): List<Ammo> {
         return withContext(Dispatchers.IO) {
-            var componentAmmosReturned = mutableListOf<Ammo>()
-            if(chosenComponent.value != null){
-                componentAmmosReturned.addAll(ammoDatabase.getDefaultAmmoForThisComponent(
-                    chosenComponent.value!!.componentAutoId))
-                componentAmmosReturned.addAll(ammoDatabase.getComponentAmmosForThisComponentExceptDefault(
-                    chosenComponent.value!!.componentAutoId)
+            val componentAmmosReturned = mutableListOf<Ammo>()
+            if (chosenComponent.value != null) {
+                componentAmmosReturned.addAll(
+                    ammoDatabase.getDefaultAmmoForThisComponent(
+                        chosenComponent.value!!.componentAutoId
+                    )
+                )
+                componentAmmosReturned.addAll(
+                    ammoDatabase.getComponentAmmosForThisComponentExceptDefault(
+                        chosenComponent.value!!.componentAutoId
+                    )
                 )
 
             }
             componentAmmosReturned
-            // Log.i("Called1" ,"from db comp ammos: $componentAmmosReturned")
-
         }
     }
 
@@ -303,14 +303,11 @@ class CalculateViewModel(
     }
 
 
-    /**
+    /*******************************************************************************************
      * Calculation
-     */
-
-    //TODO: need to add verification of all fields
+     *******************************************************************************************/
 
     init {
-
         assaultIntensityString.value = "Training"
         if (calculationKey < 0) {
             initializeCalculation()
@@ -322,7 +319,6 @@ class CalculateViewModel(
             setTypeAndDays()
 
         }
-
         initializeSingle()
     }
 
@@ -330,7 +326,6 @@ class CalculateViewModel(
     fun onCalculate() {
         uiScope.launch {
             _navigateToOutput.value = calculation.value
-          //  Log.i("crash5", "${calculation.value}")
         }
     }
 
@@ -365,11 +360,7 @@ class CalculateViewModel(
             calculation.value = newCalculation
             calculationKey = getCalculationFromDatabase()!!.calculationId
             newCalculation.calculationId = calculationKey
-
             updateCalculationsDatabase(newCalculation)
-            //     Log.i("calc", "SET init $newCalculation")
-            //    Log.i("calc", "SET init ${assaultIntensityString.value}")
-
         }
     }
 
@@ -378,11 +369,7 @@ class CalculateViewModel(
             val calc = getCalculationFromDatabaseUsingID(calculationKey)
             assaultIntensityString.value = calc!!.assaultIntensity
             calculation.value = calc
-            //combatIntToString(assaultIntensity)
             daysChosen.value = calc.numberOfDays.toString()
-
-            //   Log.i("calc", "SET DAY TYPE $calc")
-            //   Log.i("calc", "SET DAY TYPE ${assaultIntensityString.value.toString()}")
         }
     }
 
@@ -405,13 +392,11 @@ class CalculateViewModel(
         uiScope.launch {
             val thisCalc = calculation.value ?: return@launch
             thisCalc.assaultIntensity = assaultIntensityString.value!!
-
             thisCalc.numberOfDays = getDays()
             updateCalculationsDatabase(thisCalc)
             visibilityDaysAndIntensityOutput.value = true
             visibilityDaysAndIntensity.value = false
             daysChosen.value = thisCalc.numberOfDays.toString()
-            // Log.i("calc", "submit ${calculation.value}")
         }
     }
 
@@ -420,23 +405,20 @@ class CalculateViewModel(
             val thisPerCalculation = singleWeapon.value ?: return@launch
             thisPerCalculation.group_calculationID = calculationKey
             thisPerCalculation.numberOfWeapons = getNumberWeapons()
-            thisPerCalculation.weaponIDCalculation = _chosenWeapon.value!!.weaponId //from componentID 12/17
+            thisPerCalculation.weaponIDCalculation =
+                _chosenWeapon.value!!.weaponId //from componentID 12/17
             thisPerCalculation.weaponAmmoIdCalculation = chosenAmmo.value!!.ammoAutoId
             if (chosenComponent.value?.componentTypeId != "" && chosenComponentAmmo.value != null) {
                 thisPerCalculation.componentAmmoIdCalculation =
                     chosenComponentAmmo.value!!.ammoAutoId
-                Log.i("err8", "chosenAmmo: ${chosenComponentAmmo.value}")
             } else {
-               // Log.i("crash6", "A =0")
                 thisPerCalculation.componentAmmoIdCalculation = 0
             }
             if (noComponentAmmo) {
-               // Log.i("crash6", "B =0")
                 thisPerCalculation.componentAmmoIdCalculation = 0
             }
             updateSingle(thisPerCalculation)
             noComponentAmmo = false
-           Log.i("box11", "this weapon: $thisPerCalculation")
             _navigateToAddAnotherWeaponForCalculation.value = thisPerCalculation
         }
     }
@@ -469,12 +451,6 @@ class CalculateViewModel(
             calculationDatabase.update(newCalculation)
         }
     }
-
-//    private suspend fun updateSingleWeaponDatabase(calc: PerWeaponCalculation) {
-//        withContext(Dispatchers.IO) {
-//            perWeaponCalculationDatabase.update(calc)
-//        }
-//    }
 
     private fun getDays(): Int {
         return if (numberOfDaysPicker.value == null) {

@@ -28,7 +28,6 @@ interface AmmoDao {
     @Query("SELECT * FROM ammo_table ORDER BY ammoAutoId DESC LIMIT 1" )
     fun getNewAmmo() : Ammo?
 
-
     @Query("SELECT  * FROM ammo_table  WHERE bool_weapon_ammo = 1 AND weapon_id_for_ammo = :key  ")//AND c.componentAutoId=a.component_id_for_ammo ")
     fun getAllAmmosForThisWeapon(key: Long?) : List<Ammo>
 

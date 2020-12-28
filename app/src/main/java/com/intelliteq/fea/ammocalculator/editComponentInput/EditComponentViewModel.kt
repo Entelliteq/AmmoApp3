@@ -27,15 +27,15 @@ class EditComponentViewModel (
         populateHints()
     }
 
-
     private fun populateHints() {
         uiScope.launch {
             componentDescriptionHint.value = getDescriptionFromDatabase()
             componentTypeHint.value = getTypeFromDatabase()
             componentOld.value = getComponentFromDatabase()
-
         }
     }
+    
+    //suspend functions
     private suspend fun getComponentFromDatabase() : Component {
         return withContext(Dispatchers.IO) {
             val comp = componentDao.get(componentKey)
@@ -57,12 +57,12 @@ class EditComponentViewModel (
         }
     }
 
+    //update functions
     fun updateDescription(desc: String) {
         uiScope.launch {
             val thisWeapon = componentOld.value?: return@launch
             thisWeapon.componentDescription = desc
             update(thisWeapon)
-            //  Log.i("edit4", "$thisWeapon")
         }
     }
 
@@ -72,16 +72,21 @@ class EditComponentViewModel (
             val thisWeapon = componentOld.value?: return@launch
             thisWeapon.componentTypeId = type
             update(thisWeapon)
-            //  Log.i("edit4", "$thisWeapon")
         }
     }
 
     private suspend fun update(thisWeapon: Component) {
         withContext(Dispatchers.IO) {
             componentDao.update(thisWeapon)
-            // Log.i("edit4", "$thisWeapon")
         }
     }
 
+    /**
+     * Cancelling all jobs
+     */
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 
 }

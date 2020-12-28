@@ -1,6 +1,5 @@
 package com.intelliteq.fea.ammocalculator.editAmmoInput
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.intelliteq.fea.ammocalculator.persistence.daos.AmmoDao
@@ -8,7 +7,7 @@ import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
 import kotlinx.coroutines.*
 
 class EditAmmoViewModel(
-    private val ammoKey: Long, //think I need the componentKey somehow
+    private val ammoKey: Long,
     private val ammoDao: AmmoDao
 ) : ViewModel() {
 
@@ -26,39 +25,35 @@ class EditAmmoViewModel(
     var ammoLightHint = MutableLiveData<String>()
     var ammoMediumHint = MutableLiveData<String>()
     var ammoHeavyHint = MutableLiveData<String>()
-    var ammoDefaultHint = MutableLiveData<Boolean>()
 
-    val ammoDefault = MutableLiveData<Boolean>()
+    private val ammoDefault = MutableLiveData<Boolean>()
 
-    var ammosList = listOf<Ammo>()
+    private var ammosList = listOf<Ammo>()
 
     init {
         populateHints()
-
     }
 
     private fun initializeAmmos(){
         uiScope.launch {
-            ammosList = getListOfAmmosDatabase()
+            ammosList = getListOfAmmosFromDatabase()
         }
     }
 
-    private suspend fun getListOfAmmosDatabase() : List<Ammo> {
+    private suspend fun getListOfAmmosFromDatabase() : List<Ammo> {
         return withContext(Dispatchers.IO) {
-            var ammo = listOf<Ammo>()
-            if(ammoOld.value!!.primaryAmmo) {
-                ammo = ammoDao.getAllWeaponAmmoList(ammoOld.value!!.weaponId)
-            }
-            else {
-                ammo = ammoDao.getComponentAmmosForThisComponent(ammoOld.value!!.componentId)
+            val ammo: List<Ammo> = if(ammoOld.value!!.primaryAmmo) {
+                ammoDao.getAllWeaponAmmoList(ammoOld.value!!.weaponId)
+            } else {
+                ammoDao.getComponentAmmosForThisComponent(ammoOld.value!!.componentId)
             }
             ammo
         }
     }
 
+    //default ammo
     fun setDefault(default: Boolean) {
         uiScope.launch {
-            Log.i("Box", "default in: $default")
             if(default) {
                 for (ammo in ammosList) {
                     if(ammo.defaultAmmo){
@@ -71,18 +66,11 @@ class EditAmmoViewModel(
                     }
                 }
             }
-
-            Log.i("Box", "old: ${ammoOld.value}")
-            //check for accuracy
-            for (ammo in ammosList) {
-                Log.i("BOX3", "${ammo.ammoDODIC} ${ammo.defaultAmmo}")
-            }
         }
     }
 
     private fun populateHints() {
         uiScope.launch {
-
             ammoDescriptionHint.value = getDescriptionFromDatabase()
             ammoTypeHint.value = getTypeFromDatabase()
             ammoOld.value = getAmmoFromDatabase()
@@ -93,12 +81,11 @@ class EditAmmoViewModel(
             ammoSustainHint.value = getSustainFromDatabase()
             ammoTrainingHint.value = getTrainingFromDatabase()
             ammoDefault.value = getDefaultFromDatabase()
-
             initializeAmmos()
-
         }
     }
 
+    //Suspend functions
     private suspend fun getDefaultFromDatabase(): Boolean {
         return withContext(Dispatchers.IO) {
             val value = ammoDao.get(ammoKey).defaultAmmo
@@ -112,7 +99,6 @@ class EditAmmoViewModel(
         }
     }
 
-
     private suspend fun getMediumFromDatabse(): String {
         return withContext(Dispatchers.IO) {
             val value = ammoDao.get(ammoKey).mediumAssaultRate.toString()
@@ -120,14 +106,12 @@ class EditAmmoViewModel(
         }
     }
 
-
     private suspend fun getSecurityFromDatabase(): String {
         return withContext(Dispatchers.IO) {
             val value = ammoDao.get(ammoKey).securityRate.toString()
             value
         }
     }
-
 
     private suspend fun getHeavyFromDatabase(): String {
         return withContext(Dispatchers.IO) {
@@ -171,10 +155,10 @@ class EditAmmoViewModel(
         }
     }
 
+    //update database
     private suspend fun update(ammo: Ammo) {
         withContext(Dispatchers.IO) {
             ammoDao.update(ammo)
-            // Log.i("edit4", "$thisWeapon")
         }
     }
 
@@ -183,7 +167,6 @@ class EditAmmoViewModel(
             val thisammo = ammoOld.value?: return@launch
             thisammo.ammoDODIC = dodic
             update(thisammo)
-            //  Log.i("edit4", "$thisWeapon")
         }
     }
 
@@ -192,7 +175,6 @@ class EditAmmoViewModel(
             val thisammo = ammoOld.value?: return@launch
             thisammo.sustainRate = desc
             update(thisammo)
-            //  Log.i("edit4", "$thisWeapon")
         }
     }
 
@@ -201,7 +183,6 @@ class EditAmmoViewModel(
             val thisammo = ammoOld.value?: return@launch
             thisammo.securityRate = desc
             update(thisammo)
-            //  Log.i("edit4", "$thisWeapon")
         }
     }
 
@@ -210,7 +191,6 @@ class EditAmmoViewModel(
             val thisammo = ammoOld.value?: return@launch
             thisammo.trainingRate = desc
             update(thisammo)
-            //  Log.i("edit4", "$thisWeapon")
         }
     }
 
@@ -219,7 +199,6 @@ class EditAmmoViewModel(
             val thisammo = ammoOld.value?: return@launch
             thisammo.lightAssaultRate = desc
             update(thisammo)
-            //  Log.i("edit4", "$thisWeapon")
         }
     }
 
@@ -228,7 +207,6 @@ class EditAmmoViewModel(
             val thisammo = ammoOld.value?: return@launch
             thisammo.mediumAssaultRate = desc
             update(thisammo)
-            //  Log.i("edit4", "$thisWeapon")
         }
     }
 
@@ -237,7 +215,6 @@ class EditAmmoViewModel(
             val thisammo = ammoOld.value?: return@launch
             thisammo.heavyAssaultRate = desc
             update(thisammo)
-            //  Log.i("edit4", "$thisWeapon")
         }
     }
 
@@ -246,9 +223,15 @@ class EditAmmoViewModel(
             val thisammo = ammoOld.value?: return@launch
             thisammo.ammoDescription = desc
             update(thisammo)
-            //  Log.i("edit4", "$thisWeapon")
         }
     }
 
+    /**
+     * Cancelling all jobs
+     */
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 
 }

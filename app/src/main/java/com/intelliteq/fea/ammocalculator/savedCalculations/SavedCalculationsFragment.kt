@@ -1,7 +1,6 @@
 package com.intelliteq.fea.ammocalculator.savedCalculations
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +28,6 @@ class SavedCalculationsFragment : Fragment() {
 
         val binding: FragmentSavedCalculationsBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_saved_calculations, container, false)
-        // Inflate the layout for this fragment
 
         //getting the application, arguments set and database
         val application = requireNotNull(this.activity).application
@@ -42,40 +40,37 @@ class SavedCalculationsFragment : Fragment() {
         val savedCalculationViewModel = ViewModelProvider(this, viewModelFactory)
             .get(SavedCalculationsViewModel::class.java)
 
+        //binding
         binding.savedCalculationsViewModel
         binding.lifecycleOwner = this
 
+        //navigate to modify screen
         savedCalculationViewModel.naviagteToModifyCalculation.observe(viewLifecycleOwner, Observer {calc ->
             calc?.let {
-                Log.i("calc12", "calc: $calc")
                 SavedCalculationsFragmentDirections.SavedCalculationsFragmentToModifyCalculationFragment(
                     calc.calculationId, calc.numberOfDays, calc.assaultIntensity, calc.calculationName)
                 savedCalculationViewModel.onModifyCalculationNavigated()
             }
         })
 
-
+        //adapter
         val savedCalcAdapter = SavedCalculationsAdapter(SavedCalculationsListener {
             calc ->
-            findNavController().navigate(SavedCalculationsFragmentDirections.SavedCalculationsFragmentToModifyCalculationFragment(
+            findNavController().navigate(SavedCalculationsFragmentDirections
+                .SavedCalculationsFragmentToModifyCalculationFragment(
                 calc.calculationId, calc.numberOfDays, calc.assaultIntensity, calc.calculationName))
-           // Toast.makeText(context, "${calc}", Toast.LENGTH_LONG).show()
             savedCalculationViewModel.onCalculationClicked(calc)
-
         })
 
         binding.RecyclerViewSavedCalculations.adapter = savedCalcAdapter
 
-
+        //observe calculations
         savedCalculationViewModel.calculations.observe(viewLifecycleOwner, Observer {
             calc ->
             calc?.let {
                 savedCalcAdapter.submitList(calc)
             }
         })
-
-
-
 
 
         return binding.root

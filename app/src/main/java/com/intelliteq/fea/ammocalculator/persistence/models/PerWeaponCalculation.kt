@@ -13,12 +13,6 @@ data class PerWeaponCalculation (
     @ColumnInfo(name = "id_group_calculation")
     var group_calculationID: Long = 0L,
 
-//    @ColumnInfo(name= "assault_type")
-//    var assaultType: Int = 0,
-//
-//    @ColumnInfo(name = "num_days")
-//    var numberOfDays: Int = 0,
-
     @ColumnInfo(name = "num_weapons")
     var numberOfWeapons: Int = 0,
 

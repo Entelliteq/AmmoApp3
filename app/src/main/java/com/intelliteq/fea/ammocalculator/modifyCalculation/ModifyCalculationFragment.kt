@@ -1,7 +1,6 @@
 package com.intelliteq.fea.ammocalculator.modifyCalculation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,39 +50,33 @@ class ModifyCalculationFragment : Fragment() {
         val modifyCalculationViewModel = ViewModelProvider(this, viewModelFactory)
             .get(ModifyCalculationViewModel::class.java)
 
-
+        //binding
         binding.lifecycleOwner = this
         binding.modifyCalcFragment
         binding.modifyCalcViewModel
+        binding.modifyName.text = arguments.name
+        binding.daysOriginal.text = arguments.days.toString()
+        binding.intensityOriginal.text = arguments.intensity
 
-
-        val adapter = ModifyWeaponAdapter(ModifyWeaponListener { weapon ->
-            // Toast.makeText(context, "${weapon}", Toast.LENGTH_LONG).show()
-            Log.i("adapt", "$weapon")
+        //adapter
+        val adapter = ModifyWeaponAdapter(ModifyWeaponListener {
         }, arguments.calculationKey, dataSourceSinlge)
 
-
-
+        modifyCalculationViewModel.weapons.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
 
         binding.RecyclerViewWeaponsModify.adapter = adapter
 
-
+        //navigate to home button
         binding.editHome.setOnClickListener {
             it.findNavController()
                 .navigate(ModifyCalculationFragmentDirections.ActionModifyCalculationFragmentToLandingScreen())
         }
 
-        binding.modifyName.text = arguments.name
-
-        modifyCalculationViewModel.weapons.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.submitList(it)
-                Log.i("err10", "list weapons: $it")
-
-
-            }
-        })
-
+        //navigate to calculation output
         binding.calculationViewButton.setOnClickListener {
             it.findNavController().navigate(
                 ModifyCalculationFragmentDirections
@@ -93,10 +86,9 @@ class ModifyCalculationFragment : Fragment() {
             )
         }
 
+        //save the changes button
         binding.saveModify.setOnClickListener { view ->
-            // Log.i("days11", "from bind")
             modifyCalculationViewModel.onSave()
-            Log.i("err11", "${modifyCalculationViewModel.daysChangedValue.value}")
             view.findNavController().navigate(
                 ModifyCalculationFragmentDirections
                     .actionModifyCalculationFragmentToCalculationOutputScreen(
@@ -105,14 +97,12 @@ class ModifyCalculationFragment : Fragment() {
                         modifyCalculationViewModel.intensityChangedValue.value!!
                     )
             )
-
         }
 
-        binding.pickerDaysModify.setOnValueChangedListener { _, oldVal, newVal ->
-            Log.i("days11", "old value: $oldVal")
+        //picker
+        binding.pickerDaysModify.setOnValueChangedListener { _, _, newVal ->
             modifyCalculationViewModel.getHowManyDays(newVal)
         }
-
 
         //Combat Intensity spinner
         binding.spinnerCombatModify.onItemSelectedListener =
@@ -125,20 +115,14 @@ class ModifyCalculationFragment : Fragment() {
                 ) {
                     val combat = parent.getItemAtPosition(position)
                     modifyCalculationViewModel.assaultIntensityStringToIntValues(combat as String)
-                    Log.i("Weapon Combat", "$combat")
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
 
-        binding.daysOriginal.text = arguments.days.toString()
-        binding.intensityOriginal.text = arguments.intensity
-
-
         binding.pickerDaysModify.setOnValueChangedListener { _, _, newVal ->
             modifyCalculationViewModel.getHowManyDays(newVal)
         }
-
 
         // Inflate the layout for this fragment
         return binding.root

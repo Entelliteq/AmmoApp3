@@ -1,12 +1,11 @@
 package com.intelliteq.fea.ammocalculator.editAmmoInput
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.intelliteq.fea.ammocalculator.R
@@ -40,7 +39,7 @@ class EditAmmoFragment : Fragment() {
         val editAmmoViewModel = ViewModelProvider(this, viewModelFactory)
             .get(EditAmmoViewModel::class.java)
 
-
+        //binding
         binding.lifecycleOwner = this
         binding.editAmmoViewModel = editAmmoViewModel
 
@@ -79,12 +78,10 @@ class EditAmmoFragment : Fragment() {
             }
 
             if (dodic.trim().isNotEmpty()) {
-                Log.i("edit4", "type: _${dodic}_")
                 editAmmoViewModel.updateDodic(dodic)
             }
 
             if (desc.trim().isNotEmpty()) {
-                Log.i("edit4", "desc: _${desc}_")
                 editAmmoViewModel.updateDesc(desc)
             }
 

@@ -15,9 +15,6 @@ data class Ammo (
     @ColumnInfo(name = "component_id_for_ammo")
     var componentId: Long = 0,
 
-//    @ColumnInfo(name = "ammo_type_id")
-//    var ammoTypeId: String? = "",
-
     @ColumnInfo(name = "ammo_description")
     var ammoDescription: String? = "",
 

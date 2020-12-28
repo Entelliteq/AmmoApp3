@@ -68,7 +68,6 @@
                     android:ems="10"
                     android:hint="@{editAmmoViewModel.ammoTypeHint}"
                     android:inputType="text"
-
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="#000000"
                     app:layout_constraintEnd_toEndOf="@+id/textView2"
@@ -97,7 +96,7 @@
                     android:id="@+id/defaultAmmoCheck"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Make Default Ammo"
+                    android:text="@string/make_default_ammo"
                     android:layout_marginStart="16dp"
                     />
 

@@ -1,7 +1,6 @@
 package com.intelliteq.fea.ammocalculator.weapon
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -29,19 +28,14 @@ class WeaponViewModel (
     private var weapon = MutableLiveData<Weapon?>()
     private var component = MutableLiveData<Component?>()
 
-
-
     //reading the user input
     val weaponDescriptionEditText = MutableLiveData<String>()
     val weaponTypeEditText = MutableLiveData<String>()
-
 
     //wrapped navigation to input weapon ammo
     private val _navigateToInputWeaponAmmo = MutableLiveData<Weapon>()
     val navigateToInputWeaponAmmo: LiveData<Weapon>
         get() = _navigateToInputWeaponAmmo
-
-
 
     /**
      * Initializing the weapon variable
@@ -63,9 +57,6 @@ class WeaponViewModel (
             newComponent.weaponId = weapon.value!!.weaponAutoId
             insertComponent(newComponent)
             component.value = getComponentFromDatabase()
-
-           // Log.i("WEAPON updated", "////W: ${weapon.value}")
-           // Log.i("WEAPON updated", "////C: ${component.value}")
         }
     }
 
@@ -112,9 +103,8 @@ class WeaponViewModel (
             weapon.value!!.componentId = thisComponent.componentAutoId
             updateWeapon(weapon.value!!)
             updateComponent(thisComponent)
-            Log.i("REDO Weapon", "${weapon.value}")
             _navigateToInputWeaponAmmo.value = weapon.value
-            Log.i("REDO comp", "////C: $thisComponent")
+           // Log.i("REDO comp", "////C: $thisComponent")
 
 
         }

@@ -35,9 +35,9 @@ class ComponentAmmoViewModel (
     val componentAmmoLightEditText = MutableLiveData<String>()
     val componentAmmoMediumEditText = MutableLiveData<String>()
     val componentAmmoHeavyEditText = MutableLiveData<String>()
-    val componentDefaultAmmo = MutableLiveData<Boolean>()
+    private val componentDefaultAmmo = MutableLiveData<Boolean>()
 
-    var ammosComponent = listOf<Ammo>()
+    private var ammosComponent = listOf<Ammo>()
 
 
     //check if all edit texts are filled
@@ -66,8 +66,6 @@ class ComponentAmmoViewModel (
     init {
         initializeComponentAmmo()
         componentDefaultAmmo.value = false
-       // Log.i("COMP1", "initialized ammo")
-
     }
 
     /**
@@ -129,7 +127,6 @@ class ComponentAmmoViewModel (
         if(checkEditTexts()) {
             uiScope.launch {
                 val thisCompAmmo = componentAmmo.value ?: return@launch
-               // thisCompAmmo.ammoTypeId = componentAmmoTypeEditText.value.toString()
                 thisCompAmmo.ammoDescription = componentAmmoDescriptionEditText.value.toString()
                 thisCompAmmo.ammoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
@@ -141,7 +138,6 @@ class ComponentAmmoViewModel (
                 thisCompAmmo.lightAssaultRate = componentAmmoLightEditText.value!!.toInt()
                 thisCompAmmo.mediumAssaultRate = componentAmmoMediumEditText.value!!.toInt()
                 thisCompAmmo.heavyAssaultRate = componentAmmoHeavyEditText.value!!.toInt()
-
                 update(thisCompAmmo)
                 _navigateToInputAnotherComponentAmmo.value = keys
                 Log.i("REDO", " $thisCompAmmo")
@@ -158,7 +154,6 @@ class ComponentAmmoViewModel (
         if(checkEditTexts()) {
             uiScope.launch {
                 val thisCompAmmo = componentAmmo.value ?: return@launch
-               // thisCompAmmo.ammoTypeId = componentAmmoTypeEditText.value.toString()
                 thisCompAmmo.ammoDescription = componentAmmoDescriptionEditText.value.toString()
                 thisCompAmmo.ammoDODIC = componentAmmoDODICEditText.value.toString()
                 thisCompAmmo.componentId = componentKey
@@ -178,13 +173,39 @@ class ComponentAmmoViewModel (
     }
 
 
+    /**
+     * Adding a ComponentAmmo using the "Verify All Inputs" button
+     * Retrieve all edit texts input by user and update database
+     */
+    fun verify() {
+        if(checkEditTexts()) {
+            uiScope.launch {
+                val thisCompAmmo = componentAmmo.value ?: return@launch
+                thisCompAmmo.ammoDescription = componentAmmoDescriptionEditText.value.toString()
+                thisCompAmmo.ammoDODIC = componentAmmoDODICEditText.value.toString()
+                thisCompAmmo.componentId = componentKey
+                thisCompAmmo.weaponId = weaponKey
+                thisCompAmmo.defaultAmmo = componentDefaultAmmo.value!!
+                thisCompAmmo.trainingRate = componentAmmoTrainingEditText.value!!.toInt()
+                thisCompAmmo.securityRate = componentAmmoSecurityEditText.value!!.toInt()
+                thisCompAmmo.sustainRate = componentAmmoSustainEditText.value!!.toInt()
+                thisCompAmmo.lightAssaultRate = componentAmmoLightEditText.value!!.toInt()
+                thisCompAmmo.mediumAssaultRate = componentAmmoMediumEditText.value!!.toInt()
+                thisCompAmmo.heavyAssaultRate = componentAmmoHeavyEditText.value!!.toInt()
+                update(thisCompAmmo)
+                _navigateToConfirmation.value = weaponKey
+                //   Log.i("REDO verify", " $thisCompAmmo")
+
+            }
+        }
+    }
 
     /**
      * Check if all the Edit Texts are filled
      * @return Boolean that is true if they are valid
      */
     private fun checkEditTexts() : Boolean {
-        return if (//componentAmmoTypeEditText.value.isNullOrEmpty() ||
+        return if (
             componentAmmoDODICEditText.value.isNullOrEmpty() ||
             componentAmmoDescriptionEditText.value.isNullOrEmpty()) {
             _checkStatusOfInputs.value = false
@@ -206,34 +227,6 @@ class ComponentAmmoViewModel (
     }
 
 
-    /**
-     * Adding a ComponentAmmo using the "Verify All Inputs" button
-     * Retrieve all edit texts input by user and update database
-     */
-    fun verify() {
-        if(checkEditTexts()) {
-            uiScope.launch {
-                val thisCompAmmo = componentAmmo.value ?: return@launch
-                //thisCompAmmo.ammoTypeId = componentAmmoTypeEditText.value.toString()
-                thisCompAmmo.ammoDescription = componentAmmoDescriptionEditText.value.toString()
-                thisCompAmmo.ammoDODIC = componentAmmoDODICEditText.value.toString()
-                thisCompAmmo.componentId = componentKey
-                thisCompAmmo.weaponId = weaponKey
-                thisCompAmmo.defaultAmmo = componentDefaultAmmo.value!!
-                thisCompAmmo.trainingRate = componentAmmoTrainingEditText.value!!.toInt()
-                thisCompAmmo.securityRate = componentAmmoSecurityEditText.value!!.toInt()
-                thisCompAmmo.sustainRate = componentAmmoSustainEditText.value!!.toInt()
-                thisCompAmmo.lightAssaultRate = componentAmmoLightEditText.value!!.toInt()
-                thisCompAmmo.mediumAssaultRate = componentAmmoMediumEditText.value!!.toInt()
-                thisCompAmmo.heavyAssaultRate = componentAmmoHeavyEditText.value!!.toInt()
-                update(thisCompAmmo)
-                _navigateToConfirmation.value = weaponKey
-                Log.i("REDO verify", " $thisCompAmmo")
-
-            }
-        }
-    }
-
     fun setDefaultAmmo(default: Boolean) {
         uiScope.launch {
             componentDefaultAmmo.value  = default
@@ -251,6 +244,7 @@ class ComponentAmmoViewModel (
             }
         }
     }
+
     /**
      * Cancelling all jobs
      */

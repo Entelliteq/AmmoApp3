@@ -1,7 +1,6 @@
 package com.intelliteq.fea.ammocalculator.editComponentInput
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,22 +39,20 @@ class EditComponentFragment : Fragment() {
             .get(EditComponentViewModel::class.java)
 
 
+        //binding
         binding.lifecycleOwner = this
         binding.editComponentViewModel = editComponentViewModel
 
-
-
+        //edit component update button
         binding.editComponentUpdateButton.setOnClickListener {
             val type: String = compTypeEdit.text.toString()
             val desc: String = compDescriptionEdit.text.toString()
 
             if(type.trim().isNotEmpty()) {
-                Log.i("edit4", "type: _${compTypeEdit.text}_")
                 editComponentViewModel.updateType(type)
             }
 
             if(desc.trim().isNotEmpty() ) {
-                Log.i("edit4", "desc: _${compDescriptionEdit.text}_")
                 editComponentViewModel.updateDescription(desc)
             }
 

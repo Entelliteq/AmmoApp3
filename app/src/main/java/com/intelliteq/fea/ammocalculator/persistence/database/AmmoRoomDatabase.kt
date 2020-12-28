@@ -14,14 +14,10 @@ import com.intelliteq.fea.ammocalculator.persistence.models.*
 )
 abstract class AmmoRoomDatabase : RoomDatabase() {
     abstract val weaponDao: WeaponDao
-  //  abstract val weaponAmmoDao: WeaponAmmoDao
     abstract val componentDao: ComponentDao
-   // abstract val componentAmmoDao: ComponentAmmoDao
     abstract val perWeaponCalculationDao: PerWeaponCalculationDao
     abstract val calculationDao : CalculationDao
     abstract val ammoDao: AmmoDao
-    
-
 
     companion object {
         @Volatile

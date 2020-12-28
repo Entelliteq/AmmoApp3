@@ -1,6 +1,5 @@
 package com.intelliteq.fea.ammocalculator.weaponAmmo
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,9 +36,9 @@ class WeaponAmmoViewModel(
     val weaponAmmoLightEditText = MutableLiveData<String>()
     val weaponAmmoMediumEditText = MutableLiveData<String>()
     val weaponAmmoHeavyEditText = MutableLiveData<String>()
-    val weaponAmmoDefaultAmmo = MutableLiveData<Boolean>()
+    private val weaponAmmoDefaultAmmo = MutableLiveData<Boolean>()
 
-    var ammosWeapon = listOf<Ammo>()
+    private var ammosWeapon = listOf<Ammo>()
 
     //check if all edit texts are valid mutable live data
     private val _checkStatusOfInputs = MutableLiveData<Boolean>()
@@ -65,8 +64,6 @@ class WeaponAmmoViewModel(
     init {
         initializeAmmo()
         weaponAmmoDefaultAmmo.value = false
-
-        //Log.i("Weapon key", "$weaponKey")
     }
 
     /**
@@ -79,7 +76,6 @@ class WeaponAmmoViewModel(
             insert(newAmmo)
             ammosWeapon = getListOfAmmoFromDatabase()
             weaponAmmo.value = getAmmoFromDatabase()
-            //Log.i("Weapon amo1", "${weaponAmmo.value!!.ammoAutoId}")
         }
     }
 
@@ -90,7 +86,6 @@ class WeaponAmmoViewModel(
     private suspend fun getAmmoFromDatabase(): Ammo? {
         return withContext(Dispatchers.IO) {
             val weaponammo = database.getNewAmmo()
-            //Log.i("Weapon ammo2 auto", "${weaponammo!!.ammoAutoId}")
             weaponammo
         }
     }
@@ -98,7 +93,6 @@ class WeaponAmmoViewModel(
     private suspend fun getListOfAmmoFromDatabase(): List<Ammo> {
         return withContext(Dispatchers.IO) {
             val weaponammo = database.getAllWeaponAmmoList(weaponKey)
-            //Log.i("Weapon ammo2 auto", "${weaponammo!!.ammoAutoId}")
             weaponammo
         }
     }
@@ -110,7 +104,6 @@ class WeaponAmmoViewModel(
     private suspend fun insert(ammo: Ammo) {
         withContext(Dispatchers.IO) {
             database.insert(ammo)
-            //Log.i("Weapon amo3", "${ammo.ammoAutoId}")
         }
     }
 
@@ -138,7 +131,6 @@ class WeaponAmmoViewModel(
         if (checkEditTexts()) {
             uiScope.launch {
                 val thisAmmo = weaponAmmo.value ?: return@launch
-
                 thisAmmo.componentId = getComponentID(weaponKey)  //changed 10/27
                 thisAmmo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
                 thisAmmo.ammoDODIC = weaponAmmoDODICEditText.value.toString()
@@ -153,7 +145,7 @@ class WeaponAmmoViewModel(
                 thisAmmo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisAmmo)
                 _navigateToAddAnotherAmmo.value = thisAmmo
-                Log.i("REDO Another AMMO", " $thisAmmo")
+               // Log.i("REDO Another AMMO", " $thisAmmo")
             }
         }
     }
@@ -175,7 +167,6 @@ class WeaponAmmoViewModel(
             uiScope.launch {
                 val thisammo = weaponAmmo.value ?: return@launch
                 thisammo.componentId = getComponentID(weaponKey)
-                //    thisammo.ammoTypeId = weaponAmmoTypeEditText.value.toString()
                 thisammo.ammoDescription = weaponAmmoDescriptionEditText.value.toString()
                 thisammo.ammoDODIC = weaponAmmoDODICEditText.value.toString()
                 thisammo.trainingRate = weaponAmmoTrainingEditText.value!!.toInt()
@@ -189,29 +180,8 @@ class WeaponAmmoViewModel(
                 thisammo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisammo)
                 _navigateToConfirmation.value = weaponKey
-                Log.i("REDO Verify AMMO", " $thisammo")
+              //  Log.i("REDO Verify AMMO", " $thisammo")
             }
-        }
-
-    }
-
-    /**
-     * Verify that all edit text inputs are not null nor empty
-     * @return true if all valid
-     */
-    private fun checkEditTexts(): Boolean {
-        return if (weaponAmmoTrainingEditText.value.isNullOrEmpty() ||
-            weaponAmmoSecurityEditText.value.isNullOrEmpty() ||
-            weaponAmmoSustainEditText.value.isNullOrEmpty() ||
-            weaponAmmoLightEditText.value.isNullOrEmpty() ||
-            weaponAmmoMediumEditText.value.isNullOrEmpty() ||
-            weaponAmmoHeavyEditText.value.isNullOrEmpty()
-        ) {
-            _checkStatusOfInputs.value = false
-            false
-        } else {
-            _checkStatusOfInputs.value = true
-            true
         }
 
     }
@@ -238,9 +208,29 @@ class WeaponAmmoViewModel(
                 thisAmmo.heavyAssaultRate = weaponAmmoHeavyEditText.value!!.toInt()
                 update(thisAmmo)
                 _navigateToInputComponent.value = weaponKey
-               Log.i("REDO Add comp AMMO", " $thisAmmo")
+              //  Log.i("REDO Add comp AMMO", " $thisAmmo")
             }
         }
+    }
+    /**
+     * Verify that all edit text inputs are not null nor empty
+     * @return true if all valid
+     */
+    private fun checkEditTexts(): Boolean {
+        return if (weaponAmmoTrainingEditText.value.isNullOrEmpty() ||
+            weaponAmmoSecurityEditText.value.isNullOrEmpty() ||
+            weaponAmmoSustainEditText.value.isNullOrEmpty() ||
+            weaponAmmoLightEditText.value.isNullOrEmpty() ||
+            weaponAmmoMediumEditText.value.isNullOrEmpty() ||
+            weaponAmmoHeavyEditText.value.isNullOrEmpty()
+        ) {
+            _checkStatusOfInputs.value = false
+            false
+        } else {
+            _checkStatusOfInputs.value = true
+            true
+        }
+
     }
 
     /**
@@ -250,7 +240,6 @@ class WeaponAmmoViewModel(
     private suspend fun update(ammo: Ammo) {
         withContext(Dispatchers.IO) {
             database.update(ammo)
-           // Log.i("Weapon amo7", "${ammo.ammoAutoId}")
         }
     }
 
@@ -264,10 +253,6 @@ class WeaponAmmoViewModel(
                         update(ammo)
                     }
                 }
-            }
-            //check for accuracy
-            for (ammo in ammosWeapon) {
-                Log.i("BOX3", "${ammo.ammoDODIC} ${ammo.defaultAmmo}")
             }
         }
     }
