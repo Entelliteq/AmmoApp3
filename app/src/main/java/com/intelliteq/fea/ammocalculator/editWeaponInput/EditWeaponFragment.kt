@@ -55,9 +55,21 @@ class EditWeaponFragment : Fragment() {
                 editWeaponViewModel.updateDescription(desc)
             }
 
-            it.findNavController()
-                .navigate(EditWeaponFragmentDirections
-                    .actionEditWeaponToConfirmation2(arguments.weaponKey))
+            //destination 1 - validate
+            //destination 2 - edit
+            if(arguments.destination == 1) {
+                it.findNavController()
+                    .navigate(
+                        EditWeaponFragmentDirections
+                            .actionEditWeaponToConfirmation2(arguments.weaponKey)
+                    )
+            } else if(arguments.destination == 2) {
+                it.findNavController()
+                    .navigate(
+                        EditWeaponFragmentDirections
+                            .ActionEditWeaponToViewEditDeleteFragment(arguments.weaponKey)
+                    )
+            }
         }
 
         return binding.root

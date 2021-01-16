@@ -85,11 +85,21 @@ class EditAmmoFragment : Fragment() {
                 editAmmoViewModel.updateDesc(desc)
             }
 
-            it.findNavController()
-                .navigate(EditAmmoFragmentDirections
-                    .actionEditAmmoFragToConfirmation(arguments.weaponKey)
-
-                )
+            //destination 1 - validate
+            //destination 2 - edit
+            if(arguments.destination == 1) {
+                it.findNavController()
+                    .navigate(
+                        EditAmmoFragmentDirections
+                            .actionEditAmmoFragToConfirmation(arguments.weaponKey)
+                    )
+            } else if (arguments.destination == 2) {
+                it.findNavController()
+                    .navigate(
+                        EditAmmoFragmentDirections
+                            .ActionEditAmmoFragmentToViewEditDeleteFragment(arguments.weaponKey)
+                    )
+            }
         }
 
         binding.defaultAmmoCheck.setOnClickListener {

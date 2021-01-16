@@ -61,7 +61,7 @@
     <string name="save">Save</string>
     <string name="edit">Edit</string>
     <string name="reset">Reset</string>
-    <string name="add_another_weapon">Add Another Weapon//</string>
+    <string name="add_another_weapon">Add Another Weapon</string>
     <string name="recalculate">New Calculation</string>
     <string name="landing">landing</string>
     <string name="input">Selection</string>
@@ -148,6 +148,15 @@
     <string name="_1111">1111</string>
     <string name="_111">111</string>
     <string name="m4_carbine">M4 Carbine</string>
+    <string name="view_edit_weapons">View/Edit Weapons</string>
+    <string name="select_weapon">Select Weapon</string>
+    <string name="edit_weapon">Edit Weapon</string>
+    <string name="saved_weapons">Saved Weapons</string>
+    <string name="weapon">Weapon:</string>
+    <string name="weapon_ammunition">Weapon Ammunition:</string>
+    <string name="component">Component:</string>
+    <string name="component_ammunition">Component Ammunition</string>
+    <string name="weapon_to_delete">Weapon To Delete:</string>
 
 
 </resources>

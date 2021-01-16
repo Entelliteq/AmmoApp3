@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="savedWeaponListItem"
+            type="com.intelliteq.fea.ammocalculator.persistence.models.Component" />
+
+        <variable
+            name="savedWeaponsClickListener"
+            type="com.intelliteq.fea.ammocalculator.adapters.SavedWeaponsListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/regularLayout_saved"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:backgroundTint="#F1F2FA"
+        android:longClickable="true"
+        android:padding="10dp"
+        app:cardCornerRadius="12dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <!--        android:onClick="@{() -> savedWeaponsClickListener.onClick(savedWeaponListItem)}"-->
+
+
+            <TextView
+                android:id="@+id/textViewType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/type"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/typeTextOutput_saved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{savedWeaponListItem.componentTypeId}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textViewType"
+                app:layout_constraintStart_toEndOf="@+id/textViewType" />
+
+            <TextView
+                android:id="@+id/textViewDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/description_colon"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/typeTextOutput_saved"
+                app:layout_constraintStart_toEndOf="@+id/typeTextOutput_saved" />
+
+            <TextView
+                android:id="@+id/descriptionOut_saved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{savedWeaponListItem.componentDescription}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textViewDesc"
+                app:layout_constraintStart_toEndOf="@+id/textViewDesc" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

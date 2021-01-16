@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.intelliteq.fea.ammocalculator.validation.ValidationFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="modifyWeaponClickListener"
-            type="com.intelliteq.fea.ammocalculator.adapters.ModifyWeaponListener" />
+            name="editSelectedViewModel"
+            type="com.intelliteq.fea.ammocalculator.editSelectedWeapon.EditSelectedViewModel" />
 
-        <variable
-            name="component"
-            type="com.intelliteq.fea.ammocalculator.persistence.models.Component" />
 
-        <variable
-            name="validationViewModel"
-            type="com.intelliteq.fea.ammocalculator.validation.ValidationViewModel" />
     </data>
 
     <LinearLayout
@@ -27,12 +18,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/confirmationTitle"
+            android:id="@+id/edit_deleteTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:text="@string/verify_inputs"
+            android:text="@string/edit_weapon"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textColor="#000000"
             android:textStyle="bold" />
@@ -53,7 +44,7 @@
 
 
         <ScrollView
-            android:id="@+id/confirmScroll"
+            android:id="@+id/editDeleteScroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="4dp"
@@ -63,7 +54,7 @@
             android:layout_weight="1">
 
             <LinearLayout
-                android:id="@+id/scrollLayout"
+                android:id="@+id/scrollLayoutEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -76,13 +67,13 @@
                     android:background="#DEE1F6"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="@string/weapon_entered"
+                    android:text="@string/weapon"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#121211" />
 
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardViewValidateWeapon"
+                    android:id="@+id/cardViewEditDeleteWeapon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
@@ -93,12 +84,12 @@
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/layoutWeapon"
+                        android:id="@+id/layoutWeapon_edit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/textViewTypeWeapon"
+                            android:id="@+id/textViewTypeWeaponEdit"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             android:layout_marginStart="16dp"
@@ -106,45 +97,45 @@
                             android:text="@string/type"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textStyle="bold"
-                            app:layout_constraintEnd_toStartOf="@+id/textViewTypeDesc"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewTypeDesc_edit"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/layoutWeapon" />
+                            app:layout_constraintTop_toTopOf="@id/layoutWeapon_edit" />
 
                         <TextView
 
-                            android:id="@+id/textViewTypeDesc"
+                            android:id="@+id/textViewTypeDesc_edit"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             android:gravity="center_vertical"
                             android:text="@string/description_colon"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textStyle="bold"
-                            app:layout_constraintBaseline_toBaselineOf="@+id/textViewTypeWeapon"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/textViewTypeWeaponEdit"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/textViewTypeWeapon" />
+                            app:layout_constraintStart_toEndOf="@+id/textViewTypeWeaponEdit" />
 
                         <TextView
-                            android:id="@+id/confWpnType"
+                            android:id="@+id/editWpnType_edit"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             android:layout_marginStart="16dp"
                             android:gravity="center_vertical"
                             android:text="@string/tbd"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            app:layout_constraintEnd_toStartOf="@id/confWpnDesc"
+                            app:layout_constraintEnd_toStartOf="@id/editWpnDesc_edit"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/textViewTypeWeapon" />
+                            app:layout_constraintTop_toBottomOf="@id/textViewTypeWeaponEdit" />
 
                         <TextView
-                            android:id="@+id/confWpnDesc"
+                            android:id="@+id/editWpnDesc_edit"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             android:gravity="center_vertical"
                             android:text="@string/tbd"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            app:layout_constraintBaseline_toBaselineOf="@+id/confWpnType"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/editWpnType_edit"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/confWpnType" />
+                            app:layout_constraintStart_toEndOf="@+id/editWpnType_edit" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -160,13 +151,13 @@
                     android:background="#DEE1F6"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="@string/weapon_ammunition_entered"
+                    android:text="@string/weapon_ammunition"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#121211" />
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/RecyclerViewAmmoConfirmation"
+                    android:id="@+id/RecyclerViewAmmoEditDelete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -174,7 +165,7 @@
 
 
                 <TextView
-                    android:id="@+id/confirmComponentTextView"
+                    android:id="@+id/editComponentTextView_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -182,19 +173,19 @@
                     android:background="#DEE1F6"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="@string/component_entered"
+                    android:text="@string/component"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#121211" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/RecyclerViewComponentConfirmation"
+                    android:id="@+id/RecyclerViewComponentEditDelete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <TextView
-                    android:id="@+id/confirmCompAmmoTextView"
+                    android:id="@+id/editCompAmmoTextView_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -202,12 +193,12 @@
                     android:background="#DEE1F6"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="@string/component_ammunition_entered"
+                    android:text="@string/component_ammunition"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#121211" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/RecyclerViewComponentAmmoConfirmation"
+                    android:id="@+id/RecyclerViewComponentAmmoEditDelete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -219,31 +210,9 @@
 
         </ScrollView>
 
-        <LinearLayout
-            android:id="@+id/buttonAddLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/add_another_weapon"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                style="@style/GreenButton"
-                android:text="@string/add_another_weapon"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                />
-
-        </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/buttonLayout"
+            android:id="@+id/buttonLayout_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -253,7 +222,7 @@
 
 
             <Button
-                android:id="@+id/save"
+                android:id="@+id/save_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -266,5 +235,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
 </layout>

@@ -56,9 +56,21 @@ class EditComponentFragment : Fragment() {
                 editComponentViewModel.updateDescription(desc)
             }
 
-            it.findNavController()
-                .navigate(EditComponentFragmentDirections
-                    .ActionEditComponentFragmentToConfirmation(arguments.weaponKey))
+            //destination 1 - validate
+            //destination 2 - edit
+            if(arguments.destination == 1) {
+                it.findNavController()
+                    .navigate(
+                        EditComponentFragmentDirections
+                            .ActionEditComponentFragmentToConfirmation(arguments.weaponKey)
+                    )
+            } else if(arguments.destination == 2) {
+                it.findNavController()
+                    .navigate(
+                        EditComponentFragmentDirections
+                            .ActionEditComponentFragmentToViewEditDeleteFragment(arguments.weaponKey)
+                    )
+            }
         }
 
         // Inflate the layout for this fragment

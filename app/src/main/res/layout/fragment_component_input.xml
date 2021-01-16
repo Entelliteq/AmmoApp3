@@ -83,10 +83,9 @@
             android:layout_marginTop="40dp"
 
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/buttonsColor"
+            style="@style/GreenButton"
             android:onClick="@{()-> componentViewModel.addComponentAmmo()}"
             android:text="@string/input_ammo"
-            android:textColor="#F8F1F1"
             app:layout_constraintEnd_toEndOf="@+id/componentDescriptionInput"
             app:layout_constraintStart_toStartOf="@+id/componentDescriptionInput"
             app:layout_constraintTop_toBottomOf="@+id/componentDescriptionInput" />
@@ -98,10 +97,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/buttonsColor"
+            style="@style/GreenButton"
             android:onClick="@{()-> componentViewModel.addAnotherComponent()}"
             android:text="@string/add_another_component"
-            android:textColor="#F8F1F1"
             app:layout_constraintEnd_toEndOf="@+id/add_ammo"
             app:layout_constraintStart_toStartOf="@+id/add_ammo"
             app:layout_constraintTop_toBottomOf="@+id/add_ammo" />
@@ -113,10 +111,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/buttonsColor"
+            style="@style/GreenButton"
             android:onClick="@{()-> componentViewModel.verifyAll()}"
             android:text="@string/verify_inputs"
-            android:textColor="#F8F1F1"
             app:layout_constraintEnd_toEndOf="@+id/add_component"
             app:layout_constraintStart_toStartOf="@+id/add_component"
             app:layout_constraintTop_toBottomOf="@+id/add_component" />

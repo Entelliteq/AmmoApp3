@@ -151,9 +151,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/buttonsColor"
+                style="@style/GreenButton"
                 android:text="@string/recalculate"
-                android:textColor="#F8F1F1" />
+                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -167,11 +167,10 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="16dp"
-
                     android:layout_weight="1"
-                    android:backgroundTint="@color/buttonsColor"
+                    style="@style/GreenButton"
                     android:text="@string/home"
-                    android:textColor="#F8F1F1" />
+                     />
 
                 <Button
                     android:id="@+id/save"
@@ -180,11 +179,10 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="16dp"
-
                     android:layout_weight="1"
-                    android:backgroundTint="@color/buttonsColor"
+                    style="@style/GreenButton"
                     android:text="@string/save"
-                    android:textColor="#F8F1F1" />
+                     />
 
                 <Button
                     android:id="@+id/share"
@@ -195,9 +193,9 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/buttonsColor"
+                    style="@style/GreenButton"
                     android:text="Share"
-                    android:textColor="#F8F1F1" />
+                     />
             </LinearLayout>
 
         </LinearLayout>

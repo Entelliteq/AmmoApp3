@@ -41,6 +41,9 @@ interface CalculationDao {
     @Query("SELECT w.* FROM  calculation_table c, single_calculation_table s, component_table w WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND  s.weapon_id_for_calculation = w.componentAutoId AND w.bool_weapon = 1" )
     fun getSelectedWeapons(key: Long) : LiveData<List<Component>>
 
+    @Query("SELECT w.* FROM  calculation_table c, single_calculation_table s, component_table w WHERE c.calculationId = :calcKey AND w.weapon_id_for_component = :compKey AND s.id_group_calculation = c.calculationId AND  s.weapon_id_for_calculation = w.componentAutoId AND w.bool_weapon = 1" )
+    fun getSelectedWeapon(calcKey: Long, compKey: Long) : Component
+
     @Query("SELECT w.* FROM  calculation_table c, single_calculation_table s, component_table w WHERE c.calculationId = :key AND s.id_group_calculation = c.calculationId AND  s.weapon_id_for_calculation = w.weapon_id_for_component AND w.bool_weapon = 1" )
     fun getSelectedWeaponsForCalculationOutput(key: Long) : LiveData<List<Component>>
 
@@ -59,5 +62,8 @@ interface CalculationDao {
 
     @Query("select * from calculation_table where name_of_calculation > 0  ")
     fun getAllSavedCalculations() : LiveData<List<Calculation>>
+
+    @Query("select c.* from calculation_table c, single_calculation_table s where s.weapon_id_for_calculation = :key")
+    fun getAllCalculations(key: Long) : LiveData<List<Calculation>>
 
 }

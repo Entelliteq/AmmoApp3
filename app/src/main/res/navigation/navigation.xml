@@ -14,10 +14,14 @@
             app:destination="@id/WeaponInput" />
         <action
             android:id="@+id/action_landingScreen_to_CalculateSelection"
-            app:destination="@id/CalculateSelection" />
+            app:destination="@id/CalculateSelection"
+            app:popUpTo="@id/landingScreen" />
         <action
             android:id="@+id/action_landingScreen_to_savedCalculationsFragment"
             app:destination="@id/savedCalculationsFragment" />
+        <action
+            android:id="@+id/action_landingScreen_to_savedWeaponsFragment"
+            app:destination="@id/savedWeaponsFragment" />
     </fragment>
     <fragment
         android:id="@+id/WeaponInput"
@@ -26,7 +30,8 @@
         tools:layout="@layout/fragment_weapon" >
         <action
             android:id="@+id/weapon_input_to_ammo_input"
-            app:destination="@id/WeaponAmmoInput" />
+            app:destination="@id/WeaponAmmoInput"
+            app:popUpTo="@id/landingScreen" />
     </fragment>
     <fragment
         android:id="@+id/WeaponAmmoInput"
@@ -44,7 +49,8 @@
             app:destination="@id/ComponentInput" />
         <action
             android:id="@+id/action_WeaponAmmoInput_to_verify"
-            app:destination="@id/Confirmation" />
+            app:destination="@id/Confirmation"
+            app:popUpTo="@id/landingScreen" />
     </fragment>
     <fragment
         android:id="@+id/ComponentAmmoInput"
@@ -56,7 +62,8 @@
             app:destination="@id/ComponentAmmoInput" />
         <action
             android:id="@+id/component_ammo_to_verify"
-            app:destination="@id/Confirmation" />
+            app:destination="@id/Confirmation"
+            app:popUpTo="@id/landingScreen" />
         <argument
             android:name="weaponKey"
             app:argType="long" />
@@ -83,7 +90,8 @@
             app:argType="long" />
         <action
             android:id="@+id/component_to_verify"
-            app:destination="@id/Confirmation" />
+            app:destination="@id/Confirmation"
+            app:popUpTo="@id/landingScreen" />
     </fragment>
     <fragment
         android:id="@+id/Confirmation"
@@ -105,6 +113,14 @@
         <action
             android:id="@+id/action_Confirmation_to_Edit_Ammo_Fragment"
             app:destination="@id/EditAmmoFragment" />
+        <action
+            android:id="@+id/action_Confirmation_to_WeaponInput"
+            app:destination="@id/WeaponInput"
+            app:popUpTo="@id/landingScreen" />
+        <action
+            android:id="@+id/action_Confirmation_to_landingScreen"
+            app:destination="@id/landingScreen"
+            app:popUpTo="@id/landingScreen" />
     </fragment>
     <fragment
         android:id="@+id/CalculateSelection"
@@ -121,7 +137,8 @@
             app:argType="long" />
         <action
             android:id="@+id/action_CalculateSelection_to_CalculationOutputScreen"
-            app:destination="@id/CalculationOutputScreen" />
+            app:destination="@id/CalculationOutputScreen"
+            app:popUpTo="@id/landingScreen" />
     </fragment>
     <fragment
         android:id="@+id/CalculationOutputScreen"
@@ -155,7 +172,8 @@
         <action
             android:id="@+id/action_savedCalculationsFragment_to_landingScreen"
             app:destination="@id/landingScreen"
-            app:popUpTo="@id/landingScreen" />
+            app:popUpTo="@id/landingScreen"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/ModifyCalculationFragment"
@@ -192,6 +210,13 @@
         <action
             android:id="@+id/action_EditWeapon_to_Confirmation2"
             app:destination="@id/Confirmation" />
+        <action
+            android:id="@+id/action_EditWeapon_to_viewEditDeleteFragment"
+            app:destination="@id/viewEditDeleteFragment"
+            app:popUpTo="@id/savedWeaponsFragment" />
+        <argument
+            android:name="destination"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/EditComponentFragment"
@@ -206,6 +231,13 @@
             app:destination="@id/Confirmation" />
         <argument android:name="weaponKey"
             app:argType="long" />
+        <argument
+            android:name="destination"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_EditComponentFragment_to_viewEditDeleteFragment"
+            app:destination="@id/viewEditDeleteFragment"
+            app:popUpTo="@id/savedWeaponsFragment" />
     </fragment>
     <fragment
         android:id="@+id/EditAmmoFragment"
@@ -218,6 +250,69 @@
         <action
             android:id="@+id/action_Edit_Ammo_Frag_to_Confirmation"
             app:destination="@id/Confirmation" />
+        <argument
+            android:name="weaponKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_EditAmmoFragment_to_viewEditDeleteFragment"
+            app:destination="@id/viewEditDeleteFragment"
+            app:popUpTo="@id/savedWeaponsFragment" />
+        <argument
+            android:name="destination"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewEditDeleteFragment"
+        android:name="com.intelliteq.fea.ammocalculator.editSelectedWeapon.EditSelectedFragment"
+        android:label="ViewEditDeleteFragment"
+        tools:layout="@layout/fragment_selected_weapon_edit">
+        <argument
+            android:name="componentKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_viewEditDeleteFragment_to_EditWeapon"
+            app:destination="@id/EditWeapon"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_viewEditDeleteFragment_to_EditComponentFragment"
+            app:destination="@id/EditComponentFragment" />
+        <action
+            android:id="@+id/action_viewEditDeleteFragment_to_EditAmmoFragment"
+            app:destination="@id/EditAmmoFragment"
+            app:popUpTo="@id/viewEditDeleteFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_viewEditDeleteFragment_to_savedWeaponsFragment"
+            app:destination="@id/savedWeaponsFragment"
+            app:popUpTo="@id/savedWeaponsFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/savedWeaponsFragment"
+        android:name="com.intelliteq.fea.ammocalculator.savedWeapons.SavedWeaponsFragment"
+        android:label="fragment_saved_weapons"
+        tools:layout="@layout/fragment_saved_weapons" >
+        <action
+            android:id="@+id/action_savedWeaponsFragment_to_viewEditDeleteFragment"
+            app:destination="@id/viewEditDeleteFragment" />
+        <action
+            android:id="@+id/action_savedWeaponsFragment_to_deleteWeaponFragment"
+            app:destination="@id/deleteWeaponFragment" />
+        <action
+            android:id="@+id/action_savedWeaponsFragment_to_landingScreen"
+            app:destination="@id/landingScreen"
+            app:popUpTo="@id/landingScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteWeaponFragment"
+        android:name="com.intelliteq.fea.ammocalculator.deleteWeapon.DeleteWeaponFragment"
+        android:label="DeleteWeaponFragment"
+        tools:layout="@layout/fragment_delete_weapon">
+        <action
+            android:id="@+id/action_deleteWeaponFragment_to_savedWeaponsFragment"
+            app:destination="@id/savedWeaponsFragment"
+            app:popUpTo="@id/savedWeaponsFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="weaponKey"
             app:argType="long" />

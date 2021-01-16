@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.intelliteq.fea.ammocalculator.R
 import com.intelliteq.fea.ammocalculator.adapters.SavedCalculationsAdapter
 import com.intelliteq.fea.ammocalculator.adapters.SavedCalculationsListener
@@ -27,7 +28,8 @@ class SavedCalculationsFragment : Fragment() {
     ): View? {
 
         val binding: FragmentSavedCalculationsBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_saved_calculations, container, false)
+            inflater, R.layout.fragment_saved_calculations, container, false
+        )
 
         //getting the application, arguments set and database
         val application = requireNotNull(this.activity).application
@@ -45,28 +47,38 @@ class SavedCalculationsFragment : Fragment() {
         binding.lifecycleOwner = this
 
         //navigate to modify screen
-        savedCalculationViewModel.naviagteToModifyCalculation.observe(viewLifecycleOwner, Observer {calc ->
-            calc?.let {
-                SavedCalculationsFragmentDirections.SavedCalculationsFragmentToModifyCalculationFragment(
-                    calc.calculationId, calc.numberOfDays, calc.assaultIntensity, calc.calculationName)
-                savedCalculationViewModel.onModifyCalculationNavigated()
-            }
-        })
+        savedCalculationViewModel.naviagteToModifyCalculation.observe(
+            viewLifecycleOwner,
+            Observer { calc ->
+                calc?.let {
+                    SavedCalculationsFragmentDirections.SavedCalculationsFragmentToModifyCalculationFragment(
+                        calc.calculationId,
+                        calc.numberOfDays,
+                        calc.assaultIntensity,
+                        calc.calculationName
+                    )
+                    savedCalculationViewModel.onModifyCalculationNavigated()
+                }
+            })
 
         //adapter
-        val savedCalcAdapter = SavedCalculationsAdapter(SavedCalculationsListener {
-            calc ->
-            findNavController().navigate(SavedCalculationsFragmentDirections
-                .SavedCalculationsFragmentToModifyCalculationFragment(
-                calc.calculationId, calc.numberOfDays, calc.assaultIntensity, calc.calculationName))
+        val savedCalcAdapter = SavedCalculationsAdapter(SavedCalculationsListener { calc ->
+            findNavController().navigate(
+                SavedCalculationsFragmentDirections
+                    .SavedCalculationsFragmentToModifyCalculationFragment(
+                        calc.calculationId,
+                        calc.numberOfDays,
+                        calc.assaultIntensity,
+                        calc.calculationName
+                    )
+            )
             savedCalculationViewModel.onCalculationClicked(calc)
         })
 
         binding.RecyclerViewSavedCalculations.adapter = savedCalcAdapter
 
         //observe calculations
-        savedCalculationViewModel.calculations.observe(viewLifecycleOwner, Observer {
-            calc ->
+        savedCalculationViewModel.calculations.observe(viewLifecycleOwner, Observer { calc ->
             calc?.let {
                 savedCalcAdapter.submitList(calc)
             }
@@ -75,7 +87,6 @@ class SavedCalculationsFragment : Fragment() {
 
         return binding.root
     }
-
 
 
 }

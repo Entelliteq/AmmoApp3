@@ -20,4 +20,17 @@
     <style name="textRegular" parent="TextAppearance.AppCompat.Large" >
         <item name="android:textColor">#FFFFFF</item>
     </style>
+
+    <style name="GreenButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="background">@drawable/round_shape</item>
+        <item name="backgroundTint">#729a29</item>
+    </style>
+
+    <style name="BlackButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="background">@drawable/round_shape</item>
+        <item name="backgroundTint">#090909</item>
+    </style>
+
 </resources>

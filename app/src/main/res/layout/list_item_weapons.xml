@@ -6,7 +6,7 @@
 
         <variable
             name="weaponOutputListItem"
-            type="com.intelliteq.fea.ammocalculator.persistence.models.Component" />
+            type="com.intelliteq.fea.ammocalculator.calculationOutput.WeaponCardData" />
 
     </data>
 
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/e0195"
+                android:text="@string/tbd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintBaseline_toBaselineOf="@+id/type_tv"
                 app:layout_constraintStart_toEndOf="@+id/type_tv"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/_1111"
+                android:text="@string/tbd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintBaseline_toBaselineOf="@+id/fea_tv"
                 app:layout_constraintStart_toEndOf="@+id/fea_tv" />
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/_111"
+                android:text="@string/tbd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintBaseline_toBaselineOf="@+id/quantity_tv"
                 app:layout_constraintStart_toEndOf="@+id/quantity_tv" />
@@ -106,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/m4_carbine"
+                android:text="@string/tbd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintBaseline_toBaselineOf="@+id/desc_tv"
                 app:layout_constraintStart_toEndOf="@+id/desc_tv" />

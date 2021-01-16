@@ -1,35 +1,41 @@
 package com.intelliteq.fea.ammocalculator.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.intelliteq.fea.ammocalculator.calculationOutput.WeaponCardData
 import com.intelliteq.fea.ammocalculator.databinding.ListItemWeaponsBinding
+import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
 import com.intelliteq.fea.ammocalculator.persistence.models.Component
 import com.intelliteq.fea.ammocalculator.persistence.models.PerWeaponCalculation
 import kotlinx.android.synthetic.main.list_item_weapons.view.*
 
 
-class WeaponOutputAdapter : RecyclerView.Adapter<WeaponOutputAdapter.ViewHolder>() {
+class WeaponOutputAdapter : ListAdapter<WeaponCardData, WeaponOutputAdapter.ViewHolder>(ViewHolder.WeaponOutputDiffCallback()){
 
-    var data = listOf<Component>()
+    var cards = listOf<WeaponCardData>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
+//
+//    var quantity = listOf<PerWeaponCalculation>()
+//        set(value) {
+//            field = value
+//            notifyDataSetChanged()
+//        }
 
-    var quantity = listOf<PerWeaponCalculation>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-    override fun getItemCount() = data.size
+    override fun getItemCount() = cards.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
-        val per = quantity[position]
-        holder.bind(item, per)
+        val item = cards
+//        val per = quantity[position]
+        Log.i("adapt3 Adapter", "$item")
+        holder.bind(item[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,14 +49,17 @@ class WeaponOutputAdapter : RecyclerView.Adapter<WeaponOutputAdapter.ViewHolder>
         val quantity: TextView = itemView.quantity_out_tv
 
         fun bind(
-            item: Component,
-            per: PerWeaponCalculation
+            item: WeaponCardData
+          //  per: PerWeaponCalculation
         ) {
-            itemView.context.resources
-            type.text = item.componentTypeId
-            fea.text = item.FEA_id.toString()
-            desc.text = item.componentDescription
-            quantity.text = per.numberOfWeapons.toString()
+           itemView.context.resources
+            type.text = item.type
+            fea.text = item.fea.toString()
+            desc.text = item.description
+            quantity.text = item.quantity.toString()
+//            binding.weaponOutputListItem = item
+//            binding.executePendingBindings()
+
         }
 
         companion object {
@@ -61,6 +70,16 @@ class WeaponOutputAdapter : RecyclerView.Adapter<WeaponOutputAdapter.ViewHolder>
                 return ViewHolder(
                     binding
                 )
+            }
+        }
+
+        class WeaponOutputDiffCallback : DiffUtil.ItemCallback<WeaponCardData>() {
+            override fun areItemsTheSame(oldItem: WeaponCardData, newItem: WeaponCardData): Boolean {
+                return oldItem.fea == newItem.fea
+            }
+
+            override fun areContentsTheSame(oldItem: WeaponCardData, newItem: WeaponCardData): Boolean {
+                return oldItem == newItem
             }
         }
     }

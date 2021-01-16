@@ -37,6 +37,10 @@ class LandingScreenFragment : Fragment() {
                 .navigate(LandingScreenFragmentDirections.ActionLandingScreenToSavedCalculationsFragment())
         }
 
+        binding.editDeleteButton.setOnClickListener { view: View ->
+            view.findNavController()
+                .navigate(LandingScreenFragmentDirections.ActionLandingScreenToSavedWeaponsFragment())
+        }
         // Inflate the layout for this fragment
         return binding.root
 

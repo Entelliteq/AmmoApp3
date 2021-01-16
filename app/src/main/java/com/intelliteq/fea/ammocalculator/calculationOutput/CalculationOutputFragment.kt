@@ -3,6 +3,7 @@ package com.intelliteq.fea.ammocalculator.calculationOutput
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,19 +89,27 @@ class CalculationOutputFragment : Fragment() {
 
         calculateOutputViewModel.weapon.observe(viewLifecycleOwner, Observer { weapon ->
             weapon?.let {
-                weaponAdapter.data = weapon
+               // weaponAdapter.data = weapon
+                Log.i("ADAPT", "$weapon")
             }
-        })
-
-        calculateOutputViewModel.cards.observe(viewLifecycleOwner, Observer {
-            ammoAdapter.cards = it
         })
 
         calculateOutputViewModel.perWeaponCalcUsed.observe(viewLifecycleOwner, Observer { single ->
             single?.let {
-                weaponAdapter.quantity = single //returns correct for weapon
+              //  weaponAdapter.quantity = single //returns correct for weapon
+                Log.i("ADAPT", "$single")
             }
         })
+
+        calculateOutputViewModel.weaponCards.observe(viewLifecycleOwner, Observer {
+            weaponAdapter.cards = it
+            Log.i("adapt2", "$it")
+        })
+
+        calculateOutputViewModel.ammoCards.observe(viewLifecycleOwner, Observer {
+            ammoAdapter.cards = it
+        })
+
 
 
         //share button

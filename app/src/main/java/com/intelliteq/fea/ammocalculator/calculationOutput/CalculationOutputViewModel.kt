@@ -1,14 +1,17 @@
 package com.intelliteq.fea.ammocalculator.calculationOutput
 
 import android.os.Build
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.intelliteq.fea.ammocalculator.formulas.BasicAmmoFormula
 import com.intelliteq.fea.ammocalculator.persistence.daos.CalculationDao
+import com.intelliteq.fea.ammocalculator.persistence.daos.ComponentDao
 import com.intelliteq.fea.ammocalculator.persistence.daos.PerWeaponCalculationDao
 import com.intelliteq.fea.ammocalculator.persistence.models.Ammo
 import com.intelliteq.fea.ammocalculator.persistence.models.Calculation
+import com.intelliteq.fea.ammocalculator.persistence.models.Component
 import com.intelliteq.fea.ammocalculator.persistence.models.PerWeaponCalculation
 import kotlinx.coroutines.*
 
@@ -26,6 +29,7 @@ class CalculationOutputViewModel(
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+
     val weapon = calculation.getSelectedWeaponsForCalculationOutput(calculationKey)
     val perWeaponCalcUsed = perWeapon.getUsingCalculationID(calculationKey)
 
@@ -39,9 +43,16 @@ class CalculationOutputViewModel(
     //use for intensity and number of days
     private val calculationUsedThis = MutableLiveData<Calculation>()
 
-    //cards
-    private val calculationCard = mutableListOf<CalculationCardData>()
-    val cards = MutableLiveData<List<CalculationCardData>>()
+    //ammo cards
+    private val ammoCardsList = mutableListOf<AmmoCalculationCardData>()
+    val ammoCards = MutableLiveData<List<AmmoCalculationCardData>>() //sent to adapter
+
+    //weapon cards
+    private val weaponCardsList = mutableListOf<WeaponCardData>()
+    val weaponCards = MutableLiveData<List<WeaponCardData>>() //sent to adapter
+    var weaponThis = MutableLiveData<Component>()
+
+    lateinit var weaponReturned: Component
 
     private var ammoUsed = listOf<Ammo>()
     private var ammoAggregated = listOf<Ammo>()
@@ -73,11 +84,39 @@ class CalculationOutputViewModel(
             }
             shareTextValue.value += "\n\nAmmunition --"
 
-            createCardWithMap(createAmmoMap(ammoAggregated))
+            createAmmoCardWithMap(createAmmoMap(ammoAggregated))
+            createWeaponCard()
         }
 
     }
 
+
+
+    private fun createWeaponCard() {
+        uiScope.launch {
+
+            for (p in perWeaponCalcUsed.value!!){
+                val comp = componentUsedForCalculation(p.weaponIDCalculation)
+                Log.i("card12", "$comp")
+                val weaponCard = WeaponCardData(comp.componentTypeId, comp.FEA_id, p.numberOfWeapons, comp.componentDescription)
+                weaponCardsList.add(weaponCard)
+                Log.i("adapt2 weapon" ,"${weaponCard}")
+            }
+
+            weaponCards.value = weaponCardsList
+            for (w in weaponCardsList) {
+                Log.i("adapt3" , "$w")
+            }
+
+        }
+    }
+
+    private suspend fun componentUsedForCalculation(id: Long) : Component {
+        return withContext(Dispatchers.IO) {
+            val comp = calculation.getSelectedWeapon(calculationKey, id)
+            comp
+        }
+    }
     /**
      * PerMap creates PerWeaponCalculation Mapped to Ammo ID
      */
@@ -94,7 +133,7 @@ class CalculationOutputViewModel(
     /**
      * Creates the card and continues to create text string
      */
-    private fun createCardWithMap(
+    private fun createAmmoCardWithMap(
         ammo: Map<Ammo, Int>
     ) {
         for (a in ammo) {
@@ -105,7 +144,7 @@ class CalculationOutputViewModel(
                     ) * calculationUsedThis.value!!.numberOfDays
                     val tempTotal = totalAmmoCalc(a.key, calculationUsedThis.value!!, a.value)
                     //create card
-                    val weaponCard = CalculationCardData(
+                    val cardForWeapon = AmmoCalculationCardData(
                         a.key.ammoDescription!!,
                         a.key.ammoDODIC!!,
                         tempPer,
@@ -113,7 +152,7 @@ class CalculationOutputViewModel(
                     )
                     shareTextValue.value += "\nAmmo desc: ${a.key.ammoDescription}"
                     shareTextValue.value += "\nDODIC: ${a.key.ammoDODIC} \tPer Weapon: $tempPer \tTotal: $tempTotal"
-                    calculationCard.add(weaponCard)
+                    ammoCardsList.add(cardForWeapon)
 
                 } else if (p.componentAmmoIdCalculation == a.key.ammoAutoId) {
                     val tempPer = intensityStringToValue(
@@ -125,7 +164,7 @@ class CalculationOutputViewModel(
                         a.value
                     )
                     //create card
-                    val compCard = CalculationCardData(
+                    val cardForAmmo = AmmoCalculationCardData(
                         a.key.ammoDescription!!,
                         a.key.ammoDODIC!!,
                         tempPer,
@@ -133,11 +172,11 @@ class CalculationOutputViewModel(
                     )
                     shareTextValue.value += "\nAmmo desc: ${a.key.ammoDescription}"
                     shareTextValue.value += "\nDODIC: ${a.key.ammoDODIC} \tPer Weapon: $tempPer \tTotal: $tempTotal"
-                    calculationCard.add(compCard)
+                    ammoCardsList.add(cardForAmmo)
                 }
             }
         }
-        cards.value = calculationCard
+        ammoCards.value = ammoCardsList
     }
 
     private fun getWeaponCount(ammo: Ammo): Int {

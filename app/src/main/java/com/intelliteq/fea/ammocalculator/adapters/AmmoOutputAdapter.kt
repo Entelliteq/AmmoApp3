@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.intelliteq.fea.ammocalculator.calculationOutput.CalculationCardData
+import com.intelliteq.fea.ammocalculator.calculationOutput.AmmoCalculationCardData
 import com.intelliteq.fea.ammocalculator.databinding.ListItemAmmoBinding
 import kotlinx.android.synthetic.main.list_item_ammo.view.*
 
 class AmmoOutputAdapter : RecyclerView.Adapter<AmmoOutputAdapter.ViewHolder>() {
 
-    var cards = listOf<CalculationCardData>()
+    var cards = listOf<AmmoCalculationCardData>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -37,7 +37,7 @@ class AmmoOutputAdapter : RecyclerView.Adapter<AmmoOutputAdapter.ViewHolder>() {
         private val totalAmmo: TextView = itemView.total_out_tv
 
         fun bind(
-            item: CalculationCardData
+            item: AmmoCalculationCardData
         ) {
             itemView.context.resources
             desc.text = item.ammoDescription

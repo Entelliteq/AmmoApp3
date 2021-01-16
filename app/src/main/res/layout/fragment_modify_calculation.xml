@@ -43,9 +43,9 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/buttonsColor"
+            style="@style/GreenButton"
             android:text="@string/view_calculation"
-            android:textColor="#F8F1F1" />
+             />
 
 
         <TextView
@@ -277,11 +277,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="16dp"
-
                 android:layout_weight="1"
-                android:backgroundTint="@color/buttonsColor"
+                style="@style/GreenButton"
                 android:text="@string/home"
-                android:textColor="#F8F1F1" />
+                 />
 
             <Button
                 android:id="@+id/saveModify"
@@ -292,10 +291,9 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_weight="1"
-
-                android:backgroundTint="@color/buttonsColor"
+                style="@style/GreenButton"
                 android:text="@string/save_changes"
-                android:textColor="#F8F1F1" />
+                 />
         </LinearLayout>
 
     </LinearLayout>

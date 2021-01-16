@@ -52,22 +52,25 @@ class ValidationFragment : Fragment() {
         binding.validationViewModel
         binding.lifecycleOwner = this
 
-
+        //destination 1 - validate
+        //destination 2 - edit
         //adapters
         val weaponAmmoValidationAdapter = ValidateAmmoAdapter(ModifyAmmoListener {
             this.requireView().findNavController()
                 .navigate(
                     ValidationFragmentDirections
-                        .ActionConfirmationToEditAmmoFragment(it.ammoAutoId, it.weaponId))
+                        .ActionConfirmationToEditAmmoFragment(it.ammoAutoId, it.weaponId, 1))
         })
 
         binding.RecyclerViewAmmoConfirmation.adapter = weaponAmmoValidationAdapter
 
+        //destination 1 - validate
+        //destination 2 - edit
         val componentAmmoValidationAdapter = ValidateAmmoAdapter(ModifyAmmoListener {
             this.requireView().findNavController()
                 .navigate(
                     ValidationFragmentDirections
-                        .ActionConfirmationToEditAmmoFragment(it.ammoAutoId, it.weaponId))
+                        .ActionConfirmationToEditAmmoFragment(it.ammoAutoId, it.weaponId, 1))
         })
 
         binding.RecyclerViewComponentAmmoConfirmation.adapter = componentAmmoValidationAdapter
@@ -78,24 +81,32 @@ class ValidationFragment : Fragment() {
                     ValidationFragmentDirections
                         .actionConfirmationToEditComponentFragment2(
                             weapon.componentAutoId,
-                            weapon.weaponId )  )
+                            weapon.weaponId, 1 )  )
         })
 
         binding.RecyclerViewComponentConfirmation.adapter = componentValidationAdapter
 
-        //navigate to edit component
+        //destination 1 - validate
+        //destination 2 - edit
+         //navigate to edit component
         binding.cardViewValidateWeapon.setOnClickListener {
             it.findNavController()
                 .navigate(
                     ValidationFragmentDirections
-                        .ActionConfirmationToEditComponentFragment(arguments.weaponKey)
+                        .ActionConfirmationToEditComponentFragment(arguments.weaponKey, 1)
                 )
         }
 
         //navigate to calculate
         binding.save.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(ValidationFragmentDirections.ConfirmationToCalculate(-1))
+                .navigate(ValidationFragmentDirections.ActionConfirmationToLandingScreen())
+        }
+
+        //navigate to add another weapon
+        binding.addAnotherWeapon.setOnClickListener { view: View ->
+            view.findNavController()
+                .navigate(ValidationFragmentDirections.ActionConfirmationToWeaponInput())
         }
 
         //ValidateAmmoAdapter

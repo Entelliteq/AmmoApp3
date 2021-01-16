@@ -20,6 +20,9 @@ interface ComponentDao {
     @Query("SELECT * FROM component_table WHERE componentAutoId = :key" )
     fun get(key: Long?): Component
 
+    @Query("SELECT * FROM component_table WHERE componentAutoId = :key" )
+    fun getLive(key: Long?): LiveData<Component>
+
     @Query("SELECT * FROM component_table WHERE fea_id_component = :key" )
     fun getUsingFEA(key: Long?): Component
 
